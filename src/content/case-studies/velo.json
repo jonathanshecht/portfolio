@@ -1,0 +1,411 @@
+{
+  "slug": "velo",
+  "title": "Velo",
+  "subtitle": "A Learning Platform Built From the Ground Up",
+  "meta": [
+    "EdTech / Learning Platform (photography & videography course)",
+    "~5 months, concept - pre-launch beta",
+    "Role: Lead Product Designer",
+    "Myself, 2 Developers, Creative Director"
+  ],
+  "hero": [
+    {
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6a88d97e0c3e2766747a8e02_Screenshot%202026-08-21%20at%204.04.24%E2%80%AFPM.png",
+      "width": 846,
+      "height": 529
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6a88dacc7527519f120baf77_ezgif-73a480ece5ced031.gif",
+      "width": 1280,
+      "height": 827
+    }
+  ],
+  "toc": [
+    {
+      "id": "overview",
+      "label": "Overview"
+    },
+    {
+      "id": "research",
+      "label": "Research"
+    },
+    {
+      "id": "define",
+      "label": "Define"
+    },
+    {
+      "id": "ideation-iterations",
+      "label": "Ideation + Iterations"
+    },
+    {
+      "id": "solution",
+      "label": "Solution"
+    },
+    {
+      "id": "conclusion",
+      "label": "Conclusion"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "note",
+      "text": "Some details of this case study are intentionally redacted to honor an NDA"
+    },
+    {
+      "type": "eyebrow",
+      "text": "problem"
+    },
+    {
+      "type": "title",
+      "html": "\"I don't have time to watch 200 hours of video\""
+    },
+    {
+      "type": "p",
+      "html": "Most photography and videography courses are built the same way: <mark>hours of recorded lecture</mark>, then a <mark>quiz to check the box</mark>. Nobody retains anything, and nobody ever finishes them. We had a specific mission: borrow what actually works in <mark>language learning courses</mark> - short lessons, forced engagement, spaced repetition - and apply it to a skill nobody had tried teaching that way before: photography."
+    },
+    {
+      "type": "eyebrow",
+      "text": "Solution"
+    },
+    {
+      "type": "title",
+      "html": "A learning platform, not just a course."
+    },
+    {
+      "type": "p",
+      "html": "We designed and built the <mark>entire system</mark>: research-backed lesson structure, an <mark>interactive camera simulator</mark> students can practice on before touching their own gear, a <mark>custom quiz engine</mark>, <mark>tiered checkout</mark>, and a <mark>dashboard</mark> that always shows where a student stands. It grew into something bigger than one course - the architecture is now solid enough that the team is evaluating it as a licensable <mark>course-building platform</mark> for other creators."
+    },
+    {
+      "type": "button",
+      "label": "View Final Designs",
+      "href": "#solution"
+    },
+    {
+      "type": "label",
+      "text": "Impact"
+    },
+    {
+      "type": "list",
+      "items": [
+        "<mark>Fully custom platform </mark>- checkout, dashboard, quiz engine, Q&amp;A, camera simulator",
+        "<mark>Custom WordPress/Bricks plugin architecture</mark> supporting dynamic lesson hierarchies, adaptive quiz scoring, and tiered content locking",
+        "A scalable <mark>component and design-token system</mark>",
+        "<mark>93% completion rate</mark> and <mark>4.7–4.8/5 average scores</mark> across <mark>UI, navigation, and simplicity</mark> in an 18-person closed beta."
+      ]
+    },
+    {
+      "type": "label",
+      "text": "Toolkit"
+    },
+    {
+      "type": "chips",
+      "items": [
+        "Figma",
+        "ACSS Bricks"
+      ]
+    },
+    {
+      "type": "section",
+      "id": "research",
+      "label": "Research"
+    },
+    {
+      "type": "eyebrow",
+      "text": "INITIAL RESEARCH"
+    },
+    {
+      "type": "title",
+      "html": "Domain immersion before talking to anyone."
+    },
+    {
+      "type": "p",
+      "html": "Before writing a single interview question, I audited the market - Duolingo, MasterClass, Udemy to better understand audience and tone. I found out users on reddit preferred <mark>premium and minimal</mark> UI over playful, <mark>functionality over polish</mark>, <mark>desktop-first</mark> since the interactive tools couldn't be compromised for mobile, and lessons framed around <mark>outcomes, not topics</mark> - \"shoot any subject in any light,\" not \"the exposure triangle.\""
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6a88c0b4e2f2981c16c9e7e2_Velo_DI.png",
+        "width": 846,
+        "height": 410
+      },
+      "caption": "Domain Immersion"
+    },
+    {
+      "type": "eyebrow",
+      "text": "user interviews"
+    },
+    {
+      "type": "title",
+      "html": "4 interviews, deliberately mismatched."
+    },
+    {
+      "type": "p",
+      "html": "We tested that thesis against people who didn't agree with each other. A <mark>session musician</mark> who wanted to know <em>why</em> before <em>how</em>. A <mark>hobbyist</mark> in rural Ohio worried about pacing and video length. A <mark>marketing-minded photographer</mark> skeptical of course creators in general. A <mark>non-photographer</mark> who'd never held a camera and only shot on her phone."
+    },
+    {
+      "type": "heading",
+      "html": "Interview Insights"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "Students <mark>disengage without context</mark>, but only want enough of it to stay confident, not overwhelmed",
+        "<mark>Gamified streaks and mascots read as childish</mark>, even though instant feedback on quizzes was appreciated",
+        "Strongest reaction was to a rough prototype of the <mark>camera simulator concept</mark>; it became the platform's key feature",
+        "Current course platforms are <mark>cluttered and confusing</mark>"
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "Audience"
+    },
+    {
+      "type": "title",
+      "html": "Deliberately broad user base."
+    },
+    {
+      "type": "p",
+      "html": "<mark>Beginners and intermediates spanning business use to pure hobbyists</mark> - product photography for a small business on one end, improving your own social content on the other. Since this is a basic course, it will be focused on general techniques that can help a wide variety of users. All users, regardless of occupation described the same core need: <mark>confidence with a physical tool</mark>."
+    },
+    {
+      "type": "section",
+      "id": "define",
+      "label": "Define"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Challenge"
+    },
+    {
+      "type": "title",
+      "html": "How do we design a course people actually finish, without falling into either passive lecture video or the childish gamification?"
+    },
+    {
+      "type": "heading",
+      "html": "I ideated solutions to users' pain points."
+    },
+    {
+      "type": "pairs",
+      "items": [
+        {
+          "problem": "Interfaces felt cluttered",
+          "solution": "Minimal, dark, desktop-first, intuitive, collapsible navigation"
+        },
+        {
+          "problem": "Editing was an afterthought",
+          "solution": "Full dedicated editing lesson"
+        },
+        {
+          "problem": "No hands-on practice",
+          "solution": "Interactive camera simulator, real-world exercises"
+        },
+        {
+          "problem": "Wanted to know the \"Why\", without feeling overwhelmed",
+          "solution": "Inline key-term hover-definitions"
+        },
+        {
+          "problem": "Skeptical of course creators/content efficiency",
+          "solution": "Free lesson builds trust"
+        },
+        {
+          "problem": "Rigid, locked-in order",
+          "solution": "Fully self-paced structure"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "ideation-iterations",
+      "label": "Ideation + Iterations"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Business goals consideration"
+    },
+    {
+      "type": "title",
+      "html": "We mapped out the user flow."
+    },
+    {
+      "type": "p",
+      "html": "We created an end-to-end user flow before development started - covering dashboard navigation, the camera simulator interaction states, knowledge check scoring logic, and the full assignment review loop."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6a88cf5c50c9f0fdf157f944_UF.png",
+        "width": 846,
+        "height": 402
+      },
+      "caption": "End-to-end User Flow"
+    },
+    {
+      "type": "section",
+      "id": "solution",
+      "label": "Solution"
+    },
+    {
+      "type": "eyebrow",
+      "text": "The Product"
+    },
+    {
+      "type": "title",
+      "html": "Key Features"
+    },
+    {
+      "type": "heading",
+      "html": "1. <strong>Interactive Camera-Settings Simulator</strong>"
+    },
+    {
+      "type": "p",
+      "html": "Adjust <mark>key camera settings</mark> (aperture, shutter speed, and ISO) and watch a real photo change <mark>live</mark>. It simulates actual conditions - switch <mark>lighting scenarios</mark>, shoot <mark>handheld or tripod</mark>, get <mark>instant feedback</mark> if a shot would blur or blow out. <mark>Reusable anywhere</mark> - embedded in a lesson or a one-click popup. <mark>Free and account-free</mark> on the landing page, so anyone can try it first."
+    },
+    {
+      "type": "embed",
+      "src": "https://player.vimeo.com/video/1220329766"
+    },
+    {
+      "type": "caption",
+      "text": "Camera Settings Simulator"
+    },
+    {
+      "type": "heading",
+      "html": "2. <strong>A quiz engine that gives feedback without giving answers.</strong>"
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6a88d97e0c3e2766747a8e02_Screenshot%202026-08-21%20at%204.04.24%E2%80%AFPM.png",
+        "width": 846,
+        "height": 529
+      },
+      "caption": "Quiz page"
+    },
+    {
+      "type": "heading",
+      "html": "3. <strong>Collapsable, ultra-intuitive navigation.</strong>"
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6a88dacc7527519f120baf77_ezgif-73a480ece5ced031.gif",
+        "width": 1280,
+        "height": 827
+      },
+      "caption": "Collapsible sidebar"
+    },
+    {
+      "type": "heading",
+      "html": "4. <strong>Hoverable Definitions</strong><strong>.</strong>"
+    },
+    {
+      "type": "p",
+      "html": "Hover over key terms to see what they mean."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6a88dd0bbb486f283d171df0_Screenshot%202026-08-21%20at%204.19.31%E2%80%AFPM.png",
+        "width": 846,
+        "height": 397
+      },
+      "caption": "hoverable definitions"
+    },
+    {
+      "type": "heading",
+      "html": "5. <strong>Digestible content in small chunks &amp; deliberate repetition</strong><strong>.</strong>"
+    },
+    {
+      "type": "p",
+      "html": "Cover the same information in two formats: video &amp; text to make sure users understand it. This method turned out to be highly effective during beta testing."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6a88de69d6836c4d7b11bc6c_VP.png",
+        "width": 846,
+        "height": 546
+      },
+      "caption": "Video Screen"
+    },
+    {
+      "type": "section",
+      "id": "conclusion",
+      "label": "Conclusion"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Impact"
+    },
+    {
+      "type": "title",
+      "html": "Beta testing results."
+    },
+    {
+      "type": "stats",
+      "items": [
+        {
+          "value": "93%",
+          "label": "Completion rate"
+        },
+        {
+          "value": "4.7/5",
+          "label": "UI / Navigation Score"
+        },
+        {
+          "value": "4.8/5",
+          "label": "Simplicity Score"
+        }
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "next steps"
+    },
+    {
+      "type": "title",
+      "html": "<strong>Future opportunities.</strong>"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "Instructor Q&amp;A",
+        "Mobile version",
+        "Scalable course-building platform",
+        "Interactive subtitles"
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "Lessons Learned"
+    },
+    {
+      "type": "title",
+      "html": "Research changes the plan."
+    },
+    {
+      "type": "heading",
+      "html": "You can't do everything."
+    },
+    {
+      "type": "p",
+      "html": "We initially planned on heavily utilizing gamification, and focusing on a specific audience. Research made us change our plans."
+    },
+    {
+      "type": "heading",
+      "html": "Content matters the most."
+    },
+    {
+      "type": "p",
+      "html": "Ultimately, content quality contributed most to this prototype's success - the deliberate repetition and hoverable definitions made the course highly digestible."
+    },
+    {
+      "type": "heading",
+      "html": "Good architecture outgrows the first use case."
+    },
+    {
+      "type": "p",
+      "html": "We started by wanting to create a photography course, and ended up with a customizable learning platform - one flexible enough that the team is evaluating it as a licensable course-building platform for other instructors."
+    }
+  ]
+}

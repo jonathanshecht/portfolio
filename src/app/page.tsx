@@ -1,146 +1,62 @@
-import { projects, site } from "@/data/site";
-
-const navItems = [
-  { href: "#projects", label: "Projects" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
-];
+import Image from "next/image";
+import { Nav } from "@/components/nav";
+import { ProjectCard } from "@/components/project-card";
+import { projects } from "@/data/projects";
+import { site } from "@/data/site";
 
 export default function Home() {
+  const [first] = site.name.split(" ");
   return (
     <>
-      <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
-        <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-          <a href="#" className="font-semibold tracking-tight">
-            {site.name}
-          </a>
-          <ul className="flex gap-5 text-sm text-muted">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <a href={item.href} className="hover:text-foreground">
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </header>
-
-      <main className="mx-auto w-full max-w-3xl flex-1 px-6">
-        <section className="py-24 sm:py-32">
-          <p className="font-mono text-sm text-accent">{site.role}</p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-6xl">
-            Hi, I&apos;m {site.name.split(" ")[0]}.
-          </h1>
-          <p className="mt-6 max-w-xl text-lg text-muted">{site.tagline}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="#projects"
-              className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:opacity-90"
-            >
-              See my work
-            </a>
-            <a
-              href={site.links.github}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-card"
-            >
-              GitHub
-            </a>
-          </div>
-        </section>
-
-        <section id="projects" className="scroll-mt-20 py-16">
-          <h2 className="text-2xl font-semibold tracking-tight">Projects</h2>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-            {projects.map((project) => (
-              <li
-                key={project.title}
-                className="flex flex-col rounded-2xl border border-border bg-card p-6"
-              >
-                <h3 className="font-semibold">{project.title}</h3>
-                <p className="mt-2 flex-1 text-sm text-muted">
-                  {project.description}
-                </p>
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {project.tech.map((t) => (
-                    <li
-                      key={t}
-                      className="rounded-full bg-background px-2.5 py-1 font-mono text-xs text-muted"
-                    >
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-                {(project.repo || project.live) && (
-                  <div className="mt-4 flex gap-4 text-sm font-medium">
-                    {project.live && (
-                      <a href={project.live} target="_blank" rel="noreferrer" className="text-accent hover:underline">
-                        Live demo ↗
-                      </a>
-                    )}
-                    {project.repo && (
-                      <a href={project.repo} target="_blank" rel="noreferrer" className="text-accent hover:underline">
-                        Code ↗
-                      </a>
-                    )}
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section id="about" className="scroll-mt-20 py-16">
-          <h2 className="text-2xl font-semibold tracking-tight">About</h2>
-          <div className="mt-6 space-y-4 text-muted">
-            {site.about.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-          <ul className="mt-8 flex flex-wrap gap-2">
-            {site.skills.map((skill) => (
-              <li
-                key={skill}
-                className="rounded-full border border-border px-3 py-1 text-sm"
-              >
-                {skill}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section id="contact" className="scroll-mt-20 py-16">
-          <h2 className="text-2xl font-semibold tracking-tight">Contact</h2>
-          <p className="mt-4 max-w-xl text-muted">
-            I&apos;m open to new opportunities. The best way to reach me is by
-            email.
-          </p>
-          <a
-            href={`mailto:${site.email}`}
-            className="mt-6 inline-block text-lg font-medium text-accent hover:underline"
+      <Nav />
+      <main className="mx-auto max-w-[846px] px-4 pb-24 sm:px-8">
+        <section className="relative isolate overflow-hidden rounded-[32px] bg-night px-6 py-16 text-center text-white sm:py-20">
+          <video
+            className="absolute inset-0 -z-10 size-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={site.heroVideo.poster}
           >
-            {site.email}
-          </a>
+            <source src={site.heroVideo.mp4} type="video/mp4" />
+            <source src={site.heroVideo.webm} type="video/webm" />
+          </video>
+          <h1 className="text-4xl sm:text-[50px] sm:leading-[70px]">
+            Hello, I&rsquo;m <strong className="font-bold">{first}</strong>
+          </h1>
+          <p className="mt-3 text-base sm:text-lg">{site.tagline}</p>
+          <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm">
+            <li className="flex items-center gap-2">
+              <Image src={site.icons.location} alt="" width={24} height={24} className="size-6" />
+              {site.location}
+            </li>
+            <li className="flex items-center gap-2">
+              <Image src={site.icons.work} alt="" width={24} height={24} className="size-6" />
+              {site.job}
+            </li>
+          </ul>
+          <iframe
+            src={site.playlist.embed}
+            title={site.playlist.label}
+            className="mx-auto mt-8 block h-[152px] w-full max-w-[380px] rounded-xl"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          />
+          <p className="mt-5 inline-flex items-center gap-3 rounded-lg bg-white/15 px-4 py-2 text-sm backdrop-blur">
+            <Image src={site.icons.waveform} alt="" width={1920} height={1080} unoptimized className="h-5 w-10 object-cover mix-blend-screen" />
+            {site.playlist.label}
+          </p>
+        </section>
+
+        <section id="work" aria-label="Work" className="mt-8 grid scroll-mt-6 gap-8">
+          {projects
+            .filter((p) => p.status !== "hidden")
+            .map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
         </section>
       </main>
-
-      <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 px-6 py-8 text-sm text-muted">
-          <p>
-            © {site.name}
-          </p>
-          <div className="flex gap-5">
-            <a href={site.links.github} target="_blank" rel="noreferrer" className="hover:text-foreground">
-              GitHub
-            </a>
-            <a href={site.links.linkedin} target="_blank" rel="noreferrer" className="hover:text-foreground">
-              LinkedIn
-            </a>
-          </div>
-        </div>
-      </footer>
     </>
   );
 }

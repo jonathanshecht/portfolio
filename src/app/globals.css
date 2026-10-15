@@ -1,34 +1,24 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --muted: #5c5c66;
-  --border: #e5e5ea;
-  --card: #f7f7f9;
-  --accent: #2f5bea;
+/* Logo typeface, uploaded to the Webflow site. */
+@font-face {
+  font-family: "Abibas";
+  src: url("https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/675622e3ae334f39caeb0521_Abibas.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
-  --color-card: var(--card);
-  --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0b;
-    --foreground: #ededed;
-    --muted: #a1a1aa;
-    --border: #26262b;
-    --card: #131316;
-    --accent: #7c9bff;
-  }
+  --color-ink: #000000;
+  --color-body: #333333;
+  --color-muted: #8c8c8c;
+  --color-canvas: #f7f7f7;
+  --color-line: #e4e4e7;
+  --color-night: #17161d;
+  --color-highlight: #e9ffc3;
+  --font-sans: var(--font-poppins);
+  --font-logo: "Abibas", var(--font-poppins);
 }
 
 html {
@@ -36,6 +26,27 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #ffffff;
+  color: var(--color-body);
+}
+
+mark {
+  background-color: var(--color-highlight);
+  color: inherit;
+  padding: 0 0.1em;
+}
+
+/* Animated texture clipped to the "jnthn" wordmark. */
+.logo-texture {
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Inline links inside case-study copy. */
+.rich a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }

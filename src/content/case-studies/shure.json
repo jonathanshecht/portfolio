@@ -1,0 +1,882 @@
+{
+  "slug": "shure",
+  "title": "Shure Inc.",
+  "subtitle": "Design System & Beginner Workflow",
+  "meta": [
+    "Internship",
+    "June 2023 (2.5 months)",
+    "Role: UX Design Intern",
+    "Shure Design Team"
+  ],
+  "hero": [
+    {
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6754c735f7d23a5d069968dc_6695cb64e68331e8f2bece15_thumbnail_shure%20(1).png",
+      "width": 125,
+      "height": 76
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/675cda6cb251dd125e3a9780_ezgif-6-b4a97de90c.gif",
+      "width": 674,
+      "height": 450
+    }
+  ],
+  "toc": [
+    {
+      "id": "overview",
+      "label": "Overview"
+    },
+    {
+      "id": "project-1",
+      "label": "Project 1"
+    },
+    {
+      "id": "project-2",
+      "label": "Project 2"
+    },
+    {
+      "id": "reflection",
+      "label": "Reflection"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "note",
+      "text": "Some details of this case study are intentionally redacted to honor an NDA"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Context"
+    },
+    {
+      "type": "title",
+      "html": "Internship Overview"
+    },
+    {
+      "type": "p",
+      "html": "After working at two startups, my curiosity about larger companies' design approaches led me to join Shure as a UX design intern on their general design team, where I worked on everything from design system maintenance to product redesigns."
+    },
+    {
+      "type": "p",
+      "html": "As a musician and an avid user of Shure's microphones, I was fascinated by Shure's focus on audio. I was lucky to have amazing supervisors, who allowed me to go beyond the scope of my assigned task and explore my areas of interest, in the form of various smaller projects. <mark>Overall, this internship was a perfect introduction to audio-specific UX design, blending my passions for design and music.</mark>"
+    },
+    {
+      "type": "label",
+      "text": "Content"
+    },
+    {
+      "type": "p",
+      "html": "In this case study, I discuss <mark>two of the projects I worked on</mark>:"
+    },
+    {
+      "type": "p",
+      "html": "<a href=\"#project-1\"><strong>PRISM 3 COMPONENTS </strong>-<strong> <br></strong>Created 15 new components for Shure's design system</a><a href=\"#project-2\"><strong>BEGINNER WORKFLOW </strong>-<strong> <br></strong>Simplified equipment error handling for beginners</a>"
+    },
+    {
+      "type": "part",
+      "id": "project-1",
+      "label": "Project 1",
+      "title": "Prism 3 Components"
+    },
+    {
+      "type": "eyebrow",
+      "text": "problem"
+    },
+    {
+      "type": "title",
+      "html": "Outdated Components"
+    },
+    {
+      "type": "p",
+      "html": "<mark>Prism 2</mark> (Shure's previous design system) lacked several audio-specific components, and needed a revamp. Designers had several requests for missing components, and had to create them on the go, often <mark>losing up to 20-30% of design time on manual adjustments</mark>."
+    },
+    {
+      "type": "eyebrow",
+      "text": "Solution"
+    },
+    {
+      "type": "title",
+      "html": "Customizable components, based on designers' requests."
+    },
+    {
+      "type": "p",
+      "html": "I added <mark>15 new components to Prism 3</mark>, tailored to designers' needs, with enhanced customization through variants and instance swaps. <mark>All were approved for publishing.</mark>"
+    },
+    {
+      "type": "button",
+      "label": "View Final Designs",
+      "href": "#solution"
+    },
+    {
+      "type": "label",
+      "text": "Impact"
+    },
+    {
+      "type": "list",
+      "items": [
+        "<mark>All 15 components were published!</mark>",
+        "Components appeared in <mark>Designer 6</mark>",
+        "I introduced <mark>2-choice segmented controls</mark>"
+      ]
+    },
+    {
+      "type": "label",
+      "text": "Toolkit"
+    },
+    {
+      "type": "chips",
+      "items": [
+        "Figma",
+        "Sketch",
+        "Material Design"
+      ]
+    },
+    {
+      "type": "section",
+      "id": "research",
+      "label": "Research"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Heuristic evaluation"
+    },
+    {
+      "type": "title",
+      "html": "Evaluating old components."
+    },
+    {
+      "type": "p",
+      "html": "One of the components I created was a <mark>segmented control</mark>, which appeared in Prism 2 as a tabs component."
+    },
+    {
+      "type": "p",
+      "html": "Segmented controls are a set of mutually exclusive options, presented horizontally."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67692194dcd3964ee476387b_jhfbsjfh.png",
+        "width": 846,
+        "height": 101
+      },
+      "caption": "Prism 2 tabs component"
+    },
+    {
+      "type": "p",
+      "html": "Some of the <mark>problems</mark> that come with only having a tabs component are:"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "<mark>No distinction</mark> between general and specific navigation",
+        "<mark>Slows down workflows</mark> that require quick contextual switching",
+        "<mark>Users lose context</mark> when switching between tabs for related tasks."
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "Competitive Analysis"
+    },
+    {
+      "type": "title",
+      "html": "How did other products use this component?"
+    },
+    {
+      "type": "p",
+      "html": "I explored the ways in which <mark>segmented controls</mark> were used in other products, to create a new and improved component."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/675e994461501c774649baa0_66b2da4d9a0557fcd85e7190_sc_example-p-1600.png",
+        "width": 846,
+        "height": 293
+      },
+      "caption": "Segmented controls competitive analysis"
+    },
+    {
+      "type": "heading",
+      "html": "Research Insights"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "Most segmented controls had <mark>2-5 options</mark>",
+        "Commonly used <mark>hover, selected, and focus states</mark>",
+        "Options differed in shape from standard buttons and were often <mark>visually connected</mark>"
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "User Interviews"
+    },
+    {
+      "type": "title",
+      "html": "Audio-specific components were more complex."
+    },
+    {
+      "type": "p",
+      "html": "To design components like <mark>audio meters</mark> and <mark>gain faders</mark>, I needed a deeper understanding of details like peak-indicator animation and decibel scales. <mark>I interviewed 3 designers</mark> who worked on relevant software to gain insights into their use of these components."
+    },
+    {
+      "type": "heading",
+      "html": "Interview Insights"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "Some components required <mark>manual adjustments</mark> due to spacing constraints or unique use cases.",
+        "Prism 2 over-relied on <mark>Material Design</mark>, which did not accommodate for audio-specific components.",
+        "Inconsistent components = <mark>visual inconsistencies</mark> across different products",
+        "The main use cases were <mark>horizontal and vertical input channels</mark>"
+      ]
+    },
+    {
+      "type": "section",
+      "id": "define",
+      "label": "Define"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Challenge"
+    },
+    {
+      "type": "title",
+      "html": "How can we make the components more efficient to use, and save designers' time?"
+    },
+    {
+      "type": "heading",
+      "html": "Opportunity Areas"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "Improve components' <mark>visual consistency</mark>",
+        "Make <mark>component variations</mark>, reducing the need to detach instances",
+        "Create <mark>audio-specific components</mark>, tailored to designers' needs"
+      ]
+    },
+    {
+      "type": "section",
+      "id": "ideation-iterations",
+      "label": "Ideation + Iterations"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Iterations"
+    },
+    {
+      "type": "title",
+      "html": "Components should reference each other."
+    },
+    {
+      "type": "p",
+      "html": "Even with lower-level components like <mark>segmented control</mark>, we tried to stay inspired by other components. For example, the design is highly influenced by the default and disabled state of standard buttons."
+    },
+    {
+      "type": "p",
+      "html": "A lot of the low-level components like standard buttons were built on Material Design guidelines, which I had to familiarize myself with."
+    },
+    {
+      "type": "label",
+      "text": "Design Process"
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6764d44bea00e2cce8c857a0_buttont.png",
+        "width": 846,
+        "height": 73
+      },
+      "caption": "Default & disabled states of Standard buttons"
+    },
+    {
+      "type": "p",
+      "html": "The segmented control's selected state is <mark>bright green and rounded</mark>, just like the standard button's default state, making it obvious and efficient in the case of two-option segmented controls."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6764d2bd6fb9b938c778df84_buttonsss.png",
+        "width": 846,
+        "height": 161
+      },
+      "caption": "standard button vs. segmented control option"
+    },
+    {
+      "type": "p",
+      "html": "After connecting the segmented options, I increased the unselected font's opacity to ensure <mark>proper contrast.</mark>"
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6764d76fa1b8cf558543c8cb_scscscs.png",
+        "width": 846,
+        "height": 89
+      },
+      "caption": "segmented controls old vs new iteration"
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67691a7d32c9165e2af88c78_iterations.png",
+        "width": 846,
+        "height": 499
+      },
+      "caption": "old vs. new segmented control"
+    },
+    {
+      "type": "heading",
+      "html": "Final Segmented Control"
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67727601f0014961794ca48e_Screen%20Shot%202024-12-30%20at%202.29.15%20AM.png",
+        "width": 846,
+        "height": 433
+      },
+      "caption": "Final component, as seen in prism 3"
+    },
+    {
+      "type": "heading",
+      "html": "Audio-specific components needed more variation."
+    },
+    {
+      "type": "p",
+      "html": "The goal was to <mark>reduce the need for manual adjustments</mark>. With the most common design scenario being vertical and horizontal channel strips, I began by creating <mark>vertical and horizontal scales</mark>."
+    },
+    {
+      "type": "gallery",
+      "images": [
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67613438b32c5ed6c6c6cffa_66b484eacbd8dfbde1c5763f_properties.png",
+          "width": 723,
+          "height": 1017
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67613436ffb7c1ca9aaea770_66b484bfb942527eb0646d2b_scales.png",
+          "width": 792,
+          "height": 534
+        }
+      ],
+      "caption": "Scales and their properties"
+    },
+    {
+      "type": "p",
+      "html": "In those scales, I utilized <mark>instance swaps</mark> to allow designers to hide/show right/left scales and numbers, switch between scales (decibel/log), and toggle between component types (meter/fader), as shown above."
+    },
+    {
+      "type": "heading",
+      "html": "Audio Meters &amp; Faders"
+    },
+    {
+      "type": "p",
+      "html": "I interviewed designers to understand the way audio meter animations work, specifically the behavior of the Peak Indicator (the red mark), which showcases maximum loudness."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6774666dd3d871e69faa8478_ezgif-4-c20fe52862.gif",
+        "width": 800,
+        "height": 646
+      }
+    },
+    {
+      "type": "section",
+      "id": "solution",
+      "label": "Solution"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Final Designs"
+    },
+    {
+      "type": "title",
+      "html": "15 published components."
+    },
+    {
+      "type": "p",
+      "html": "By the end of the internship, I created over <mark>15 components</mark>, which were approved for publishing."
+    },
+    {
+      "type": "p",
+      "html": "The visual is intentionally small to comply with an NDA regarding certain components."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6774695b8c3ede19ea84ede1_66b7ea86300d381ca509adf9_final_components-p-1600.png",
+        "width": 846,
+        "height": 605
+      },
+      "caption": "standard button vs. segmented control option"
+    },
+    {
+      "type": "heading",
+      "html": "Customizable Fader / Meter Component"
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67746d6be0b6243125fa8b49_ezgif-3-8d18107845.gif",
+        "width": 800,
+        "height": 584
+      }
+    },
+    {
+      "type": "section",
+      "id": "conclusion",
+      "label": "Conclusion"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Impact"
+    },
+    {
+      "type": "title",
+      "html": "I made it into Designer 6 :)"
+    },
+    {
+      "type": "p",
+      "html": "Although there is no concrete data on the time saved by designers using the new components, many of them—including the <mark>icon buttons</mark>, <mark>standard buttons</mark>, <mark>layouts</mark>, <mark>text inputs</mark>, the <mark>two-option segmented control</mark> I advocated for, and more—were included in <mark>Designer 6</mark>, released in <mark>February 2024</mark>."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67746a2bd3d871e69fac9999_66b7ee672e3e75a374cccd2f_designer6.png",
+        "width": 845,
+        "height": 426
+      },
+      "caption": "Designer 6 screenshot (source)"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Lessons Learned"
+    },
+    {
+      "type": "title",
+      "html": "What I learned from this project."
+    },
+    {
+      "type": "p",
+      "html": "I learned a lot about <mark>specific Figma functions</mark> and <mark>components</mark>, from instance swaps, to nested instances, and more. I also got to learn about the <mark>format and organization of design systems</mark>, especially in the context of larger companies. This helped me understand how to utilize design systems in my designs correctly moving forward."
+    },
+    {
+      "type": "p",
+      "html": "The main challenge was <mark>navigating the learning curve of Shure's organization of Prism 2</mark> and my initial inexperience with Figma's component functionalities. I owe a huge thank you to my supervisors, Christina and Anna, who were always available to answer my questions."
+    },
+    {
+      "type": "label",
+      "text": "Skills Unlocked"
+    },
+    {
+      "type": "chips",
+      "items": [
+        "Advanced Techniques",
+        "Design Systems",
+        "User Research",
+        "Domain Expertise"
+      ]
+    },
+    {
+      "type": "part",
+      "id": "project-2",
+      "label": "Project 2",
+      "title": "Beginner Error-Handling Workflow"
+    },
+    {
+      "type": "eyebrow",
+      "text": "problem"
+    },
+    {
+      "type": "title",
+      "html": "Wireless Workbench is too technical for beginners."
+    },
+    {
+      "type": "p",
+      "html": "For inexperienced users, <mark>the current success rate of the error handling process is 30%</mark>. I was tasked with creating a more intuitive error-handling workflow."
+    },
+    {
+      "type": "eyebrow",
+      "text": "Solution"
+    },
+    {
+      "type": "title",
+      "html": "User segmentation."
+    },
+    {
+      "type": "p",
+      "html": "Providing users with <mark>tailored interfaces based on their experience</mark> with audio equipment,<mark> minimizing on-screen information</mark> to essentials, and <mark>automating error handling</mark> as much as possible."
+    },
+    {
+      "type": "button",
+      "label": "View Final Designs",
+      "href": "#solution-2"
+    },
+    {
+      "type": "label",
+      "text": "Impact"
+    },
+    {
+      "type": "list",
+      "items": [
+        "<mark>100% of users</mark> successfully initiated error handling",
+        "<mark>90% of users</mark> understood the next steps",
+        "Approved to be used as <mark>reference for future designs</mark>"
+      ]
+    },
+    {
+      "type": "label",
+      "text": "Toolkit"
+    },
+    {
+      "type": "chips",
+      "items": [
+        "Figma",
+        "Miro"
+      ]
+    },
+    {
+      "type": "section",
+      "id": "research-2",
+      "label": "Research"
+    },
+    {
+      "type": "eyebrow",
+      "text": "User interviews"
+    },
+    {
+      "type": "title",
+      "html": "I watched the users struggling."
+    },
+    {
+      "type": "p",
+      "html": "To learn about the issues users had with the software,<mark> I watched 3 product walkthroughs with inexperienced users</mark>, and used affinity diagraming to identify the main pain points."
+    },
+    {
+      "type": "p",
+      "html": "The walkthroughs were of mobile version of WWB, which has similar features to the desktop one."
+    },
+    {
+      "type": "caption",
+      "text": "Product walkthrough video & Grouped Affinity Diagram"
+    },
+    {
+      "type": "p",
+      "html": "Some of the <mark>main problems</mark> users had were:"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "Users <mark>did not know/care about error types</mark>.",
+        "Users were <mark>not sure where to tap</mark> to fix microphones.",
+        "<mark>Confusing hardware-specific language</mark> like \"deploy backup.\"",
+        "Misunderstood difference between <mark>channels vs. microphones</mark>"
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "Heuristic evaluation"
+    },
+    {
+      "type": "title",
+      "html": "I looked at existing wireframes."
+    },
+    {
+      "type": "p",
+      "html": "Shure already had <mark>existing wireframes of desktop beginner error handling flows</mark> which I was tasked with improving, while <mark>keeping the following user scenario in mind</mark>."
+    },
+    {
+      "type": "heading",
+      "html": "User Scenario:"
+    },
+    {
+      "type": "p",
+      "html": "You just rented a few of microphones for an event, which for some reason, do not seem to work. You now have to fix them, so you open the software they come with and see the screen below."
+    },
+    {
+      "type": "p",
+      "html": "Wireframes are intentionally blurred to comply with an NDA."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6784450b01348739d79fb69d_Group%2012380.png",
+        "width": 846,
+        "height": 553
+      },
+      "caption": "initial home screen Wireframe with MY notes"
+    },
+    {
+      "type": "p",
+      "html": "Some of the <mark>issues</mark> I found were:"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "<mark>Vague error state</mark>",
+        "<mark>Irrelevant information</mark> for beginner users",
+        "<mark>Visual layout issues</mark> - small font, distracting background, confusing hierarchy"
+      ]
+    },
+    {
+      "type": "section",
+      "id": "define-2",
+      "label": "Define"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Challenge"
+    },
+    {
+      "type": "title",
+      "html": "How can I help beginners take the first step towards fixing the devices?"
+    },
+    {
+      "type": "heading",
+      "html": "Opportunity Areas"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "<mark>Straightforward</mark><mark> error state</mark>",
+        "Showcase only <mark>relevant information</mark>",
+        "Include more <mark>intuitive visuals</mark> &amp; <mark>clear CTAs</mark>"
+      ]
+    },
+    {
+      "type": "section",
+      "id": "ideation",
+      "label": "Ideation"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Iterations"
+    },
+    {
+      "type": "title",
+      "html": "Errors needed to be straightforward."
+    },
+    {
+      "type": "p",
+      "html": "Instead of each card representing multiple devices, <mark>the new card represents a single device</mark>, with a <mark>red border, showing an error</mark>. I replaced the red checkmark with an \"error\" icon for clarity."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/678446de76eea4da2eea03cd_mics.png",
+        "width": 845,
+        "height": 198
+      },
+      "caption": "equipment error state iterations old vs new"
+    },
+    {
+      "type": "heading",
+      "html": "I removed unnecessary information."
+    },
+    {
+      "type": "p",
+      "html": "<mark>Users simply needed to see the malfunctioning devices.</mark> Thus, I hid information such as location-based optimization, and the wireless spectrum forecast. I also moved the 'getting started' section down in the hierarchy, since it is not relevant when the user is in a crisis."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67844b73702dd12b8af26919_Frame%2051072.png",
+        "width": 846,
+        "height": 233
+      },
+      "caption": "home screen iterations 1 & 2"
+    },
+    {
+      "type": "p",
+      "html": "I made sure to <mark>showcase all of the individual devices</mark>, and provide more visibility regarding their amount. <mark>I made the sections collapsable</mark>, with functioning devices not showing by default."
+    },
+    {
+      "type": "heading",
+      "html": "Clear instructions &amp; visuals."
+    },
+    {
+      "type": "p",
+      "html": "I proposed giving users clear visual steps when it comes to handling different errors. <mark>The instructions should be simple enough to follow without understanding the error types</mark>, and will appear as popups once a user clicks on a CTA."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67844d0b93dc97e8c1f35693_errorpopup.png",
+        "width": 696,
+        "height": 574
+      },
+      "caption": "error handling popup"
+    },
+    {
+      "type": "section",
+      "id": "solution-2",
+      "label": "Solution"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Final Designs"
+    },
+    {
+      "type": "title",
+      "html": "Beginner's error handling workflow."
+    },
+    {
+      "type": "p",
+      "html": "Below are the <mark>screens in order.</mark>"
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/678455dbcdf602de40b85280_66bd2702558818372f06cb46_Performer-1c.png",
+        "width": 846,
+        "height": 553
+      },
+      "caption": "User segmentation screen"
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6784568efd706933fb27dd4f_home.png",
+        "width": 846,
+        "height": 553
+      },
+      "caption": "home screen showcasing an error"
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67881e52ca9f7719266e29f2_Frame%2051048.png",
+        "width": 846,
+        "height": 553
+      },
+      "caption": "popup template once the user clicks on a cta"
+    },
+    {
+      "type": "section",
+      "id": "conclusion-2",
+      "label": "Conclusion"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Impact"
+    },
+    {
+      "type": "title",
+      "html": "I tested the designs on <mark>10 users</mark>."
+    },
+    {
+      "type": "stats",
+      "items": [
+        {
+          "value": "100%",
+          "label": "of users successfully initiated error handling"
+        },
+        {
+          "value": "90%",
+          "label": "felt like they understand the next steps"
+        },
+        {
+          "value": "Approved",
+          "label": "as reference for future designs"
+        }
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "next steps"
+    },
+    {
+      "type": "title",
+      "html": "Future opportunities."
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "<mark>Group devices based on error type</mark> to avoid overwhelming the user.",
+        "<mark>Explain error implications</mark> in simple language.",
+        "<mark>Remove redundant CTAs</mark>",
+        "<mark>Clearer steps</mark> and progress indicators",
+        "Create a <mark>complete error-handling workflow</mark> based on a real-life scenario"
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "Lessons Learned"
+    },
+    {
+      "type": "title",
+      "html": "What I learned from this project."
+    },
+    {
+      "type": "p",
+      "html": "This project taught me that <mark>simplicity wins</mark>, especially in stressful situations. The main thing that helped me with creating the home screen was taking the users' mental state into account, and prioritizing their main concern - identifying which devices are malfunctioning, and taking the first step to fix them."
+    },
+    {
+      "type": "p",
+      "html": "<mark>The main challenge was leaving my own bias and knowledge</mark> regarding audio and microphones behind, and \"pretending\" to be a complete beginner when designing."
+    },
+    {
+      "type": "label",
+      "text": "Skills Unlocked"
+    },
+    {
+      "type": "chips",
+      "items": [
+        "User Research",
+        "Domain Expertise",
+        "Testing Protocols"
+      ]
+    },
+    {
+      "type": "part",
+      "id": "reflection",
+      "label": "Reflection",
+      "title": "Interning at Shure"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Lessons Learned"
+    },
+    {
+      "type": "title",
+      "html": "First time at a big company."
+    },
+    {
+      "type": "heading",
+      "html": "Leave personal bias behind."
+    },
+    {
+      "type": "p",
+      "html": "I observed professionals conducting user testing sessions and noticed that instead of correcting confused users or over-explaining their intentions they asked them to reflect on their decisions."
+    },
+    {
+      "type": "heading",
+      "html": "Users' emotional state is important."
+    },
+    {
+      "type": "p",
+      "html": "Envisioning the users' emotional state while interacting with your design is critical to creating a good product. It was interesting to see just how important it is especially in the case of error-handling."
+    },
+    {
+      "type": "heading",
+      "html": "It takes a lot of people to make things work."
+    },
+    {
+      "type": "p",
+      "html": "It was amazing to see how many different people with different strengths comprised the design team. I constantly felt inspired by my supervisors' visual design and research techniques."
+    },
+    {
+      "type": "heading",
+      "html": "Everything is a question away."
+    },
+    {
+      "type": "p",
+      "html": "By reaching out to fellow designers and offering to help, I was able to explore additional audio-focused mini projects, and thus leveraged my background as a musician, utilizing this opportunity to the fullest."
+    },
+    {
+      "type": "caption",
+      "text": "a few photos from my orientation week (wish i took more!)"
+    }
+  ]
+}

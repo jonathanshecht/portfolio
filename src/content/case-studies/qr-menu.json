@@ -1,0 +1,614 @@
+{
+  "slug": "qr-menu",
+  "title": "QR Menu",
+  "subtitle": "Onboarding Redesign",
+  "meta": [
+    "Startup",
+    "November 2021 (2 weeks)",
+    "Role: UX Designer",
+    "Myself, Product Manager, 2 Developers"
+  ],
+  "hero": [
+    {
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/678ea96889d42f6ed93fc1df_Web%201920%20%E2%80%93%2033.png",
+      "width": 845,
+      "height": 475
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6789ab4b00eb414046722d6e_ezgif-3-bba50ca63e.gif",
+      "width": 800,
+      "height": 448
+    }
+  ],
+  "toc": [
+    {
+      "id": "overview",
+      "label": "Overview"
+    },
+    {
+      "id": "research",
+      "label": "Research"
+    },
+    {
+      "id": "define",
+      "label": "Define"
+    },
+    {
+      "id": "ideation-iterations",
+      "label": "Ideation + Iterations"
+    },
+    {
+      "id": "solution",
+      "label": "Solution"
+    },
+    {
+      "id": "conclusion",
+      "label": "Conclusion"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "eyebrow",
+      "text": "problem"
+    },
+    {
+      "type": "title",
+      "html": "Users were publishing the menu."
+    },
+    {
+      "type": "p",
+      "html": "According to the company metrics, on average <mark>10% of new users who start the onboarding process publish their QR menu</mark>."
+    },
+    {
+      "type": "eyebrow",
+      "text": "Solution"
+    },
+    {
+      "type": "title",
+      "html": "A simple onboarding process, that automates menu publishing."
+    },
+    {
+      "type": "p",
+      "html": "Redesigning onboarding to focus on <mark>intuitive menu customization</mark>, allowing users to <mark>publish a menu upon signup</mark>."
+    },
+    {
+      "type": "button",
+      "label": "View Final Designs",
+      "href": "#solution"
+    },
+    {
+      "type": "label",
+      "text": "Impact"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Went <mark>live December 2021</mark>",
+        "<mark>30% increase</mark> in the percentage of new users who publish a menu"
+      ]
+    },
+    {
+      "type": "label",
+      "text": "Toolkit"
+    },
+    {
+      "type": "chips",
+      "items": [
+        "Adobe XD"
+      ]
+    },
+    {
+      "type": "section",
+      "id": "research",
+      "label": "Research"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Heuristic evaluation"
+    },
+    {
+      "type": "title",
+      "html": "Evaluating old components."
+    },
+    {
+      "type": "p",
+      "html": "I started by <mark>analyzing the current onboarding process</mark>, loosely following Nielsen's ten design principles to identify any usability issues."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/678eb5e5717aed6369bfd08e_Group%20868.png",
+        "width": 846,
+        "height": 591
+      },
+      "caption": "Previous onboarding process"
+    },
+    {
+      "type": "p",
+      "html": "Some of the <mark>issues</mark> I found were:"
+    },
+    {
+      "type": "gallery",
+      "images": [
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67903ae6c4fbef03df7e1088_Frame%2051139.png",
+          "width": 845,
+          "height": 492
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67903ae6698624426c2cabfb_Frame%2051140.png",
+          "width": 845,
+          "height": 492
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67903ae61d835ce5dd50eae2_Frame%2051141.png",
+          "width": 845,
+          "height": 492
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67903ae6ccae562461769101_Frame%2051142.png",
+          "width": 845,
+          "height": 492
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67903ae624d6a6cd571a2afb_Frame%2051143.png",
+          "width": 845,
+          "height": 492
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/67903ae6f6345c6fd1749bfb_Frame%201321318618.png",
+          "width": 845,
+          "height": 492
+        }
+      ],
+      "caption": "Usability issues found"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Interview"
+    },
+    {
+      "type": "title",
+      "html": "I interviewed the head of marketing."
+    },
+    {
+      "type": "p",
+      "html": "Since no clients were available for interviews, <mark>I interviewed the head of marketing</mark>, who brought most customers through direct advertising, and helped them with creating accounts/onboarding. The interview was <mark>semi-structured.</mark>"
+    },
+    {
+      "type": "heading",
+      "html": "Interview Insights"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "Users were <mark>hesitant to sign up</mark> before beginning the onboarding process",
+        "There were <mark>bugs</mark> that interrupted the onboarding process",
+        "<mark>Users were confused</mark> since they could not see the menu",
+        "Most users are <mark>males 45+</mark>, with <mark>little to no experience with web design platforms</mark>",
+        "Users had <mark>difficulties navigating the platform</mark> after onboarding"
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "Competitive analysis"
+    },
+    {
+      "type": "title",
+      "html": "What were other platforms doing?"
+    },
+    {
+      "type": "p",
+      "html": "I decided to perform a competitive analysis of the onboarding processes in <mark>2 different design platforms:</mark>"
+    },
+    {
+      "type": "list",
+      "items": [
+        "<mark>Wix</mark> - one of the world's leading web design services, targeting users with little to no web design experience.",
+        "<mark>Online Menus</mark> - a QR menu design platform which targets business owners."
+      ]
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792c3c13945c7011c7a3b5b_Group%201000004563.png",
+        "width": 846,
+        "height": 759
+      }
+    },
+    {
+      "type": "section",
+      "id": "define",
+      "label": "Define"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Challenge"
+    },
+    {
+      "type": "title",
+      "html": "How can we improve the onboarding experience to increase the percentage of new users who publish a menu?"
+    },
+    {
+      "type": "heading",
+      "html": "I ideated solutions for each pain point."
+    },
+    {
+      "type": "pairs",
+      "items": [
+        {
+          "problem": "No business type consideration",
+          "solution": "Provide more business types"
+        },
+        {
+          "problem": "No progress visibility",
+          "solution": "Progress bar"
+        },
+        {
+          "problem": "UI inconsistencies",
+          "solution": "Consistent buttons and screens"
+        },
+        {
+          "problem": "No menu visible/no customization",
+          "solution": "Add a menu visual, with basic customization options"
+        },
+        {
+          "problem": "Insufficient guidance/misleading CTAs",
+          "solution": "Clear directions with accurate CTAs"
+        }
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "User persona"
+    },
+    {
+      "type": "title",
+      "html": "Meet Anthony."
+    },
+    {
+      "type": "p",
+      "html": "Based on my research, <mark>I developed a user persona that demonstrates QR Menu's target clients'</mark> goals and pain points when it comes to the onboarding process."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792c5373c90b891afec10c9_66e786df0dcb8cb0f11dda53_Group%20866.png",
+        "width": 846,
+        "height": 668
+      }
+    },
+    {
+      "type": "section",
+      "id": "ideation-iterations",
+      "label": "Ideation + Iterations"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Business goals consideration"
+    },
+    {
+      "type": "title",
+      "html": "How can I drastically increase publishing rates?"
+    },
+    {
+      "type": "p",
+      "html": "I realized that we could <mark>increase menu publishing rates</mark> by letting new users publish a menu as a step at the end of the onboarding process and moving the signup to the end. Thus, we identified two more opportunity areas:"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "<mark>Move sign-up to the end</mark>",
+        "<mark>Publish automatically with sign-up</mark>"
+      ]
+    },
+    {
+      "type": "caption",
+      "text": "Additional opportunity areas"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Business goals consideration"
+    },
+    {
+      "type": "title",
+      "html": "I mapped out the user flow."
+    },
+    {
+      "type": "p",
+      "html": "Users can customize their business type, menu language, theme, logo, banner, font combination, menu categories, items, and social media links. A signup button at the end prompts account creation, <mark>automatically publishing their menu.</mark>"
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792caa594298bf3a28763a4_f66ce6_75206787cb0d4b1d9cb63c3f9859df95~mv2.avif",
+        "width": 1526,
+        "height": 1316
+      },
+      "caption": "Onboarding process user flow"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Wireframes"
+    },
+    {
+      "type": "title",
+      "html": "It started from a rough sketch."
+    },
+    {
+      "type": "p",
+      "html": "After getting feedback from the PM regarding the user flow, I created a few <mark>wireframes</mark> that show the vision I had for the layout of the onboarding process."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792cd917a073944fa41ee69_66e793bccfe54a76d86b5b40_f66ce6_a20ffc8e2511429dbd2874b54a74571e~mv2.webp",
+        "width": 846,
+        "height": 503
+      },
+      "caption": "Early wireframes"
+    },
+    {
+      "type": "section",
+      "id": "solution",
+      "label": "Solution"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Final Designs"
+    },
+    {
+      "type": "title",
+      "html": "6 big improvements!"
+    },
+    {
+      "type": "heading",
+      "html": "1. <strong>I provided </strong><mark><strong>more business types</strong></mark><strong>.</strong>"
+    },
+    {
+      "type": "p",
+      "html": "I added additional business types as well as an \"Other\" option, since QR menu has different menu templates depending on the business type."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792d12d4afd721aa1c99d53_66e79d75548b48ebd8965c58_f66ce6_3e5461d76afe4dedb15b1a38a71ea880~mv2.gif",
+        "width": 1920,
+        "height": 1080
+      },
+      "caption": "Business types screen"
+    },
+    {
+      "type": "heading",
+      "html": "2. <strong>I added a </strong><mark><strong>progress bar</strong></mark><strong>.</strong>"
+    },
+    {
+      "type": "p",
+      "html": "I grouped the onboarding process into 4 steps, and chose a linear indicator with levels to add progress visibility."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792d1f9649835e295fb86ea_66e7b95d71260e5c9c1532b9_f66ce6_86ed23ad2aa04838bedc1907a5826bc4~mv2.gif",
+        "width": 1690,
+        "height": 271
+      },
+      "caption": "Progress bar"
+    },
+    {
+      "type": "heading",
+      "html": "3. <strong>I added a </strong><mark><strong>consistent buttons &amp; screens</strong></mark><strong>.</strong>"
+    },
+    {
+      "type": "p",
+      "html": "I established a design system with consistent buttons, spacing, and typography. I also made sure to keep all of the screens in a similar format to avoid confusion and added a \"Back\" button."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792d27d4f1e2ec12c7efb00_66e7b9bb1e86526d25d7387f_f66ce6_4c4a4ceb548647dd918e2029e77349b9~mv2.webp",
+        "width": 845,
+        "height": 313
+      },
+      "caption": "spacing & buttons"
+    },
+    {
+      "type": "heading",
+      "html": "4. <strong>I added a </strong><mark><strong>menu visual &amp; basic customization</strong></mark><strong>.</strong>"
+    },
+    {
+      "type": "p",
+      "html": "I added a clickable real-time menu preview and basic customization options for themes, categories, and items, turning the onboarding process into an interactive platform demo."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792d33818c9d0e4fa709a20_66e7baef9227d119773c0e6b_f66ce6_7ac3d9d131874d5e93d29036d53093d5~mv2.gif",
+        "width": 1920,
+        "height": 1080
+      },
+      "caption": "Customization Screen"
+    },
+    {
+      "type": "heading",
+      "html": "5. <strong>I added </strong><mark><strong>clear directions and accurate CTAs</strong></mark><strong>.</strong>"
+    },
+    {
+      "type": "p",
+      "html": "I added clear CTAs, which made the onboarding process intuitive and easy to complete and made sure to consider error handling and make actions reversible. I changed the terminology from \"products\" to \"menu items.\""
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://static.wixstatic.com/media/f66ce6_18e51f9ad5db45e69f39722106a743cc~mv2.gif",
+        "width": 1920,
+        "height": 1080
+      },
+      "caption": "Menu items screen"
+    },
+    {
+      "type": "heading",
+      "html": "6. <strong>I made the menu </strong><mark><strong>publish automatically</strong></mark><strong> upon signup.</strong>"
+    },
+    {
+      "type": "p",
+      "html": "I made the sign-up process the last step. This allowed users to get a taste of the platform without creating an account and made onboarding more transparent and less time-consuming. Once users reach the sign-up, they already have an initial draft of their menu, which goes live automatically once they create an account/log in."
+    },
+    {
+      "type": "figure",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792d5a9f0792cacf3e6a016_66e7bbfcaba0aced2defc521_qr%20menu%20log%20in.webp",
+        "width": 846,
+        "height": 476
+      },
+      "caption": "sign up screen"
+    },
+    {
+      "type": "eyebrow",
+      "text": "High Fidelity Prototype"
+    },
+    {
+      "type": "title",
+      "html": "I created an interactive Adobe XD prototype."
+    },
+    {
+      "type": "button",
+      "label": "Try the prototype",
+      "href": "https://xd.adobe.com/view/e143f2f2-31d3-4179-bc41-7c8ae474964d-b410/?fullscreen"
+    },
+    {
+      "type": "section",
+      "id": "conclusion",
+      "label": "Conclusion"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Impact"
+    },
+    {
+      "type": "title",
+      "html": "Results after 1 month."
+    },
+    {
+      "type": "stats",
+      "items": [
+        {
+          "value": "30%↑",
+          "label": "in new users who published at least one menu"
+        },
+        {
+          "value": "98%",
+          "label": "of users complete onboarding without help"
+        },
+        {
+          "value": "100%",
+          "label": "rollout rate"
+        }
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "Live product"
+    },
+    {
+      "type": "title",
+      "html": "The first time my design was published :)"
+    },
+    {
+      "type": "p",
+      "html": "Below are screenshots of the <mark>live product</mark>."
+    },
+    {
+      "type": "gallery",
+      "images": [
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792de69012bfdacec79adcb_66e7c74e73f65bd26a0ceea0_f66ce6_6638484712c74275bd7aa8cc75d95cd0~mv2.webp",
+          "width": 846,
+          "height": 491
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792de769e7df5074ca66291_66e7c8398eeeadb3d681f010_f66ce6_32eae2061d2e47bd9f825e9c4b1a0ddd~mv2.webp",
+          "width": 846,
+          "height": 491
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792de7ee0a9c6be2c8856cb_66e7c85fa1d819b74ef3ec3e_f66ce6_6ebd8b1d0c364e639cf60849eeba4776~mv2.webp",
+          "width": 846,
+          "height": 491
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792de8508ac36bd299a3212_66e7c8a3da74d83efe34e7e1_f66ce6_fec68a3d653a49c280a9429ced28de87~mv2.webp",
+          "width": 846,
+          "height": 491
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/6792de899e7df5074ca67908_66e7c8a689ca36cf83408e48_f66ce6_f343e5b1671642b4a4792ac340a53ba4~mv2.webp",
+          "width": 846,
+          "height": 491
+        }
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "next steps"
+    },
+    {
+      "type": "title",
+      "html": "<strong>Future opportunities.</strong>"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "Conduct remote <mark>usability testing</mark>",
+        "Collect <mark>qualitative user data</mark>",
+        "<mark>Continue iterating</mark> based on findings",
+        "Increase retention by <mark>redesigning the dashboard</mark>"
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "Lessons Learned"
+    },
+    {
+      "type": "title",
+      "html": "The process is imperfect, and that's ok."
+    },
+    {
+      "type": "heading",
+      "html": "You can't do everything."
+    },
+    {
+      "type": "p",
+      "html": "The main challenge I encountered was the aggressive timeline, which compelled me to prioritize the most vital tasks needed to complete the project by the desired deadline."
+    },
+    {
+      "type": "heading",
+      "html": "Sometimes you have to improvise."
+    },
+    {
+      "type": "p",
+      "html": "Due to the lack of active users available for interview on such short notice, I interviewed the head of marketing, which provided me with just enough insight to understand what challenges QR Menu's clients might face."
+    },
+    {
+      "type": "heading",
+      "html": "Good communication = good design."
+    },
+    {
+      "type": "p",
+      "html": "When my designs were developed for the first time, I quickly realized the importance of providing clear specifications and rules to make the developers' work easier. To address this, I created a simple design system, ensuring all relevant specifications were clearly highlighted."
+    },
+    {
+      "type": "label",
+      "text": "Skills Unlocked"
+    },
+    {
+      "type": "chips",
+      "items": [
+        "User Research",
+        "Visual Design",
+        "Working with Devs",
+        "Adobe XD Prototyping"
+      ]
+    }
+  ]
+}

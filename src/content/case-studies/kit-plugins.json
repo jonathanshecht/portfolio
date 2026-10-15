@@ -1,0 +1,141 @@
+{
+  "slug": "kit-plugins",
+  "title": "KIT Plugins",
+  "subtitle": "Shopify Website Redesign",
+  "meta": [
+    "KIT Plugins (Client)",
+    "October 2025 (Ongoing)",
+    "Role: Lead UX Designer",
+    "Myself, Developer, Product Manager"
+  ],
+  "hero": [
+    {
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f4220364515d34fc494394_Screen%20Shot%202025-10-18%20at%204.25.50%20PM.png",
+      "width": 846,
+      "height": 528
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f420e427330a66b9ecc2fe_ezgif-8a0c4d4f6845c8.gif",
+      "width": 800,
+      "height": 500
+    }
+  ],
+  "toc": [
+    {
+      "id": "overview",
+      "label": "Overview"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "note",
+      "text": "This case study is a work in progress"
+    },
+    {
+      "type": "eyebrow",
+      "text": "problem"
+    },
+    {
+      "type": "title",
+      "html": "Outdated Components"
+    },
+    {
+      "type": "p",
+      "html": "KIT Plugins’ website didn’t match the <mark>Blackbird Collection</mark> aesthetic. The bright, childlike visuals clashed with the vintage, premium vibe of the product line. A redesign was needed to create a more <mark>classy, timeless</mark> look that aligned with the collection."
+    },
+    {
+      "type": "eyebrow",
+      "text": "Solution"
+    },
+    {
+      "type": "title",
+      "html": "An immersive, cohesive experience."
+    },
+    {
+      "type": "p",
+      "html": "I redesigned the website to reflect the <mark>Blackbird Collection’s</mark> vintage, premium aesthetic with a visual direction that aligns with the brand."
+    },
+    {
+      "type": "label",
+      "text": "Impact"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Pending"
+      ]
+    },
+    {
+      "type": "label",
+      "text": "Toolkit"
+    },
+    {
+      "type": "chips",
+      "items": [
+        "Figma"
+      ]
+    },
+    {
+      "type": "heading",
+      "html": "Before &amp; After"
+    },
+    {
+      "type": "gallery",
+      "images": [
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f42b908757136033552b2c_oldbb.png",
+          "width": 720,
+          "height": 3959
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f42b42b2fa4f5e49806b4b_67.png",
+          "width": 846,
+          "height": 4844
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "html": "Additional Pages"
+    },
+    {
+      "type": "gallery",
+      "images": [
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f4390cedced0c4e5b761e8_BB%20Mo-Q.png",
+          "width": 846,
+          "height": 4640
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f4311e98cd778cac25bfd2_67.png",
+          "width": 846,
+          "height": 4994
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "html": "Halloween Campaign (Graphic Design)"
+    },
+    {
+      "type": "gallery",
+      "images": [
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f4360686b1e2a4d0537e33_V2.png",
+          "width": 845,
+          "height": 1057
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f435e9df65e4092aee8272_V3.png",
+          "width": 845,
+          "height": 1057
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f435ebc86c8c9129942f8d_V1.png",
+          "width": 845,
+          "height": 1057
+        }
+      ]
+    }
+  ]
+}

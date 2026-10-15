@@ -1,0 +1,133 @@
+{
+  "slug": "stacey-ryan",
+  "title": "Stacey Ryan",
+  "subtitle": "Artist Website Redesign",
+  "meta": [
+    "Client (MixBus Marketing)",
+    "April 2025 (1 Month)",
+    "Role: Lead UX Designer",
+    "Myself, Developer, Product Manager"
+  ],
+  "hero": [
+    {
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f4009b88284206822ccfd4_Screen%20Shot%202025-10-18%20at%202.03.16%20PM.png",
+      "width": 846,
+      "height": 528
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f40678277abd049e8a2f51_stacey.png",
+      "width": 846,
+      "height": 528
+    }
+  ],
+  "toc": [
+    {
+      "id": "overview",
+      "label": "Overview"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "note",
+      "text": "This case study is a work in progress"
+    },
+    {
+      "type": "eyebrow",
+      "text": "problem"
+    },
+    {
+      "type": "title",
+      "html": "Outdated Design"
+    },
+    {
+      "type": "p",
+      "html": "Stacey Ryan’s previous artist website no longer reflected her evolving brand or artistic vision. As she entered a new era with <mark>Blessing in Disguise</mark>, her online presence needed a refresh. Thus, I was tasked with transforming an outdated site into a cinematic, vintage magazine-inspired experience that aligned with her new aesthetic while keeping music, tour dates, and merch at the forefront for fans."
+    },
+    {
+      "type": "eyebrow",
+      "text": "Solution"
+    },
+    {
+      "type": "title",
+      "html": "An immersive, cohesive experience."
+    },
+    {
+      "type": "p",
+      "html": "We redesigned Stacey Ryan’s website into a <mark>cinematic, vintage magazine-style hub</mark> that elevated her brand and streamlined fan access to music, tour dates, and merch."
+    },
+    {
+      "type": "label",
+      "text": "Impact"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Went live <mark>April 2025</mark>",
+        "<mark>40% increase in website traffic</mark>, boosted tour ticket sales through the site by 30%"
+      ]
+    },
+    {
+      "type": "label",
+      "text": "Toolkit"
+    },
+    {
+      "type": "chips",
+      "items": [
+        "Figma",
+        "Framer"
+      ]
+    },
+    {
+      "type": "heading",
+      "html": "Before &amp; After"
+    },
+    {
+      "type": "gallery",
+      "images": [
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f411c6bf77d1636d21758f_before.png",
+          "width": 846,
+          "height": 2177
+        },
+        {
+          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f414343dafc54e730c7613_Home%20Page%20(Color%201).png",
+          "width": 845,
+          "height": 3513
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "html": "Website Video"
+    },
+    {
+      "type": "video",
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9%2F68f414fea21270406b2cf3c5_Stacey_Trimmed-transcode.mp4"
+    },
+    {
+      "type": "eyebrow",
+      "text": "Impact"
+    },
+    {
+      "type": "title",
+      "html": "Results after 1 month."
+    },
+    {
+      "type": "stats",
+      "items": [
+        {
+          "value": "40%↑",
+          "label": "Website traffic"
+        },
+        {
+          "value": "30%↑",
+          "label": "Ticket sales through website"
+        },
+        {
+          "value": "100%",
+          "label": "rollout rate"
+        }
+      ]
+    }
+  ]
+}
