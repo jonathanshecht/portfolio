@@ -8,7 +8,7 @@ export const site = {
   location: "Your City",
   email: "you@example.com",
   // Set this once you connect a custom domain in Vercel.
-  url: "https://example.com",
+  url: "https://jonathanshecht-portfolio.vercel.app",
   links: {
     github: "https://github.com/jonathanshecht",
     linkedin: "https://www.linkedin.com/in/your-handle",
