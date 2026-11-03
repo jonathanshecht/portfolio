@@ -31,7 +31,7 @@ export function ProjectCard({ project }: { project: Project }) {
         }`}
       />
       {soon && (
-        <p className="absolute inset-x-0 bottom-[38%] text-center text-[32px] font-semibold text-white">Coming Soon</p>
+        <p className="absolute inset-x-0 bottom-[38%] text-center font-heading text-[32px] font-bold text-white">Coming Soon</p>
       )}
     </div>
   );

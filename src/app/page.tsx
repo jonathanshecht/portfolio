@@ -1,62 +1,75 @@
-import Image from "next/image";
-import { Nav } from "@/components/nav";
-import { ProjectCard } from "@/components/project-card";
-import { projects } from "@/data/projects";
+import { MapPin } from "lucide-react";
+import { ContactSection, HomeFooter } from "@/components/home/contact-section";
+import { PianoLogo } from "@/components/home/piano-logo";
+import { PillNav } from "@/components/home/pill-nav";
+import { ProjectGrid } from "@/components/home/project-grid";
+import { releases } from "@/data/home";
 import { site } from "@/data/site";
 
 export default function Home() {
-  const [first] = site.name.split(" ");
   return (
-    <>
-      <Nav />
-      <main className="mx-auto max-w-[846px] px-4 pb-24 sm:px-8">
-        <section className="relative isolate overflow-hidden rounded-[32px] bg-night px-6 py-16 text-center text-white sm:py-20">
-          <video
-            className="absolute inset-0 -z-10 size-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster={site.heroVideo.poster}
-          >
-            <source src={site.heroVideo.mp4} type="video/mp4" />
-            <source src={site.heroVideo.webm} type="video/webm" />
-          </video>
-          <h1 className="text-4xl sm:text-[50px] sm:leading-[70px]">
-            Hello, I&rsquo;m <strong className="font-bold">{first}</strong>
-          </h1>
-          <p className="mt-3 text-base sm:text-lg">{site.tagline}</p>
-          <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm">
-            <li className="flex items-center gap-2">
-              <Image src={site.icons.location} alt="" width={24} height={24} className="size-6" />
-              {site.location}
-            </li>
-            <li className="flex items-center gap-2">
-              <Image src={site.icons.work} alt="" width={24} height={24} className="size-6" />
-              {site.job}
-            </li>
-          </ul>
-          <iframe
-            src={site.playlist.embed}
-            title={site.playlist.label}
-            className="mx-auto mt-8 block h-[152px] w-full max-w-[380px] rounded-xl"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-          />
-          <p className="mt-5 inline-flex items-center gap-3 rounded-lg bg-white/15 px-4 py-2 text-sm backdrop-blur">
-            <Image src={site.icons.waveform} alt="" width={1920} height={1080} unoptimized className="h-5 w-10 object-cover mix-blend-screen" />
-            {site.playlist.label}
-          </p>
+    <div className="home-page relative isolate min-h-dvh overflow-hidden bg-[#010101] text-white">
+      <PillNav />
+
+      <main className="flex flex-col items-center px-4">
+        {/* Hero takes ~70% of the screen; its group (piano, subtitle, location, scroll cue) is
+            stacked and centered on the vertical middle of the screen. */}
+        <section className="relative h-[70svh] min-h-[480px] w-full">
+          <div className="absolute top-[max(50svh,320px)] left-1/2 z-20 flex w-max max-w-[calc(100vw-32px)] -translate-1/2 flex-col items-center gap-16 text-center">
+            <div className="flex flex-col items-center">
+              <h1 className="sr-only">{site.name}</h1>
+              <PianoLogo />
+              <p className="relative z-50 mt-4 font-heading text-xl [text-shadow:0_0_2px_#010101,0_0_6px_#010101,0_0_14px_#010101] sm:text-2xl">
+                A Product Designer &amp; Musician
+              </p>
+              <p className="relative z-50 mt-3 inline-flex items-center gap-1.5 rounded-full bg-[#1f1f1f] py-1.5 pr-3.5 pl-2.5 text-sm">
+                <MapPin aria-hidden className="size-4" strokeWidth={2} />
+                {site.location}
+              </p>
+            </div>
+            {/* A quiet invitation: slightly dimmed at rest, full strength on hover or focus. */}
+            <a
+              href="#playlist"
+              className="group relative z-50 [text-shadow:0_0_2px_#010101,0_0_6px_#010101,0_0_14px_#010101] flex flex-col items-center gap-4 text-base outline-none"
+            >
+              <span className="opacity-85 transition-opacity duration-250 ease-out group-hover:opacity-100 group-focus-visible:opacity-100">
+                Scroll to see my projects
+              </span>
+              {/* Scroll cue: a circle with two chevrons. */}
+              <svg
+                aria-hidden
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="size-6 animate-[nudge_1.8s_ease-in-out_infinite] opacity-75 transition-[opacity,color] duration-250 ease-out group-hover:text-[#E5484D] group-hover:opacity-100 group-focus-visible:text-[#E5484D] group-focus-visible:opacity-100"
+              >
+                <path d="M9 14l3 3 3-3M9 8l3 3 3-3" />
+                <circle cx="12" cy="12" r="10" />
+              </svg>
+            </a>
+          </div>
         </section>
 
-        <section id="work" aria-label="Work" className="mt-8 grid scroll-mt-6 gap-8">
-          {projects
-            .filter((p) => p.status !== "hidden")
-            .map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
+        {/* Project grid, anchored just below the floating nav: the hero's scroll cue lands here,
+            and with the hero at 70% the first row peeks into the first screen. */}
+        <section
+          id="playlist"
+          aria-labelledby="work-title"
+          className="w-full max-w-[1200px] pt-[max(104px,14svh)] pb-32 sm:px-4 sm:pt-[max(136px,14svh)]"
+        >
+          <h2 id="work-title" className="sr-only">
+            Selected work
+          </h2>
+          <ProjectGrid releases={releases} />
         </section>
+
+        <ContactSection />
       </main>
-    </>
+
+      <HomeFooter />
+    </div>
   );
 }

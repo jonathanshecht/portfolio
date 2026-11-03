@@ -17,8 +17,21 @@
   --color-line: #e4e4e7;
   --color-night: #17161d;
   --color-highlight: #e9ffc3;
-  --font-sans: var(--font-poppins);
-  --font-logo: "Abibas", var(--font-poppins);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-adventor), var(--font-inter);
+  --font-logo: "Abibas", var(--font-inter);
+}
+
+/* Titles and headings use TeX Gyre Adventor; everything else inherits Inter. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
 }
 
 html {
@@ -28,6 +41,14 @@ html {
 body {
   background: #ffffff;
   color: var(--color-body);
+}
+
+/* The dark home page also darkens the page canvas, so overscrolling past the
+   top or bottom shows black instead of the default white. */
+html:has(.home-page),
+html:has(.home-page) body {
+  background: #010101;
+  color-scheme: dark;
 }
 
 mark {
@@ -45,8 +66,265 @@ mark {
   color: transparent;
 }
 
+/* Music-app concepts: progress bars, playheads and level meters. */
+@keyframes progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes playhead {
+  from { left: 0%; }
+  to { left: 100%; }
+}
+@keyframes meter {
+  0%, 100% { transform: scaleY(var(--lo, 0.4)); }
+  50% { transform: scaleY(var(--hi, 0.9)); }
+}
+/* Gentle up-and-down drift for the hero's scroll cue. */
+@keyframes nudge {
+  0%, 100% { transform: translateY(-2px); }
+  50% { transform: translateY(2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [class*="animate-["] { animation: none !important; }
+}
+
+/* Floating note from the hero piano: eases in just above its key, drifts up with a slight,
+   per-note sideways sway (--drift) and tilt (--tilt), and fades out. Kept as a named class
+   (not animate-[...]) so reduced motion swaps it for a quiet in-place fade instead of
+   removing the animation, which would leave the note stuck on screen. */
+@keyframes note-float {
+  0% { opacity: 0; transform: translate(-50%, 6px) scale(0.85) rotate(0deg); }
+  18% { opacity: 1; }
+  60% { opacity: 0.7; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--drift, 0px)), -58px) scale(1) rotate(var(--tilt, 0deg)); }
+}
+@keyframes note-fade {
+  0%, 100% { opacity: 0; transform: translate(-50%, -12px); }
+  25% { opacity: 0.8; transform: translate(-50%, -12px); }
+}
+.note-float {
+  animation: note-float 1300ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .note-float { animation: note-fade 900ms ease-out forwards; }
+}
+
 /* Inline links inside case-study copy. */
 .rich a {
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* Graffiti JS mark in the contact section (see GraffitiJsMark). The glow-in-the-dark layer is off
+   at rest; hovering or focusing a .glow-trigger inside the same .glow-zone fades it in, and it
+   fades back out when you leave. On touch screens it stays lit. */
+.glow-lit {
+  opacity: 0;
+  transition: opacity 350ms ease-out;
+}
+.glow-zone:has(.glow-trigger:hover, .glow-trigger:focus-visible) .glow-lit {
+  opacity: 1;
+}
+@media (hover: none) {
+  .glow-lit { opacity: 1; }
+}
+
+/* The lit graffiti keeps dripping: each drip runs down from its letter, a bead slides to the end
+   and falls off, then the drip starts again. Drips are staggered with --delay; --len is each
+   drip's length in the logo's own units. Runs only while the graffiti is lit. */
+.drip-line {
+  transform-box: fill-box;
+  transform-origin: top;
+}
+.glow-zone:has(.glow-trigger:hover, .glow-trigger:focus-visible) .drip-line {
+  animation: drip-run 2.6s cubic-bezier(0.5, 0, 0.8, 0.6) var(--delay) infinite;
+}
+.glow-zone:has(.glow-trigger:hover, .glow-trigger:focus-visible) .drip-bead {
+  animation: drip-bead 2.6s cubic-bezier(0.5, 0, 0.8, 0.6) var(--delay) infinite;
+}
+@media (hover: none) {
+  .drip-line { animation: drip-run 2.6s cubic-bezier(0.5, 0, 0.8, 0.6) var(--delay) infinite; }
+  .drip-bead { animation: drip-bead 2.6s cubic-bezier(0.5, 0, 0.8, 0.6) var(--delay) infinite; }
+}
+@keyframes drip-run {
+  0% { transform: scaleY(0.15); }
+  75%, 100% { transform: scaleY(1); }
+}
+@keyframes drip-bead {
+  0% { transform: translateY(calc(var(--len) * -0.85px)); opacity: 1; }
+  75% { transform: translateY(0); opacity: 1; }
+  75.5%, 100% { transform: translateY(0); opacity: 0; } /* handed off to a falling .drop-fall */
+}
+/* The drop that falls straight down from a drip's end onto a letter of the heading (--dy,
+   measured by GraffitiHeading), then splats. It appears just as the drip's bead reaches the end. */
+.drop-fall {
+  position: absolute;
+  width: 4px;
+  height: 5px;
+  margin: -2.5px 0 0 -2px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: #ff3d48;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.glow-zone:has(.glow-trigger:hover, .glow-trigger:focus-visible) .drop-fall {
+  animation: drop-fall 2.6s linear var(--delay) infinite;
+}
+@media (hover: none) {
+  .drop-fall { animation: drop-fall 2.6s linear var(--delay) infinite; }
+}
+@keyframes drop-fall {
+  0%, 74.9% { opacity: 0; transform: translate(0, 0); }
+  75% { opacity: 1; transform: translate(0, 0); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  92% { opacity: 1; transform: translate(0, var(--dy)); animation-timing-function: ease-out; }
+  96% { opacity: 0.6; transform: translate(0, var(--dy)) scale(1.9, 0.4); }
+  100% { opacity: 0; transform: translate(0, var(--dy)) scale(2.2, 0.3); }
+}
+
+/* Red paint on "Let's work together": a red copy of the heading on top of the white one, shown
+   only inside four soft blobs, one per landing spot (--x/--y). Each blob starts growing when its
+   drop first lands (--t) and spreads to its own size and shape (--max, --round), so the red
+   creeps across the letters unevenly. Leaving drains them all quickly. */
+@property --paint-0 { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --paint-1 { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --paint-2 { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --paint-3 { syntax: "<length>"; inherits: false; initial-value: 0px; }
+.paint-layer {
+  color: #e5484d;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(calc(var(--paint-0) + 0.01px) calc(var(--paint-0) * var(--round0) + 0.01px) at var(--x0) var(--y0), #000 55%, transparent 100%),
+    radial-gradient(calc(var(--paint-1) + 0.01px) calc(var(--paint-1) * var(--round1) + 0.01px) at var(--x1) var(--y1), #000 55%, transparent 100%),
+    radial-gradient(calc(var(--paint-2) + 0.01px) calc(var(--paint-2) * var(--round2) + 0.01px) at var(--x2) var(--y2), #000 55%, transparent 100%),
+    radial-gradient(calc(var(--paint-3) + 0.01px) calc(var(--paint-3) * var(--round3) + 0.01px) at var(--x3) var(--y3), #000 55%, transparent 100%);
+  mask-image: radial-gradient(calc(var(--paint-0) + 0.01px) calc(var(--paint-0) * var(--round0) + 0.01px) at var(--x0) var(--y0), #000 55%, transparent 100%),
+    radial-gradient(calc(var(--paint-1) + 0.01px) calc(var(--paint-1) * var(--round1) + 0.01px) at var(--x1) var(--y1), #000 55%, transparent 100%),
+    radial-gradient(calc(var(--paint-2) + 0.01px) calc(var(--paint-2) * var(--round2) + 0.01px) at var(--x2) var(--y2), #000 55%, transparent 100%),
+    radial-gradient(calc(var(--paint-3) + 0.01px) calc(var(--paint-3) * var(--round3) + 0.01px) at var(--x3) var(--y3), #000 55%, transparent 100%);
+  transition: --paint-0 450ms ease-in, --paint-1 450ms ease-in, --paint-2 450ms ease-in, --paint-3 450ms ease-in;
+}
+.glow-zone:has(.glow-trigger:hover, .glow-trigger:focus-visible) .paint-layer {
+  --paint-0: var(--max0);
+  --paint-1: var(--max1);
+  --paint-2: var(--max2);
+  --paint-3: var(--max3);
+  transition: --paint-0 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t0), --paint-1 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t1), --paint-2 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t2), --paint-3 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t3);
+}
+@media (hover: none) {
+  .paint-layer {
+    --paint-0: var(--max0);
+    --paint-1: var(--max1);
+    --paint-2: var(--max2);
+    --paint-3: var(--max3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drip-line, .drip-bead, .drop-fall { animation: none !important; }
+  .paint-layer { transition: none !important; }
+}
+
+/* The instrument icon's little dance step on each note: a quick hop and sway, alternating sides. */
+@keyframes icon-dance-left {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-2px) rotate(-14deg); }
+}
+@keyframes icon-dance-right {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-2px) rotate(14deg); }
+}
+.icon-dance-left { animation: icon-dance-left 320ms cubic-bezier(0.3, 0.7, 0.4, 1); }
+.icon-dance-right { animation: icon-dance-right 320ms cubic-bezier(0.3, 0.7, 0.4, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .icon-dance-left, .icon-dance-right { animation: none; }
+}
+
+/* The About page's ghost dancing while hovered: a little side-to-side bop. */
+@keyframes ghost-dance {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-3px) rotate(-12deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(-3px) rotate(12deg); }
+}
+
+/* About portrait: a cursor that shows how to hand the earbud to the ghost. It fades in on the
+   earbud, carries it to the ghost, and fades out there; then waits and repeats. Its tip (the
+   top-left of the icon) sits on the point. */
+.drag-demo {
+  left: var(--from-x);
+  top: var(--from-y);
+  opacity: 0;
+  /* Its own layer: without one, its sprayed-edge filter isn't drawn over the ghost's frosted
+     glass (backdrop-filter), so the cursor vanished as it reached the ghost. */
+  will-change: transform;
+  animation: drag-demo 3.6s cubic-bezier(0.45, 0, 0.25, 1) 1.2s infinite;
+}
+@keyframes drag-demo {
+  0% { left: var(--from-x); top: var(--from-y); opacity: 0; }
+  10%, 25% { left: var(--from-x); top: var(--from-y); opacity: 1; }
+  55% { left: var(--to-x); top: var(--to-y); opacity: 1; }
+  66% { left: var(--to-x); top: var(--to-y); opacity: 1; }
+  76%, 100% { left: var(--to-x); top: var(--to-y); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drag-demo { animation: none; opacity: 1; }
+}
+
+/* About page: my name as a neon sign (see GlowName). At rest it's plain white, like the rest of
+   the heading. While the ghost has the earbud (data-on), the red copy switches on like neon,
+   after a beat so the earbud gets there first: a few quick flickers, then crisp red letters with
+   a tight glow and the odd soft hum. It fades back to white when it's off. */
+.glow-name {
+  position: relative;
+  display: inline-block;
+}
+.glow-name-paint {
+  /* Unlit: plain white, like the rest of the heading, so the name reads clearly for anyone who
+     never plugs the ghost in. */
+  color: inherit;
+  transition: color 250ms ease-out;
+}
+/* Lit: the white goes as the red starts flickering on, so none of it shows around or through
+   the red. It comes back as the red fades out. */
+[data-glow-name][data-on] .glow-name-paint {
+  color: transparent;
+  transition: color 0s 300ms;
+}
+.glow-name::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Lit: crisp red letters (no spray texture, which made them mushy) with a tight neon glow. */
+  /* A touch brighter than the site's usual red (#e5484d), since it's lit. */
+  color: #ff2d3a;
+  text-shadow:
+    0 0 2px rgba(255, 45, 58, 0.9),
+    0 0 8px rgba(255, 45, 58, 0.6),
+    0 0 18px rgba(229, 30, 45, 0.35);
+  opacity: 0;
+  transition: opacity 250ms ease-out;
+}
+[data-glow-name][data-on]::after {
+  opacity: 1;
+  animation:
+    neon-start 500ms linear 300ms both,
+    neon-hum 3.2s linear 800ms infinite;
+}
+@keyframes neon-start {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  25% { opacity: 0.2; }
+  40% { opacity: 1; }
+  52% { opacity: 0.5; }
+  70%, 100% { opacity: 1; }
+}
+@keyframes neon-hum {
+  0%, 47%, 49%, 51%, 88%, 90%, 100% { opacity: 1; }
+  48% { opacity: 0.82; }
+  50% { opacity: 0.9; }
+  89% { opacity: 0.88; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-glow-name][data-on]::after { animation: none; }
 }

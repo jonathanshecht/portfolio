@@ -1,13 +1,24 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import { Footer } from "@/components/footer";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { site } from "@/data/site";
 import "./globals.css";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+// Body text.
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+});
+
+// Titles and headings. TeX Gyre Adventor ships in regular and bold only.
+const adventor = localFont({
+  variable: "--font-adventor",
+  src: [
+    { path: "../fonts/texgyreadventor-regular.otf", weight: "400", style: "normal" },
+    { path: "../fonts/texgyreadventor-italic.otf", weight: "400", style: "italic" },
+    { path: "../fonts/texgyreadventor-bold.otf", weight: "700", style: "normal" },
+    { path: "../fonts/texgyreadventor-bolditalic.otf", weight: "700", style: "italic" },
+  ],
 });
 
 export const metadata: Metadata = {
@@ -26,10 +37,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${poppins.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} ${adventor.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
-        <div className="flex-1">{children}</div>
-        <Footer />
+        {children}
       </body>
     </html>
   );

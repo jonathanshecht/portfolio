@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense, type ReactNode } from "react";
 import { CaseStudyBlocks } from "@/components/case-study-blocks";
+import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { ProjectCard } from "@/components/project-card";
 import { nextProject } from "@/data/projects";
@@ -105,6 +106,7 @@ async function CaseStudy({ params }: { params: PageProps<"/[slug]">["params"] })
           </section>
         )}
       </div>
+      <Footer />
     </>
   );
 }

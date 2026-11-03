@@ -107,7 +107,7 @@ function BlockView({ block }: { block: Block }) {
         <dl className="mt-8 grid gap-4 sm:grid-cols-3">
           {block.items.map((stat) => (
             <div key={stat.label} className="rounded-3xl bg-white px-6 py-7 text-center">
-              <dt className="text-4xl font-bold text-ink">{stat.value}</dt>
+              <dt className="font-heading text-4xl font-bold text-ink">{stat.value}</dt>
               <dd className="mt-2 text-sm leading-6 text-muted">{stat.label}</dd>
             </div>
           ))}

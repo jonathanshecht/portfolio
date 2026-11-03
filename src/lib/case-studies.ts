@@ -38,8 +38,15 @@ export type CaseStudy = {
   blocks: Block[];
 };
 
-const studies = [velo, staceyRyan, kitPlugins, shure, qrMenu] as unknown as CaseStudy[];
+const studies = [
+  velo,
+  staceyRyan,
+  kitPlugins,
+  shure,
+  qrMenu,
+] as unknown as CaseStudy[];
 
 export const caseStudySlugs = studies.map((s) => s.slug);
 
-export const getCaseStudy = (slug: string) => studies.find((s) => s.slug === slug);
+export const getCaseStudy = (slug: string) =>
+  studies.find((s) => s.slug === slug);
