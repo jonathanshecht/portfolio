@@ -49,9 +49,17 @@ export const about = {
     "I'm a product designer and musician who believes that simplicity is the key to good design (and good songs).",
     "My love for design grew out of music production: shaping an experience, then watching people interact with it and be moved by it. I'm happiest when I'm creating, whether that's designing, playing piano, producing, or editing videos.",
   ],
-  // A quieter line under the intro.
+  // A separate line under the intro.
   previously:
     "Previously at <mark>Mixbus Marketing</mark> (2025–2026) & <mark>Shure</mark> (2023)",
+  // The song the ghost listens to on the photo (a 30-second loop of the chorus), shown in the
+  // "now playing" banner. Leave cover empty to show a plain music icon instead.
+  song: {
+    src: "/about/song.m4a",
+    title: "Adam",
+    artist: "Jnthn",
+    cover: "/about/song-cover.jpg",
+  },
   photos: [
     {
       src: cdn("6796f8ae817baea70c8ad7a3_Group%201000004571.png"),
@@ -67,9 +75,10 @@ export const about = {
   hobbies: {
     eyebrow: "My hobbies",
     title: "When I am not designing -",
+    // The key facts are marked, so they stand out in white for anyone skimming.
     paragraphs: [
-      "I'm a music production nerd and have been producing in FL Studio since I was 13. I released my first album in 2019, and an EP in June of 2024.",
-      "I've played piano for 12 years and love to sing - <mark>anything creative, and I'm in.</mark>",
+      "I'm a music production nerd and have been producing in FL Studio <mark>since I was 13</mark>. I released <mark>my first album in 2019</mark>, and <mark>an EP in June of 2024</mark>.",
+      "I've played piano for <mark>12 years</mark> and love to sing - <mark>anything creative, and I'm in.</mark>",
     ],
   },
 };

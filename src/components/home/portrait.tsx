@@ -6,6 +6,9 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { GraffitiFilter } from "@/components/home/graffiti-filter";
 import { GlassGhost } from "@/components/home/peeking-ghost";
+import { NowPlaying } from "@/components/home/now-playing";
+import { about } from "@/data/site";
+import { useSong } from "@/lib/use-song";
 
 // Same handwriting as the home page's "psst… play me".
 const handwriting = Mynerve({ subsets: ["latin"], weight: "400" });
@@ -118,18 +121,36 @@ export function Portrait({ className = "" }: { className?: string }) {
   );
   useEffect(() => () => cancelAnimationFrame(tween.current), []);
 
+  // The song plays while the ghost has the earbud. It's started right in the tap or drop, since
+  // browsers only allow sound in response to one.
+  const song = useSong(about.song.src);
+  // Paused from the "now playing" card: the earbud stays on the ghost, but the music, the
+  // dancing and the notes stop until it's played again.
+  const [paused, setPaused] = useState(false);
+  const playing = sharing && !paused;
+
   const share = useCallback(() => {
     setSharing(true);
     setShared(true);
+    setPaused(false);
     glideTo(ghostEar);
-  }, [glideTo, ghostEar]);
+    song.play();
+  }, [glideTo, ghostEar, song]);
 
   const unshare = useCallback(() => {
     setSharing(false);
+    setPaused(false);
     glideTo(EAR);
-  }, [glideTo]);
+    song.stop();
+  }, [glideTo, song]);
 
-  // While the ghost has the music, my name glows.
+  const togglePause = useCallback(() => {
+    if (paused) song.play(true);
+    else song.stop();
+    setPaused(!paused);
+  }, [paused, song]);
+
+  // While the ghost has the earbud (even with the song paused), my name glows.
   useEffect(() => {
     const sign = document.querySelector("[data-glow-name]");
     sign?.toggleAttribute("data-on", sharing);
@@ -152,7 +173,7 @@ export function Portrait({ className = "" }: { className?: string }) {
   // a slightly different spot over its head, about a third of them bigger and a little out of
   // focus (as if closer to the viewer).
   useEffect(() => {
-    if (!sharing) return;
+    if (!playing) return;
     let timer = 0;
     const spawn = () => {
       const id = ++noteId.current;
@@ -181,7 +202,7 @@ export function Portrait({ className = "" }: { className?: string }) {
     };
     spawn();
     return () => window.clearTimeout(timer);
-  }, [sharing]);
+  }, [playing]);
 
   // Pointer position as a point in the earphones' coordinates, kept inside the frame.
   const toPoint = (e: React.PointerEvent) => {
@@ -298,6 +319,12 @@ export function Portrait({ className = "" }: { className?: string }) {
           className={`absolute size-7 -translate-1/2 touch-none rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[#E5484D] ${dragging ? "cursor-grabbing" : "cursor-grab"}`}
           style={{ left: pct(bud.x + OFFSET.x), top: pct(bud.y + OFFSET.y) }}
         />
+        <NowPlaying
+          song={about.song}
+          shown={sharing}
+          paused={paused}
+          onTogglePause={togglePause}
+        />
       </div>
 
       {/* The ghost's layer, lined up with the inside of the frame (the hint cursor is on
@@ -360,7 +387,7 @@ export function Portrait({ className = "" }: { className?: string }) {
               ))}
             </div>
             <div
-              className={`relative origin-bottom ${sharing ? "motion-safe:animate-[ghost-dance_0.9s_ease-in-out_infinite]" : ""}`}
+              className={`relative origin-bottom ${playing ? "motion-safe:animate-[ghost-dance_0.9s_ease-in-out_infinite]" : ""}`}
             >
               <GlassGhost className="relative text-white" />
               {/* Marks where the earbud sits on its head, so the earbud can follow it. */}

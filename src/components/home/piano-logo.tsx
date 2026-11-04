@@ -139,7 +139,7 @@ function InstrumentPicker({
         <div
           role="menu"
           aria-label="Instrument"
-          className="absolute right-0 bottom-full mb-2 min-w-44 rounded-xl sm:right-auto sm:left-0 border border-white/12 bg-[#111] p-1 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+          className="absolute top-full right-0 mt-2 min-w-44 rounded-xl sm:top-auto sm:right-auto sm:bottom-full sm:left-0 sm:mt-0 sm:mb-2 border border-white/12 bg-[#111] p-1 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
         >
           {INSTRUMENTS.map((option) => {
             const { Icon: OptionIcon, label: optionLabel } =
@@ -622,6 +622,18 @@ export function PianoLogo() {
   const [beat, setBeat] = useState(0);
   const noteId = useRef(0);
   const width = KEY * LETTERS.length + 2; // including the piano's 1px border
+  // On phones the piano is scaled up to fill the screen's width (less the page's 16px sides), so
+  // the keys are a comfortable size to tap.
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const fit = () => {
+      const w = window.innerWidth;
+      setScale(w < 640 ? Math.min(1.4, (w - 32) / width) : 1);
+    };
+    fit();
+    window.addEventListener("resize", fit);
+    return () => window.removeEventListener("resize", fit);
+  }, [width]);
   const pianoRef = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState(() => crackStage(notesPlayed));
   const stageRef = useRef(stage);
@@ -999,17 +1011,18 @@ export function PianoLogo() {
       : "bg-white hover:bg-[#f0f0f0] focus-visible:bg-[#e8e8e8]";
 
   return (
-    <div className="relative">
+    <div className="relative" style={{ width: width * scale, height: 152 * scale }}>
       {/* A small hand-drawn nudge for first-time visitors: "psst… play me", with a doodled arrow
-          at the keys (to the left of the piano; above it on phones). It fades in shortly after
+          at the keys (to the left of the piano; above it on phones and narrow windows, where there
+          isn't room beside it). It fades in shortly after
           the page loads and fades away once the piano has been played, and comes back after a repair. It never hints
           at what happens if you keep playing. */}
       <div
         aria-hidden
-        className={`pointer-events-none absolute -top-[84px] left-1 text-white/85 transition-opacity duration-700 ease-out sm:top-1/2 sm:right-[calc(100%+10px)] sm:left-auto sm:-translate-y-1/2 ${!played && phase === "intact" ? "opacity-100 delay-1000" : "opacity-0"}`}
+        className={`pointer-events-none absolute -top-[84px] left-1 text-white/85 transition-opacity duration-700 ease-out md:top-1/2 md:right-[calc(100%+10px)] md:left-auto md:-translate-y-1/2 ${!played && phase === "intact" ? "opacity-100 delay-1000" : "opacity-0"}`}
       >
         {/* The whole note bobs gently, so the arrow moves with the text. */}
-        <div className="flex animate-[nudge_1.8s_ease-in-out_infinite] items-end sm:items-center">
+        <div className="flex animate-[nudge_1.8s_ease-in-out_infinite] items-end md:items-center">
           <span
             className={`${handwriting.className} -rotate-3 text-[22px] leading-none whitespace-nowrap`}
           >
@@ -1019,7 +1032,7 @@ export function PianoLogo() {
             keys. */}
           <svg
             viewBox="0 0 56 28"
-            className="ml-2 hidden h-7 w-14 sm:block"
+            className="ml-2 hidden h-7 w-14 md:block"
             fill="none"
             stroke="currentColor"
             strokeWidth={1.6}
@@ -1031,7 +1044,7 @@ export function PianoLogo() {
           </svg>
           <svg
             viewBox="0 0 30 36"
-            className="ml-1.5 h-9 w-7.5 translate-y-[21px] sm:hidden"
+            className="ml-1.5 h-9 w-7.5 translate-y-[21px] md:hidden"
             fill="none"
             stroke="currentColor"
             strokeWidth={1.6}
@@ -1044,6 +1057,10 @@ export function PianoLogo() {
           </svg>
         </div>
       </div>
+      <div
+        className="absolute top-0 left-0 origin-top-left"
+        style={{ width, height: 152, scale: String(scale) }}
+      >
       {/* The keys draw their own white and outlines, so the piano looks the same whether whole or
           apart; the frame itself is invisible and doesn't clip, so falling keys can leave it. While
           apart it sits above the rest of the page, so the keys fall in front of everything. */}
@@ -1120,30 +1137,6 @@ export function PianoLogo() {
           </span>
         ))}
       </div>
-      {/* Mute / unmute, at the piano's bottom right (available even while it's broken, for the
-          sound of the pieces), with the instrument picker just above it while the piano is whole. */}
-      {phase !== "repairing" && (
-        <>
-          <button
-            type="button"
-            onClick={() => setMuted(!muted)}
-            aria-pressed={muted}
-            aria-label={muted ? "Unmute piano" : "Mute piano"}
-            title={muted ? "Unmute piano" : "Mute piano"}
-            className="absolute -right-9 bottom-0 flex size-7 items-center justify-center rounded-full border border-white/30 text-white/70 transition-colors outline-none hover:border-[#E5484D] hover:text-white focus-visible:border-[#E5484D] focus-visible:text-white sm:-right-12 sm:size-8"
-          >
-            <SpeakerIcon on={!muted} />
-          </button>
-          {phase === "intact" && (
-            <InstrumentPicker
-              instrument={instrument}
-              muted={muted}
-              beat={beat}
-              className="absolute -right-9 bottom-9 z-30 sm:-right-12 sm:bottom-10"
-            />
-          )}
-        </>
-      )}
       {/* Repair: only exists once every key has dropped away. The icon-only white button (like the
           page's primary buttons) sits centered where the piano was. */}
       {phase === "broken" && (
@@ -1161,6 +1154,32 @@ export function PianoLogo() {
             <Wrench aria-hidden className="size-5" strokeWidth={2} />
           </button>
         </div>
+      )}
+      </div>
+      {/* Mute / unmute, at the piano's bottom right (available even while it's broken, for the
+          sound of the pieces), with the instrument picker just above it while the piano is whole.
+          On phones, where the piano fills the width, they sit side by side above its top right. */}
+      {phase !== "repairing" && (
+        <>
+          <button
+            type="button"
+            onClick={() => setMuted(!muted)}
+            aria-pressed={muted}
+            aria-label={muted ? "Unmute piano" : "Mute piano"}
+            title={muted ? "Unmute piano" : "Mute piano"}
+            className="absolute -top-10 right-0 flex size-7 items-center sm:top-auto sm:bottom-0 justify-center rounded-full border border-white/30 text-white/70 transition-colors outline-none hover:border-[#E5484D] hover:text-white focus-visible:border-[#E5484D] focus-visible:text-white sm:-right-12 sm:size-8"
+          >
+            <SpeakerIcon on={!muted} />
+          </button>
+          {phase === "intact" && (
+            <InstrumentPicker
+              instrument={instrument}
+              muted={muted}
+              beat={beat}
+              className="absolute -top-10 right-9 z-30 sm:top-auto sm:-right-12 sm:bottom-10"
+            />
+          )}
+        </>
       )}
     </div>
   );

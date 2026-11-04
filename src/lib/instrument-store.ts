@@ -70,26 +70,14 @@ export function useMuted() {
   );
 }
 
-// Whether the visitor has already played the piano, so the "play me" hint only shows until then
-// (and stays gone on later visits). Treated as already seen during server rendering, so the hint
-// only ever appears in the browser.
-const HINT_KEY = "piano-played-v2";
-let played: boolean | null = null;
-
-function readPlayed() {
-  try {
-    return window.localStorage.getItem(HINT_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
+// Whether the visitor has played the piano yet, so the "play me" hint only shows until then.
+// It's kept in memory only, so the hint comes back on every page load (a refresh included).
+// Treated as already seen during server rendering, so the hint only ever appears in the browser.
+let played = false;
 
 export function markPlayed() {
   if (played) return;
   played = true;
-  try {
-    window.localStorage.setItem(HINT_KEY, "1");
-  } catch {}
   listeners.forEach((listener) => listener());
 }
 
@@ -99,7 +87,7 @@ export function usePlayed() {
       listeners.add(listener);
       return () => listeners.delete(listener);
     },
-    () => (played ??= readPlayed()),
+    () => played,
     () => true,
   );
 }
@@ -108,8 +96,5 @@ export function usePlayed() {
 // next note is played.
 export function resetPlayed() {
   played = false;
-  try {
-    window.localStorage.removeItem(HINT_KEY);
-  } catch {}
   listeners.forEach((listener) => listener());
 }

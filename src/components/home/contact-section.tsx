@@ -1,5 +1,6 @@
 import { FloatingIconLink } from "@/components/home/floating-icon-link";
 import { GraffitiHeading } from "@/components/home/graffiti-heading";
+import { LightWhenSeen } from "@/components/home/light-when-seen";
 import { site } from "@/data/site";
 
 // The closing "Let's work together" section and the small footer, shared by the home and About
@@ -10,6 +11,7 @@ export function ContactSection() {
       aria-labelledby="contact-title"
       className="glow-zone relative flex w-full max-w-xl flex-col items-center gap-6 py-32 text-center"
     >
+      <LightWhenSeen />
       {/* The divider above the section: a faint line with a gentle hand-drawn wobble. */}
       <svg
         aria-hidden

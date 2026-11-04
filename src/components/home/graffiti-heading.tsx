@@ -4,7 +4,8 @@
 // up: while the mark is lit (a ".glow-trigger" in the surrounding ".glow-zone" is hovered or
 // focused), each drip drops a bead that falls straight down onto a letter of the heading and splats, and red
 // paint spreads out from every spot where a drop lands, unevenly, until the whole heading is red.
-// Moving away drains the paint. On touch screens it stays painted. Styles live in globals.css
+// Moving away drains the paint. On touch screens it paints once the section scrolls into view,
+// and stays painted. Styles live in globals.css
 // (.drop-fall, .paint-layer).
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";

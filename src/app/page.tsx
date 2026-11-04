@@ -13,9 +13,11 @@ export default function Home() {
 
       <main className="flex flex-col items-center px-4">
         {/* Hero takes ~70% of the screen; its group (piano, subtitle, location, scroll cue) is
-            stacked and centered on the vertical middle of the screen. */}
-        <section className="relative h-[70svh] min-h-[480px] w-full">
-          <div className="absolute top-[max(50svh,320px)] left-1/2 z-20 flex w-max max-w-[calc(100vw-32px)] -translate-1/2 flex-col items-center gap-16 text-center">
+            stacked and centered on the vertical middle of the screen. On phones and narrow
+            windows, where "psst… play me" sits above the piano, it never sits so high that the
+            hint goes behind the nav, even on short screens. */}
+        <section className="relative h-[70svh] min-h-[525px] w-full sm:min-h-[560px] md:min-h-[480px]">
+          <div className="absolute top-[max(50svh,380px)] left-1/2 sm:top-[max(50svh,420px)] md:top-[max(50svh,320px)] z-20 flex w-max max-w-[calc(100vw-32px)] -translate-1/2 flex-col items-center gap-16 text-center">
             <div className="flex flex-col items-center">
               <h1 className="sr-only">{site.name}</h1>
               <PianoLogo />

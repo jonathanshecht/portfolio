@@ -117,7 +117,8 @@ mark {
 
 /* Graffiti JS mark in the contact section (see GraffitiJsMark). The glow-in-the-dark layer is off
    at rest; hovering or focusing a .glow-trigger inside the same .glow-zone fades it in, and it
-   fades back out when you leave. On touch screens it stays lit. */
+   fades back out when you leave. On touch screens it lights up once the section has scrolled into
+   view (data-lit, set by LightWhenSeen) and stays lit. */
 .glow-lit {
   opacity: 0;
   transition: opacity 350ms ease-out;
@@ -126,7 +127,7 @@ mark {
   opacity: 1;
 }
 @media (hover: none) {
-  .glow-lit { opacity: 1; }
+  .glow-zone[data-lit] .glow-lit { opacity: 1; }
 }
 
 /* The lit graffiti keeps dripping: each drip runs down from its letter, a bead slides to the end
@@ -143,8 +144,8 @@ mark {
   animation: drip-bead 2.6s cubic-bezier(0.5, 0, 0.8, 0.6) var(--delay) infinite;
 }
 @media (hover: none) {
-  .drip-line { animation: drip-run 2.6s cubic-bezier(0.5, 0, 0.8, 0.6) var(--delay) infinite; }
-  .drip-bead { animation: drip-bead 2.6s cubic-bezier(0.5, 0, 0.8, 0.6) var(--delay) infinite; }
+  .glow-zone[data-lit] .drip-line { animation: drip-run 2.6s cubic-bezier(0.5, 0, 0.8, 0.6) var(--delay) infinite; }
+  .glow-zone[data-lit] .drip-bead { animation: drip-bead 2.6s cubic-bezier(0.5, 0, 0.8, 0.6) var(--delay) infinite; }
 }
 @keyframes drip-run {
   0% { transform: scaleY(0.15); }
@@ -172,7 +173,7 @@ mark {
   animation: drop-fall 2.6s linear var(--delay) infinite;
 }
 @media (hover: none) {
-  .drop-fall { animation: drop-fall 2.6s linear var(--delay) infinite; }
+  .glow-zone[data-lit] .drop-fall { animation: drop-fall 2.6s linear var(--delay) infinite; }
 }
 @keyframes drop-fall {
   0%, 74.9% { opacity: 0; transform: translate(0, 0); }
@@ -211,11 +212,12 @@ mark {
   transition: --paint-0 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t0), --paint-1 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t1), --paint-2 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t2), --paint-3 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t3);
 }
 @media (hover: none) {
-  .paint-layer {
+  .glow-zone[data-lit] .paint-layer {
     --paint-0: var(--max0);
     --paint-1: var(--max1);
     --paint-2: var(--max2);
     --paint-3: var(--max3);
+    transition: --paint-0 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t0), --paint-1 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t1), --paint-2 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t2), --paint-3 2.8s cubic-bezier(0.3, 0.45, 0.35, 1) var(--t3);
   }
 }
 
