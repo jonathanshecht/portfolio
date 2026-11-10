@@ -10,6 +10,7 @@ import { ProductVideo } from "@/components/velo/product-video";
 import { NoteStack, type Note } from "@/components/velo/note-stack";
 import { CourseSidebar } from "@/components/velo/course-sidebar";
 import { DemoVideo } from "@/components/velo/demo-video";
+import { SectionNav } from "@/components/velo/section-nav";
 import { WatchVideoButton } from "@/components/velo/watch-video-button";
 import { ZoomImage } from "@/components/velo/zoom-image";
 import { releases } from "@/data/home";
@@ -721,6 +722,20 @@ export default function VeloCaseStudy() {
       }}
     >
       <PillNav />
+      <SectionNav
+        items={[
+          { id: "challenge", label: "Challenge" },
+          { id: "audit", label: "Desk research" },
+          { id: "audience", label: "Audience" },
+          { id: "research", label: "Interviews" },
+          { id: "brand", label: "Brand" },
+          { id: "mapping", label: "Structure" },
+          { id: "decisions", label: "Key decisions" },
+          { id: "beta", label: "Beta" },
+          { id: "product", label: "Final product" },
+          { id: "learned", label: "What I learned" },
+        ]}
+      />
 
       <main className="flex flex-col items-center px-4">
         <article className="w-full max-w-[846px] pt-[136px] pb-32 sm:px-4 sm:pt-[200px]">
@@ -1351,10 +1366,14 @@ export default function VeloCaseStudy() {
 
           <Section id="learned" title="What I learned">
             <P>
-              <strong>For a course, the content is the product.</strong> A
-              strong platform can only carry lessons so far. Next time I&rsquo;d
-              design one finished lesson end to end before building out the
-              rest, so structure and content shape each other from the start.
+              <strong>For a course, the content is the product.</strong> We
+              built a clear structure and interactive tools (image comparisons,
+              before/after sliders, the simulator), but most lessons
+              didn&rsquo;t use them enough. They stayed text-heavy with few
+              visual examples, and the beta felt it. Next time I&rsquo;d balance
+              my time differently: less on perfecting the structure, more on
+              reviewing lessons with the instructor so they stay concise and
+              actually use the interactive elements.
             </P>
             <P>
               <strong>Test with users earlier.</strong> The beta aligned the
