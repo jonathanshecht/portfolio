@@ -80,7 +80,7 @@ export const about = {
     // its Spotify page.
     paragraphs: [
       "I've been producing music in FL Studio <mark>since I was 13</mark>, and I've released <mark>an album</mark> and <mark><a href='https://open.spotify.com/album/16g0KMf28LDCl07d4CCBfL' target='_blank' rel='noopener noreferrer'>an EP<svg aria-hidden='true' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 7h10v10'/><path d='M7 17 17 7'/></svg></a></mark>.",
-      "I've played piano for <mark>12 years</mark> and love to sing. I also love editing videos in DaVinci Resolve.",
+      "I've played piano for <mark>16 years</mark> and love to sing. I also love editing videos in DaVinci Resolve.",
     ],
   },
 };

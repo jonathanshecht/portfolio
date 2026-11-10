@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Check, Focus, Minus, Plus, Users, X } from "lucide-react";
 import { Caveat, Mynerve } from "next/font/google";
 import Image from "next/image";
 import type { ReactNode } from "react";
@@ -51,7 +52,7 @@ const img = {
     height: 546,
   },
   // Name and logo explorations (dimmed, left) and the final Velo Academy mark (right).
-  logos: { src: "/velo/logo-explorations-4.png", width: 1700, height: 440 },
+  logos: { src: "/velo/logo-explorations-7.png", width: 1700, height: 440 },
 } satisfies Record<string, Img>;
 const SIMULATOR_VIDEO = "https://player.vimeo.com/video/1220329766";
 
@@ -378,6 +379,149 @@ function LogoExplorations() {
   );
 }
 
+// The app audit: one column per app, each a screenshot in a thin frame (like the home cards'
+// screens), then what Velo took from it (check) and what it left behind (cross).
+function Audit({
+  items,
+}: {
+  items: {
+    name: string;
+    image: { src: string; width: number; height: number };
+    alt: string;
+    icon: string;
+    took: string;
+    left: string;
+  }[];
+}) {
+  return (
+    <ul className="grid gap-10 pt-6 pb-8 sm:grid-cols-3 sm:gap-6 sm:pb-10">
+      {items.map((item) => (
+        <li key={item.name}>
+          <div className="relative aspect-[16/10] overflow-hidden rounded-md border border-white/20 bg-[#0b0b0d]">
+            <Image
+              src={item.image.src}
+              alt={item.alt}
+              fill
+              sizes="(min-width: 640px) 270px, 100vw"
+              className="object-cover"
+            />
+          </div>
+          <p className="mt-4 flex items-center gap-2 font-heading text-base font-bold text-white">
+            <Image
+              src={item.icon}
+              alt=""
+              width={20}
+              height={20}
+              className="size-5 rounded-[5px]"
+            />
+            {item.name}
+          </p>
+          <ul className="mt-3 space-y-2 text-sm leading-6 text-white/70">
+            <li className="flex gap-2.5">
+              <Check
+                aria-label="Took"
+                strokeWidth={2}
+                className="mt-1 size-4 shrink-0 text-white/50"
+              />
+              {item.took}
+            </li>
+            <li className="flex gap-2.5">
+              <X
+                aria-label="Left behind"
+                strokeWidth={2}
+                className="mt-1 size-4 shrink-0 text-white/50"
+              />
+              {item.left}
+            </li>
+          </ul>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// The two audience options side by side, each with its upsides (plus) and risks (minus), styled
+// like the challenge's problems: a thin line on top, a small gray label, a title. No boxes. A
+// handwritten note (like the logo annotations) marks which one I recommended and which was chosen.
+function TradeOff({
+  options: opts,
+}: {
+  options: {
+    label: string;
+    tag: string;
+    title: string;
+    upsides: string[];
+    risks: string[];
+  }[];
+}) {
+  return (
+    <ul className="grid gap-8 pt-4 pb-2 sm:grid-cols-2 sm:gap-10">
+      {opts.map((o) => (
+        <li key={o.label} className="border-t border-white/15 pt-5">
+          <div className="flex items-center justify-between gap-3">
+            <span className="flex items-center gap-1.5 text-xs font-semibold tracking-[0.2em] text-white/50 uppercase">
+              {o.label === "Focused" ? (
+                <Focus aria-hidden strokeWidth={2} className="size-3.5" />
+              ) : (
+                <Users aria-hidden strokeWidth={2} className="size-3.5" />
+              )}
+              {o.label}
+            </span>
+            <span
+              className={`${handwriting.className} -rotate-3 text-base leading-none ${ACCENT}`}
+            >
+              {o.tag}
+            </span>
+          </div>
+          <p className="mt-2 font-heading text-xl font-bold text-white">
+            {o.title}
+          </p>
+          <ul className="mt-3 space-y-2 text-base leading-7 text-white/70">
+            {o.upsides.map((t) => (
+              <li key={t} className="flex gap-2.5">
+                <Plus
+                  aria-label="Upside"
+                  strokeWidth={2}
+                  className="mt-1.5 size-4 shrink-0 text-white/50"
+                />
+                {t}
+              </li>
+            ))}
+            {o.risks.map((t) => (
+              <li key={t} className="flex gap-2.5">
+                <Minus
+                  aria-label="Risk"
+                  strokeWidth={2}
+                  className="mt-1.5 size-4 shrink-0 text-white/50"
+                />
+                {t}
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// A row of single Reddit notes under the app audit, in the same sticky-note style as the
+// interview piles. Two across on phones, three on wider screens.
+function RedditNotes({ notes }: { notes: Note[] }) {
+  return (
+    <ul className="grid grid-cols-2 gap-x-5 gap-y-6 pt-2 pb-2 sm:grid-cols-3 sm:gap-x-6">
+      {notes.map((note, i) => (
+        <li key={note.text}>
+          <NoteStack
+            notes={[note]}
+            font={noteHand.className}
+            flip={i % 2 === 1}
+          />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 // The research insights as a board: each claim as a small heading over a pile of notes: interviewees'
 // words (person icon) and Reddit findings (Reddit icon), which you click through. Four across on desktop, two on phones.
 function Insights({ items }: { items: { claim: string; quotes: Note[] }[] }) {
@@ -661,28 +805,123 @@ export default function VeloCaseStudy() {
           </Section>
 
           <Section
-            id="brand"
-            eyebrow="Brand"
-            title="A brand built on photography"
+            id="audit"
+            eyebrow="Desk research"
+            title="Each platform got one thing right"
           >
             <P>
-              Before any screens, I explored several names and marks and landed
-              on Velo Academy. <H>Velo means veil</H> in Spanish and Italian, a
-              nod to the diffusion photographers use to soften light, and it
-              hints at <H>velocity</H>, for quick learning.
+              I started by <H>auditing Duolingo, MasterClass, and Udemy</H> and
+              reading through Reddit&rsquo;s photography communities.
             </P>
-            <LogoExplorations />
+            <Audit
+              items={[
+                {
+                  name: "Duolingo",
+                  icon: "/velo/icon-duolingo.png",
+                  image: {
+                    src: "/velo/audit-duolingo-2.jpg",
+                    width: 1200,
+                    height: 750,
+                  },
+                  alt: "Two Duolingo screens: a first lesson and the course roadmap",
+                  took: "A quick first lesson before any setup, and clear progress.",
+                  left: "The cartoon look. Velo needed to feel serious.",
+                },
+                {
+                  name: "MasterClass",
+                  icon: "/velo/icon-masterclass.png",
+                  image: {
+                    src: "/velo/audit-masterclass-2.jpg",
+                    width: 1200,
+                    height: 750,
+                  },
+                  alt: "Jimmy Chin's MasterClass page, with a video and a list of locked lessons",
+                  took: "A premium, dark, minimal feel.",
+                  left: "Passive video with nothing to do.",
+                },
+                {
+                  name: "Udemy",
+                  icon: "/velo/icon-udemy.png",
+                  image: {
+                    src: "/velo/audit-udemy-2.jpg",
+                    width: 1200,
+                    height: 750,
+                  },
+                  alt: "A Udemy lesson with the video beside a long list of lessons and resources",
+                  took: "Lessons, resources, and Q&A always in view.",
+                  left: "The clutter.",
+                },
+              ]}
+            />
+            <P>Reddit filled in what the apps couldn&rsquo;t show:</P>
+            <RedditNotes
+              notes={[
+                {
+                  text: "The internet already has everything a beginner course covers.",
+                  who: "r/photography",
+                  reddit: true,
+                  quote: false,
+                },
+                {
+                  text: "Many don\u2019t trust that course creators are even qualified.",
+                  who: "r/photography",
+                  reddit: true,
+                  quote: false,
+                },
+                {
+                  text: "(Udemy is) prioritizing sleekness over core functionality.",
+                  who: "r/Udemy",
+                  reddit: true,
+                },
+              ]}
+            />
+          </Section>
+
+          <Section
+            id="audience"
+            eyebrow="Audience"
+            title="Focused vs. broad audience"
+          >
+            <P>The audit and Reddit left two ways to position the course:</P>
+            <TradeOff
+              options={[
+                {
+                  label: "Focused",
+                  tag: "recommended",
+                  title: "Small businesses and creators",
+                  upsides: [
+                    "A clear edge: it matches the instructor\u2019s background in product photography.",
+                    "His existing product photos already cover the examples.",
+                  ],
+                  risks: ["A smaller market."],
+                },
+                {
+                  label: "Broad",
+                  tag: "chosen",
+                  title: "Any beginner",
+                  upsides: ["A much bigger audience."],
+                  risks: [
+                    "Competes with everything free online.",
+                    "More new example shoots, since most of the instructor\u2019s photos are product and marketing shots.",
+                  ],
+                },
+              ]}
+            />
+            <P>
+              <H>The team decided to go broad</H> to reach more people, so I{" "}
+              <H>designed the experience to work for any beginner</H>, whatever
+              they shoot.
+            </P>
           </Section>
 
           <Section
             id="research"
-            eyebrow="Research"
+            eyebrow="User interviews"
             title="Beginners want to do, not watch"
           >
             <P>
-              I <H>audited Duolingo, MasterClass, and Udemy</H>, read through
-              Reddit&rsquo;s photography communities, then{" "}
-              <H>interviewed four very different beginners</H>.
+              To learn what those beginners needed, I{" "}
+              <H>interviewed four very different ones</H>.
             </P>
             <Insights
               items={[
@@ -691,12 +930,7 @@ export default function VeloCaseStudy() {
                   quotes: [
                     {
                       text: "Projects are the only way to make that make sense. You begin with the end in mind and then you have to struggle to get there.",
-                      who: "Photographer",
-                    },
-                    {
-                      text: "Teach 2-3 chords and have them start playing immediately, the rest will come.",
-                      who: "r/photography",
-                      reddit: true,
+                      who: "Marketer",
                     },
                     {
                       text: "Me actually doing it is extremely important\u2026 it\u2019s one thing to watch something\u2026 but then when you\u2019re thrust into the situation\u2026",
@@ -733,11 +967,6 @@ export default function VeloCaseStudy() {
                       who: "Musician",
                     },
                     {
-                      text: "(Udemy is) prioritizing sleekness over core functionality.",
-                      who: "r/Udemy",
-                      reddit: true,
-                    },
-                    {
                       text: "It just kind of feels a bit cluttered and just really busy. I\u2019m a little bit distracted by all the other things going on.",
                       who: "Hobbyist",
                     },
@@ -750,36 +979,26 @@ export default function VeloCaseStudy() {
                       text: "I\u2019d google whoever is teaching the course before I paid for it.",
                       who: "Phone-only shooter",
                     },
-                    {
-                      text: "Top advice for choosing a course: find a working photographer.",
-                      who: "r/photography",
-                      reddit: true,
-                      quote: false,
-                    },
                   ],
                 },
               ]}
             />
           </Section>
 
-          <Section id="audience" title="Choosing the audience">
+          <Section
+            id="brand"
+            eyebrow="Brand"
+            title="A brand built on photography"
+          >
             <P>
-              A broad beginner course competes with everything free online. As
-              one interviewee put it: &ldquo;There&rsquo;s so much free stuff on
-              YouTube.&rdquo;
+              The research set the direction: <H>dark, serious, and minimal</H>,
+              with none of the childish look or clutter learners disliked. I
+              explored several names and marks and landed on Velo Academy.{" "}
+              <H>Velo means veil</H> in Spanish and Italian, a nod to the
+              diffusion photographers use to soften light, and it hints at{" "}
+              <H>velocity</H>, for quick learning.
             </P>
-            <P>
-              <H>I recommended a sharper focus:</H> small business owners and
-              creators who need professional-looking product photos. It matched
-              the instructor&rsquo;s background as a product and marketing
-              photographer, which would give him a clear edge over better-known
-              names.
-            </P>
-            <P>
-              <H>We went with a broad beginner audience</H> to reach more
-              people, and I designed the experience to work for any beginner,
-              whatever they shoot.
-            </P>
+            <LogoExplorations />
           </Section>
 
           <Section id="decisions" title="Key decisions">
@@ -992,6 +1211,12 @@ export default function VeloCaseStudy() {
               team faster than any internal discussion had. Next time I&rsquo;d
               ask to put real users in front of key decisions sooner, starting
               with a single prototype lesson.
+            </P>
+            <P>
+              <strong>Audience decides content cost.</strong> A broader audience
+              meant more example shoots. Next time I&rsquo;d put rough effort
+              estimates next to each option, so the trade-off is clear before
+              the decision.
             </P>
           </Section>
         </article>
