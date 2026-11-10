@@ -841,7 +841,7 @@ export default function VeloCaseStudy() {
           <Section
             id="challenge"
             eyebrow="The challenge"
-            title="Getting beginners to pay, and feel it was worth it"
+            title="Getting beginners to stay, and to pay"
           >
             <P>
               <H>Beginners give up on photography courses.</H> And a paid course
@@ -851,8 +851,8 @@ export default function VeloCaseStudy() {
             <Problems
               items={[
                 {
-                  title: "Make it feel worth it",
-                  text: "Beginners should feel themselves improving from the first lesson.",
+                  title: "Keep beginners engaged",
+                  text: "Long enough to actually learn.",
                 },
                 {
                   title: "Earn trust without a famous name",
@@ -1133,7 +1133,7 @@ export default function VeloCaseStudy() {
               Each decision answers one of the two goals from the challenge.
             </P>
 
-            <Goal n={1} title="Make it feel worth it" />
+            <Goal n={1} title="Keep beginners engaged" />
             <Decision
               n={1}
               title="A camera settings simulator"
