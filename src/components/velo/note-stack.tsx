@@ -10,10 +10,12 @@ export type Note = {
   who: string;
   reddit?: boolean;
   quote?: boolean;
+  // What the quote is about, shown small above it (e.g. "On Duolingo's gamification").
+  about?: string;
 };
 
 // A small line drawing of Reddit's robot, in the same weight as the lucide icons.
-function RedditIcon({ className }: { className?: string }) {
+export function RedditIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 20 20"
@@ -72,6 +74,11 @@ export function NoteStack({
             <span
               className={`flex flex-1 flex-col ${depth ? "invisible" : ""}`}
             >
+              {note.about && (
+                <span className="mb-2.5 block text-xs text-[#1c1c1e]/55 sm:text-sm">
+                  {note.about}
+                </span>
+              )}
               <span className="block text-base leading-tight sm:text-[19px]">
                 {note.quote === false ? (
                   note.text

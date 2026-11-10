@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Check, Focus, Minus, Plus, Users, X } from "lucide-react";
-import { Caveat, Mynerve } from "next/font/google";
+import { Caveat, Mynerve, Outfit } from "next/font/google";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { ContactSection, HomeFooter } from "@/components/home/contact-section";
@@ -8,7 +8,10 @@ import { HandDivider } from "@/components/hand-divider";
 import { PillNav } from "@/components/home/pill-nav";
 import { ProductVideo } from "@/components/velo/product-video";
 import { NoteStack, type Note } from "@/components/velo/note-stack";
+import { CourseSidebar } from "@/components/velo/course-sidebar";
+import { DemoVideo } from "@/components/velo/demo-video";
 import { WatchVideoButton } from "@/components/velo/watch-video-button";
+import { ZoomImage } from "@/components/velo/zoom-image";
 import { releases } from "@/data/home";
 import { cdn, type Img } from "@/data/site";
 
@@ -52,14 +55,25 @@ const img = {
     height: 546,
   },
   // Name and logo explorations (dimmed, left) and the final Velo Academy mark (right).
+  instructor: {
+    src: "/velo/instructor-work.png",
+    width: 1281,
+    height: 465,
+  },
+  trial: {
+    src: "/velo/free-trial-home-2.webp",
+    width: 2000,
+    height: 1257,
+  },
   logos: { src: "/velo/logo-explorations-7.png", width: 1700, height: 440 },
 } satisfies Record<string, Img>;
-const SIMULATOR_VIDEO = "https://player.vimeo.com/video/1220329766";
 
 // The handwriting used for little notes on the site (as on the About page).
 const handwriting = Mynerve({ subsets: ["latin"], weight: "400" });
 // A neater hand for the research notes, where there are full sentences to read.
 const noteHand = Caveat({ subsets: ["latin"], weight: "500" });
+// Velo's own UI font, for the working copy of the course sidebar.
+const veloUi = Outfit({ subsets: ["latin"] });
 
 // ---- Small building blocks ----
 
@@ -110,21 +124,46 @@ function Decision({
   n,
   title,
   children,
+  media,
+  wide = false,
 }: {
   n: number;
   title: string;
   children: ReactNode;
+  media?: ReactNode;
+  // A wide visual (like the simulator demo) goes full width under the text instead of beside it.
+  wide?: boolean;
 }) {
   return (
-    <div className="pt-10">
-      <h3 className="flex items-baseline gap-3 text-2xl font-bold">
-        <span className={`font-heading text-base ${ACCENT}`}>
-          {String(n).padStart(2, "0")}
-        </span>
-        {title}
-      </h3>
-      <div className="mt-4 space-y-4">{children}</div>
+    <div
+      className={`gap-10 pt-8 ${wide ? "" : "sm:grid sm:grid-cols-2 sm:items-start"}`}
+    >
+      <div>
+        <h4 className="flex items-baseline gap-3 text-xl font-bold">
+          <span className={`font-heading tabular-nums ${ACCENT}`}>
+            {String(n).padStart(2, "0")}
+          </span>
+          {title}
+        </h4>
+        <div className="mt-3 space-y-4">{children}</div>
+      </div>
+      {media && <div className={wide ? "mt-6" : "mt-6 sm:mt-1"}>{media}</div>}
     </div>
+  );
+}
+
+// A goal from the challenge, heading the decisions that answer it. Styled like the challenge's
+// numbered goals: a thin line on top and a small gray label.
+function Goal({ n, title }: { n: number; title: string }) {
+  return (
+    <h3 className="mt-12 border-t border-white/15 pt-5 first:mt-6">
+      <span className="block text-xs font-semibold tracking-[0.2em] text-white/50 uppercase">
+        Goal {String(n).padStart(2, "0")}
+      </span>
+      <span className="mt-2 block font-heading text-2xl font-bold">
+        {title}
+      </span>
+    </h3>
   );
 }
 
@@ -504,11 +543,11 @@ function TradeOff({
   );
 }
 
-// A row of single Reddit notes under the app audit, in the same sticky-note style as the
-// interview piles. Two across on phones, three on wider screens.
-function RedditNotes({ notes }: { notes: Note[] }) {
+// A row of single notes (the Reddit findings under the audit), in the same sticky-note style as
+// the interview piles. Two across on phones, three on wider screens.
+function NoteRow({ notes }: { notes: Note[] }) {
   return (
-    <ul className="grid grid-cols-2 gap-x-5 gap-y-6 pt-2 pb-2 sm:grid-cols-3 sm:gap-x-6">
+    <ul className="grid grid-cols-2 gap-x-5 gap-y-8 pt-4 pb-8 sm:grid-cols-3 sm:gap-x-6 sm:pb-10">
       {notes.map((note, i) => (
         <li key={note.text}>
           <NoteStack
@@ -624,22 +663,6 @@ function Picture({
   return <Frame caption={caption}>{picture}</Frame>;
 }
 
-function Video({ src, title }: { src: string; title: string }) {
-  return (
-    <Frame>
-      <div className="aspect-video">
-        <iframe
-          src={src}
-          title={title}
-          className="size-full"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
-    </Frame>
-  );
-}
-
 // An empty slot for a visual that's still needed.
 function Needed({
   what,
@@ -664,42 +687,27 @@ function Needed({
   );
 }
 
-function Quote({ children, by }: { children: ReactNode; by?: string }) {
-  return (
-    <blockquote className="rounded-2xl border border-white/10 bg-[#141417] p-6">
-      <p className="text-lg leading-8 text-white">{children}</p>
-      {by && <footer className="mt-3 text-sm text-white/50">{by}</footer>}
-    </blockquote>
-  );
-}
-
-function TodoText({ children }: { children: ReactNode }) {
-  return <span className={`${ACCENT} italic`}>{children}</span>;
-}
-
 // ---- Page ----
 
-// Results from the moderated beta, shown in the Beta section. (That every tester preferred the
-// redesigned lesson is said in the Redesign section.)
-const betaResults = [
-  {
-    value: "5/5",
-    label: "moderated beta testers loved the course’s interactive parts",
-  },
-  {
-    value: "4/5",
-    label: "moderated beta testers finished the first lesson with no friction",
-  },
-];
+// The "Redesigning the lesson" section is hidden for now.
+const SHOW_REDESIGN = false;
 
-// The headline results, shown under the outcome near the top.
 // Same tags as the home page card.
 const tags = releases.find((r) => r.slug === "velo")?.tags ?? [];
 
 const meta: [string, ReactNode][] = [
   ["Role", "Lead Designer"],
-  ["Team", "Instructor/founder, PM, developer"],
-  ["Timeline", "March 2026 – June 2026"],
+  [
+    "Team",
+    // Breaks after "founder/" so "course content provider" stays together.
+    <>
+      Instructor/founder/
+      <wbr />
+      <span className="sm:whitespace-nowrap">course content provider</span>, PM,
+      developer
+    </>,
+  ],
+  ["Timeline", "March 2026 – September 2026"],
   ["Scope", "Brand, research, UX/UI, design system"],
 ];
 
@@ -742,7 +750,7 @@ export default function VeloCaseStudy() {
                 aria-hidden
                 className="live-dot size-1.5 rounded-full bg-(--accent)"
               />
-              In open beta
+              Launched
             </p>
             <p className="mt-6 text-lg leading-8 text-white/70">
               The idea for Velo was conceived by a working photographer: an
@@ -770,7 +778,16 @@ export default function VeloCaseStudy() {
           <HandDivider className="mt-12" />
           <dl className="grid grid-cols-2 gap-x-8 gap-y-6 py-8 sm:grid-cols-4">
             {meta.map(([label, value]) => (
-              <div key={label}>
+              <div
+                key={label}
+                className={
+                  label === "Team"
+                    ? "order-last col-span-2 sm:order-none sm:col-span-1"
+                    : label === "Scope"
+                      ? "col-span-2 sm:col-span-1"
+                      : undefined
+                }
+              >
                 <dt className="text-xs font-semibold tracking-[0.2em] text-white/50 uppercase">
                   {label}
                 </dt>
@@ -780,6 +797,32 @@ export default function VeloCaseStudy() {
           </dl>
           <HandDivider flip />
 
+          {/* The key results as big numbers for anyone skimming, labeled like Role / Team:  the
+              launch results; the beta's results are in the Beta section. */}
+          <div className="mt-12">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.2em] text-white/50 uppercase">
+                Initial launch results &middot; first two weeks
+              </p>
+              <ul className="mt-3 grid gap-6 sm:grid-cols-3">
+                {[
+                  {
+                    value: "45",
+                    label: "trial users",
+                  },
+                  { value: "13.3%", label: "free-to-paid conversion" },
+                ].map((item) => (
+                  <li key={item.label}>
+                    <p className="font-heading text-4xl font-bold">
+                      {item.value}
+                    </p>
+                    <p className="mt-2 text-base text-white/70">{item.label}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           <Section
             id="challenge"
             eyebrow="The challenge"
@@ -788,7 +831,7 @@ export default function VeloCaseStudy() {
             <P>
               <H>Beginners give up on photography courses.</H> And a paid course
               has to <H>compete with free YouTube tutorials</H> and well-known
-              instructors. That left Velo with two problems to solve:
+              instructors. That gave Velo two goals:
             </P>
             <Problems
               items={[
@@ -854,7 +897,7 @@ export default function VeloCaseStudy() {
               ]}
             />
             <P>Reddit filled in what the apps couldn&rsquo;t show:</P>
-            <RedditNotes
+            <NoteRow
               notes={[
                 {
                   text: "The internet already has everything a beginner course covers.",
@@ -869,7 +912,8 @@ export default function VeloCaseStudy() {
                   quote: false,
                 },
                 {
-                  text: "(Udemy is) prioritizing sleekness over core functionality.",
+                  text: "Prioritizing sleekness over core functionality.",
+                  about: "On Udemy\u2019s redesign",
                   who: "r/Udemy",
                   reddit: true,
                 },
@@ -887,11 +931,12 @@ export default function VeloCaseStudy() {
               options={[
                 {
                   label: "Focused",
-                  tag: "recommended",
+                  tag: "recommended by me",
                   title: "Small businesses and creators",
                   upsides: [
                     "A clear edge: it matches the instructor\u2019s background in product photography.",
                     "His existing product photos already cover the examples.",
+                    "They likely own a camera already, or will buy one as a business investment.",
                   ],
                   risks: ["A smaller market."],
                 },
@@ -902,6 +947,7 @@ export default function VeloCaseStudy() {
                   upsides: ["A much bigger audience."],
                   risks: [
                     "Competes with everything free online.",
+                    "Requires a camera, which many beginners don\u2019t own.",
                     "More new example shoots, since most of the instructor\u2019s photos are product and marketing shots.",
                   ],
                 },
@@ -921,12 +967,13 @@ export default function VeloCaseStudy() {
           >
             <P>
               To learn what those beginners needed, I{" "}
-              <H>interviewed four very different ones</H>.
+              <H>interviewed four very different ones</H>. Four insights stood
+              out:
             </P>
             <Insights
               items={[
                 {
-                  claim: "Learning happens by doing",
+                  claim: "Practice makes it click.",
                   quotes: [
                     {
                       text: "Projects are the only way to make that make sense. You begin with the end in mind and then you have to struggle to get there.",
@@ -939,7 +986,7 @@ export default function VeloCaseStudy() {
                   ],
                 },
                 {
-                  claim: "Short, structured, and explained",
+                  claim: "Long, rushed lessons lose them.",
                   quotes: [
                     {
                       text: "If I see it\u2019s like a 20 something minute video on YouTube, I\u2019m not touching it.",
@@ -960,7 +1007,7 @@ export default function VeloCaseStudy() {
                   ],
                 },
                 {
-                  claim: "Clean, but nothing hidden",
+                  claim: "Clutter distracts, hiding frustrates.",
                   quotes: [
                     {
                       text: "It looks like Windows XP. Am I working in an office?",
@@ -973,7 +1020,7 @@ export default function VeloCaseStudy() {
                   ],
                 },
                 {
-                  claim: "Trust comes from the teacher",
+                  claim: "They look up the instructor first.",
                   quotes: [
                     {
                       text: "I\u2019d google whoever is teaching the course before I paid for it.",
@@ -990,122 +1037,215 @@ export default function VeloCaseStudy() {
             eyebrow="Brand"
             title="A brand built on photography"
           >
-            <P>
-              The research set the direction: <H>dark, serious, and minimal</H>,
-              with none of the childish look or clutter learners disliked. I
-              explored several names and marks and landed on Velo Academy.{" "}
-              <H>Velo means veil</H> in Spanish and Italian, a nod to the
-              diffusion photographers use to soften light, and it hints at{" "}
-              <H>velocity</H>, for quick learning.
-            </P>
+            {/* The brand text beside a clickable pile of the interview notes behind it (like the
+                interview piles). On phones the pile sits under the text. */}
+            <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:gap-10">
+              <div className="space-y-4 sm:flex-1">
+                <P>
+                  The research set the direction:{" "}
+                  <H>dark, serious, and minimal</H>, with none of the childish
+                  look or clutter learners disliked.
+                </P>
+                <P>
+                  I explored several names and marks and landed on Velo Academy.{" "}
+                  <H>Velo means veil</H> in Spanish and Italian, a nod to the
+                  diffusion photographers use to soften light, and it hints at{" "}
+                  <H>velocity</H>, for quick learning.
+                </P>
+              </div>
+              <div className="w-[200px] max-w-full shrink-0 sm:pt-1">
+                <NoteStack
+                  notes={[
+                    {
+                      text: "It\u2019s condescending. It treats you like a child.",
+                      who: "Marketer",
+                      about: "On Duolingo\u2019s gamification",
+                    },
+                    {
+                      text: "Super dark\u2026 less eye strain.",
+                      who: "Hobbyist",
+                      about: "On light or dark mode",
+                    },
+                  ]}
+                  font={noteHand.className}
+                />
+              </div>
+            </div>
             <LogoExplorations />
+          </Section>
+
+          <Section id="mapping" eyebrow="Structure" title="Mapping the product">
+            {/* Big to small: the whole product first, then how a single lesson is built. */}
+            <P>
+              Before designing screens, I <H>mapped the full product</H> with
+              the PM: how lessons, knowledge checks, assignments and the
+              free-to-paid path connect.
+            </P>
+            <Picture
+              image={img.flow}
+              alt="Product flowchart covering lessons, chapters, knowledge checks, assignments and the free-to-paid path"
+              caption="Product flow"
+            />
+            <div className="pt-12 sm:pt-16">
+              <P>
+                Interviewees tuned out of long videos and learned best by doing,
+                so <H>every chapter is short and hands-on</H>. It took a few
+                rounds: lessons started as a single list of steps, and we added
+                chapters once lessons grew too long to scan.
+                {/* On phones the sidebar's notes are hidden, so the text says it instead. */}
+                <span className="sm:hidden">
+                  {" "}
+                  Learn (video, interactive reading), practice (field test),
+                  review (knowledge check). Premium adds an assignment with
+                  personal feedback from the instructor.
+                </span>
+              </P>
+            </div>
+            <figure className="pt-8">
+              <CourseSidebar
+                font={veloUi.className}
+                hand={handwriting.className}
+              />
+              <figcaption className="mx-auto mt-3 max-w-[300px] text-sm text-white/50">
+                The course sidebar as I designed it. The shipped version moved
+                knowledge checks to the end of each lesson.
+              </figcaption>
+            </figure>
           </Section>
 
           <Section id="decisions" title="Key decisions">
             <P>
-              After a brainstorm with the team, I{" "}
-              <H>turned the research into a feature map</H>, then worked with
-              the PM to map the full product: lessons, knowledge checks,
-              assignments, and the free-to-paid path.
+              Each decision answers one of the two goals from the challenge.
             </P>
-            <Needed what="Feature board with my notes" />
-            <Picture
-              image={img.flow}
-              alt="Product flowchart covering lessons, knowledge checks, assignments and the free-to-paid path"
-              caption="Product flowchart"
-            />
 
-            <Decision n={1} title="A camera simulator instead of another video">
+            <Goal n={1} title="Keep beginners engaged" />
+            <Decision
+              n={1}
+              title="A camera settings simulator"
+              wide
+              media={
+                <DemoVideo
+                  src="/velo/exposure-demo-2.mp4"
+                  poster="/velo/exposure-demo-2-poster.jpg"
+                  label="The exposure simulator: changing aperture and shutter speed, with the photo responding"
+                />
+              }
+            >
               <P>
-                The exposure triangle (aperture, shutter speed, ISO) is where
-                most beginners give up. Rather than explain it,{" "}
+                Interviewees learned by doing, and the exposure triangle is
+                where most beginners give up. So I designed a{" "}
+                <H>camera settings simulator</H>: learners adjust aperture,
+                shutter speed and ISO and <H>watch the photo respond</H>, in
+                conditions like sun, clouds or indoors. It&rsquo;s the
+                course&rsquo;s main practice tool:{" "}
                 <H>
-                  I designed a simulator where you change each setting and see
-                  the photo respond
+                  many exercises use it before students ever pick up a camera
                 </H>
-                , across lighting conditions like sun, clouds, and indoor. I
-                studied existing exposure tools, then stripped the controls down
-                to <H>three clear panels</H>. The developer built the image
-                logic.
+                .
               </P>
-              <Needed what="Early simulator version → final" />
-              <Video
-                src={SIMULATOR_VIDEO}
-                title="The Velo camera simulator in action"
-              />
             </Decision>
-
             <Decision
               n={2}
-              title="Navigation that’s always there, but out of the way"
+              title="A home page that doesn’t overwhelm"
+              media={
+                <ZoomImage
+                  {...img.sidebar}
+                  alt="The home page with the course sidebar collapsing and expanding"
+                />
+              }
             >
               <P>
-                Research pulled in two directions: show everything, but
-                don&rsquo;t clutter. I designed a <H>collapsible sidebar</H>{" "}
-                that keeps the course outline and progress <H>one click away</H>
-                , and folds away when you want to focus on the lesson. The
-                lesson structure went through several rounds, from lessons with
-                steps (reading, quiz, assignment) to an added chapter layer, and
-                my job was keeping that hierarchy easy to scan.
+                Interviewees found cluttered platforms distracting, but hated
+                hunting for things. The home page shows only{" "}
+                <H>where you left off and what&rsquo;s next</H>, and the course
+                outline lives in a <H>sidebar you can hide</H> when you want to
+                focus.
               </P>
-              <Picture
-                image={img.sidebar}
-                alt="The course sidebar collapsing and expanding beside a lesson"
-                caption="Collapsible sidebar"
-              />
             </Decision>
 
-            <Decision n={3} title="Knowledge checks, not tests">
-              <P>
-                Interviewees wanted quizzes that &ldquo;keep you honest&rdquo;
-                without grade pressure, and one suggested calling them knowledge
-                checks. They <H>give feedback without revealing the answer</H>,
-                aren&rsquo;t timed, and bring missed vocabulary back later.
-                Gamification felt condescending to some interviewees, so
-                motivation features like streaks stay <H>light and optional</H>.
-              </P>
-              <Picture
-                image={img.quiz}
-                alt="A knowledge check question with feedback on the chosen answer"
-                caption="Knowledge check"
-              />
-            </Decision>
-
-            <Decision n={4} title="Earning trust by letting people try first">
-              <P>
-                Without a famous name to lean on, we let the product prove
-                itself.{" "}
-                <H>
-                  The simulator is free with no account needed, and the first
-                  lesson is free
-                </H>
-                , so learners experience the teaching before they pay. An
-                instructor section on the landing page highlights his
-                professional background.
-              </P>
-              <Needed what="Landing page with the free simulator" />
-              <Needed what="Instructor section" ratio="aspect-[2/1]" />
-            </Decision>
-
+            <Goal n={2} title="Earn trust, so they pay" />
             <Decision
-              n={5}
-              title="A design system the developer could build from"
+              n={3}
+              title="Credibility up front"
+              media={
+                <ZoomImage
+                  {...img.instructor}
+                  alt="The landing page's Some of Tom's Work section, led by a John Mayer shoot"
+                />
+              }
             >
               <P>
-                The team built on Bricks Builder, so I created the{" "}
-                <H>component library and tokens in Figma</H> to match ACSS, and{" "}
-                <H>worked directly with the developer</H> to make sure the build
-                matched the design. That kept the platform consistent while
-                content and scope kept changing.
+                Learners look up the instructor before they buy, so the landing
+                page <H>leads with his work</H> for artists like John Mayer and
+                brands like Guitar Center.
               </P>
             </Decision>
+            <Decision
+              n={4}
+              title="A free trial with no card"
+              media={
+                <ZoomImage
+                  {...img.trial}
+                  alt="The free trial home page: lesson 1 ready to start, later lessons locked with an upgrade prompt"
+                />
+              }
+            >
+              <P>
+                The <H>first lesson is free, with no card required</H>, so
+                trying costs nothing and the teaching can sell itself. The other
+                lessons <H>stay visible but locked</H>, so learners see
+                what&rsquo;s ahead without hitting a wall.
+              </P>
+            </Decision>
+
+            <h3 className="mt-14 border-t border-white/15 pt-5 text-xl font-bold">
+              Smaller decisions
+            </h3>
+            <Bullets
+              items={[
+                <>
+                  <strong>Definitions on hover.</strong> Key terms show their
+                  meaning when you hover them, so beginners never leave the
+                  lesson.
+                </>,
+                <>
+                  <strong>Knowledge checks that never block progress.</strong>{" "}
+                  Learners see a grade, but a low score never locks the next
+                  lesson. No streaks or points, just progress.
+                </>,
+                <>
+                  <strong>
+                    A design system the developer could build from.
+                  </strong>{" "}
+                  I built the component library and tokens in Figma to match the
+                  developer&rsquo;s framework, and worked with him directly so
+                  the build matched the design.
+                </>,
+              ]}
+            />
           </Section>
 
           <Section id="beta" title="Beta: finding the next opportunity">
             <P>The beta confirmed the platform worked:</P>
-            {/* The test results, as counts (5 is the usual size for moderated testing). */}
-            <ul className="grid gap-6 py-4 sm:grid-cols-2">
-              {betaResults.map((item) => (
+            {/* The results as big counts (5 is the usual size for moderated testing). */}
+            <ul className="grid gap-6 py-4 sm:grid-cols-3">
+              {[
+                {
+                  value: "5/5",
+                  label:
+                    "moderated beta testers finished the first lesson with no friction",
+                },
+                {
+                  value: "5/5",
+                  label:
+                    "moderated beta testers loved the course’s interactive parts",
+                },
+                {
+                  value: "4/5",
+                  label:
+                    "moderated beta testers said they’d pay for a more interactive version",
+                },
+              ].map((item) => (
                 <li key={item.label}>
                   <p className="font-heading text-4xl font-bold">
                     {item.value}
@@ -1115,76 +1255,86 @@ export default function VeloCaseStudy() {
               ))}
             </ul>
             <P>
-              It also showed where to go next. Testers enjoyed the course, but{" "}
-              <H>none said they&rsquo;d pay for it as it was</H>, while{" "}
-              <H>4 of 5 said they&rsquo;d pay for a more interactive version</H>
-              . They wanted the rest of the course to feel like those
-              interactive moments:
+              It also showed where to go next: testers enjoyed it, but{" "}
+              <H>none would pay for it as it was</H>, only for a more
+              interactive version. (The one holdout didn&rsquo;t own a camera,
+              but said she&rsquo;d pay for a similar course built for phone
+              photography.)
             </P>
-            <Bullets
-              items={[
-                "Too text-heavy, with long videos",
-                "Not enough visual examples",
-                "Assignment pages felt flat compared to the interactive moments",
+            <NoteRow
+              notes={[
+                {
+                  text: "I think the value of these is so high, I just feel like they could use a little more pushing.",
+                  who: "Beta tester",
+                  about: "On the interactive examples",
+                },
+                {
+                  text: "This is really great information, but\u2026 it\u2019s just a lot of scrolling and a lot of reading.",
+                  who: "Beta tester",
+                  about: "On the lesson readings",
+                },
+                {
+                  text: "\u2026I would like to see a lot more interactive examples like the simulator.",
+                  who: "Beta tester",
+                  about: "On paying for the course",
+                },
               ]}
             />
-            <div className="grid gap-4 pt-2 sm:grid-cols-2">
-              <Quote by="Beta tester">
-                <TodoText>[Quote on ease of use]</TodoText>
-              </Quote>
-              <Quote by="Beta tester">
-                <TodoText>[Quote on the content]</TodoText>
-              </Quote>
-            </div>
             <P>
               The direction was clear:{" "}
               <H>make every lesson interactive and simple.</H>
             </P>
           </Section>
 
-          <Section id="redesign" title="Redesigning the lesson">
-            <P>
-              I redesigned the first lesson around interactivity and simplicity:
-              visual, hands-on, one idea at a time.{" "}
-              <H>Every beta tester preferred it to the original.</H>
-            </P>
-            <Bullets
-              items={[
-                <>
-                  <strong>One idea per screen.</strong> The lesson builds step
-                  by step: three controls → the exposure triangle → how each one
-                  brightens the image → each one&rsquo;s unique effect.
-                </>,
-                <>
-                  <strong>Show, then explain.</strong> Each concept is a visual
-                  first, with a short line of text beside it.
-                </>,
-                <>
-                  <strong>Practice inside the lesson.</strong> The simulator is
-                  built into the lesson, so learners try the concept right after
-                  reading about it.
-                </>,
-                <>
-                  <strong>A clear rhythm.</strong> A Reading → Field Test →
-                  Knowledge Check stepper turns the short lesson, task, review
-                  structure from research into the UI.
-                </>,
-              ]}
-            />
-            <Picture
-              image={img.lessonBefore}
-              alt="The shipped lesson page, with a long video above the lesson text"
-              caption="Before: the shipped lesson page"
-            />
-            <Needed what="After: Lesson 1, pages 1–4" />
-            <P>
-              My work on Velo ended at the first beta, just as I was about to
-              bring every lesson up to the new format, page by page. I
-              documented the new lesson format and the beta fixes and handed
-              them off to development for the next iteration. Velo is now in
-              open beta, so this story isn&rsquo;t finished yet.
-            </P>
-          </Section>
+          {/* Hidden for now; flip SHOW_REDESIGN to bring it back. */}
+          {SHOW_REDESIGN && (
+            <>
+              <Section id="redesign" title="Redesigning the lesson">
+                <P>
+                  The course material was the instructor&rsquo;s, but the beta
+                  showed the platform alone couldn&rsquo;t fix it. So I went
+                  beyond my scope and{" "}
+                  <H>proposed a rewrite of the first lesson</H>, built around
+                  interactivity and simplicity: visual, hands-on, one idea at a
+                  time. <H>Every beta tester preferred it to the original.</H>
+                </P>
+                <Bullets
+                  items={[
+                    <>
+                      <strong>One idea per screen.</strong> The lesson builds
+                      step by step: three controls → the exposure triangle → how
+                      each one brightens the image → each one&rsquo;s unique
+                      effect.
+                    </>,
+                    <>
+                      <strong>Show, then explain.</strong> Each concept is a
+                      visual first, with a short line of text beside it.
+                    </>,
+                    <>
+                      <strong>Practice inside the lesson.</strong> The simulator
+                      is built into the lesson, so learners try the concept
+                      right after reading about it.
+                    </>,
+                    <>
+                      <strong>A clear rhythm.</strong> A Reading → Field Test →
+                      Knowledge Check stepper turns the short lesson, task,
+                      review structure from research into the UI.
+                    </>,
+                  ]}
+                />
+                <Picture
+                  image={img.lessonBefore}
+                  alt="The shipped lesson page, with a long video above the lesson text"
+                  caption="Before: the shipped lesson page"
+                />
+                <Needed what="After: Lesson 1, pages 1–4" />
+                <P>
+                  I documented the new lesson format and the beta fixes and
+                  handed them off to the team, and Velo launched shortly after.
+                </P>
+              </Section>
+            </>
+          )}
 
           {/* The marketing video, as the payoff at the end of the story. The "Watch product video"
               button at the top jumps here and plays it with sound. */}
@@ -1213,10 +1363,12 @@ export default function VeloCaseStudy() {
               with a single prototype lesson.
             </P>
             <P>
-              <strong>Audience decides content cost.</strong> A broader audience
-              meant more example shoots. Next time I&rsquo;d put rough effort
-              estimates next to each option, so the trade-off is clear before
-              the decision.
+              <strong>Commit to one end of the audience.</strong> In hindsight,
+              Velo sits in the middle: broad enough to compete with everything
+              free online, but it still requires a camera, which shut out the
+              one beta tester who wouldn&rsquo;t pay. Next time I&rsquo;d push
+              for one end: a focused course for people who already own a camera,
+              like small businesses, or a truly broad one built for phones.
             </P>
           </Section>
         </article>
