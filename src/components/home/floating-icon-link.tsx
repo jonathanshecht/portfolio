@@ -1,6 +1,6 @@
 "use client";
 
-// A contact-section button that sends one little icon floating up out of it each time it's hovered
+// The site's button (contact section, nav, case studies): it sends one little icon floating up out of it each time it's hovered
 // or focused, with the same drift-and-fade as the piano notes (and one icon per hover, like the
 // project cards).
 // Two looks: "filled" (white, red on hover) and "outlined" (red outline and arrow on hover).
@@ -8,25 +8,31 @@
 // Each is also a ".glow-trigger": inside the contact section, hovering it lights up the graffiti
 // JS mark above.
 
-import { ArrowUpRight, FileUser, Mail } from "lucide-react";
-import { useCallback, useRef, useState, type ReactNode } from "react";
+import { ArrowDown, ArrowUpRight, FileUser, Mail, Play } from "lucide-react";
+import {
+  useCallback,
+  useRef,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from "react";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 const FLOAT_MS = 1300; // matches .note-float in globals.css
 
 const LOOKS = {
   filled: {
-    link: "bg-white text-black hover:bg-[#E5484D] focus-visible:bg-[#E5484D]",
+    link: "bg-white text-black hover:bg-(--accent) focus-visible:bg-(--accent)",
     arrow: "",
   },
   outlined: {
-    link: "border border-white/40 hover:border-[#E5484D] focus-visible:border-[#E5484D]",
+    link: "border border-white/40 hover:border-(--accent) focus-visible:border-(--accent)",
     arrow:
-      "transition-colors group-hover:text-[#E5484D] group-focus-visible:text-[#E5484D]",
+      "transition-colors group-hover:text-(--accent) group-focus-visible:text-(--accent)",
   },
 };
 
-const ICONS = { mail: Mail, resume: FileUser };
+const ICONS = { mail: Mail, resume: FileUser, play: Play };
 
 const SIZES = {
   regular: { link: "gap-2 px-6 py-3", arrow: "" },
@@ -49,13 +55,22 @@ export function FloatingIconLink({
   icon,
   look,
   size = "regular",
+  onClick,
 }: {
   href: string;
   label: ReactNode;
   icon: keyof typeof ICONS;
   look: keyof typeof LOOKS;
   size?: keyof typeof SIZES;
+  // For a link to a spot on the same page (href "#..."), what to do on click.
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 }) {
+  // A link to a spot on the same page opens in place; others open in a new tab (except email).
+  // The trailing icon is a play triangle for a video button, a down arrow for an in-page link, and
+  // the usual up-right arrow otherwise.
+  const inPage = href.startsWith("#");
+  const isPlay = icon === "play";
+  const Arrow = isPlay ? Play : inPage ? ArrowDown : ArrowUpRight;
   const Icon = ICONS[icon];
   const reducedMotion = useReducedMotion();
   const [floaters, setFloaters] = useState<Floater[]>([]);
@@ -100,10 +115,10 @@ export function FloatingIconLink({
         {floaters.map((f) => (
           <span
             key={f.id}
-            className="note-float absolute top-0 text-[#E5484D]"
+            className="note-float absolute top-0 text-(--accent)"
             style={{
               left: `${f.x}%`,
-              filter: `${f.blur ? `blur(${f.blur.toFixed(2)}px) ` : ""}drop-shadow(0 0 6px rgba(229, 72, 77, 0.35))`,
+              filter: `${f.blur ? `blur(${f.blur.toFixed(2)}px) ` : ""}drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 35%, transparent))`,
               ["--drift" as string]: `${f.drift}px`,
               ["--tilt" as string]: `${f.tilt}deg`,
             }}
@@ -115,9 +130,10 @@ export function FloatingIconLink({
       </div>
       <a
         href={href}
-        {...(href.startsWith("mailto:")
+        {...(href.startsWith("mailto:") || inPage
           ? {}
           : { target: "_blank", rel: "noreferrer" })}
+        onClick={onClick}
         onPointerEnter={(e) => e.pointerType === "mouse" && start()}
         onPointerLeave={stop}
         onFocus={start}
@@ -125,10 +141,11 @@ export function FloatingIconLink({
         className={`glow-trigger group flex items-center rounded-full font-heading text-sm font-bold transition-colors outline-none ${SIZES[size].link} ${LOOKS[look].link}`}
       >
         {label}
-        <ArrowUpRight
+        <Arrow
           aria-hidden
-          className={`size-4 ${SIZES[size].arrow} ${LOOKS[look].arrow}`}
-          strokeWidth={2.5}
+          className={`${isPlay ? "size-3.5" : "size-4"} ${SIZES[size].arrow} ${LOOKS[look].arrow}`}
+          fill={isPlay ? "currentColor" : "none"}
+          strokeWidth={isPlay ? 0 : 2.5}
         />
       </a>
     </div>

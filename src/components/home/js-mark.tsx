@@ -61,7 +61,7 @@ function Paint({
 }) {
   const dripping = drips === "dripping";
   return (
-    <g fill={color} stroke={color} strokeLinejoin="round" strokeLinecap="round">
+    <g style={{ fill: color, stroke: color }} strokeLinejoin="round" strokeLinecap="round">
       <path d={J_PATH} strokeWidth={STROKE} />
       <path d={S_PATH} strokeWidth={STROKE} />
       <path d={BAR_PATH} strokeWidth={0} />
@@ -105,7 +105,8 @@ function Paint({
 // touch screens it stays lit. While lit, the red paint keeps dripping: each drip slowly runs down,
 // a drop falls off (see GraffitiHeading, which adds the falling drops and paint), and it starts
 // again. At rest there are no drips at all. Styles live in globals.css.
-// "static" (navbar): red graffiti texture only, with no drips and no glow.
+// "static" (navbar): red graffiti texture only, with no drips and no glow. It and the glowing paint follow the
+// page accent (--accent / --accent-lit in globals.css).
 export function GraffitiJsMark({
   className = "size-10",
   mode = "glow",
@@ -218,7 +219,7 @@ export function GraffitiJsMark({
 
         {mode === "static" ? (
           <g filter={`url(#${spray})`}>
-            <Paint color="#E5484D" drips="none" />
+            <Paint color="var(--accent)" drips="none" />
           </g>
         ) : (
           <>
@@ -229,7 +230,7 @@ export function GraffitiJsMark({
             {/* Lit: the same graffiti glowing red. */}
             <g className="glow-lit" filter={`url(#${glow})`}>
               <g filter={`url(#${spray})`}>
-                <Paint color="#ff3d48" drips="dripping" />
+                <Paint color="var(--accent-lit)" drips="dripping" />
               </g>
             </g>
           </>

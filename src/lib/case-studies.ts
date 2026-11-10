@@ -3,7 +3,8 @@ import kitPlugins from "@/content/case-studies/kit-plugins.json";
 import qrMenu from "@/content/case-studies/qr-menu.json";
 import shure from "@/content/case-studies/shure.json";
 import staceyRyan from "@/content/case-studies/stacey-ryan.json";
-import velo from "@/content/case-studies/velo.json";
+// The original Velo case study, kept at /velo-old (the new one lives at app/velo).
+import veloOld from "@/content/case-studies/velo-old.json";
 
 // Text fields named `html` (and list items) may contain inline <mark>, <strong>, <em>, <br> and <a>.
 export type Block =
@@ -39,11 +40,11 @@ export type CaseStudy = {
 };
 
 const studies = [
-  velo,
   staceyRyan,
   kitPlugins,
   shure,
   qrMenu,
+  veloOld,
 ] as unknown as CaseStudy[];
 
 export const caseStudySlugs = studies.map((s) => s.slug);

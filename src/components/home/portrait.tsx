@@ -13,7 +13,7 @@ import { useSong } from "@/lib/use-song";
 // Same handwriting as the home page's "psst… play me".
 const handwriting = Mynerve({ subsets: ["latin"], weight: "400" });
 
-// The About portrait: the photo in a rounded white frame, drawn on in white: wired earphones (one
+// The About portrait: the photo in a rounded frame with a faint gray outline, drawn on in white: wired earphones (one
 // earbud in his ear, the other wire coming out from under his chin, joining in a Y and running
 // off the bottom) and the site's little glass ghost perched on his shoulder, whose eyes follow
 // the cursor. The ghost says it wants to listen too, and a little cursor shows how: drag the
@@ -144,6 +144,10 @@ export function Portrait({ className = "" }: { className?: string }) {
     song.stop();
   }, [glideTo, song]);
 
+  // Leaving the page pauses the song (the earbud stays with the ghost), so coming back shows it
+  // paused, ready to play again, rather than looking like it's still playing.
+  useEffect(() => () => setPaused(true), []);
+
   const togglePause = useCallback(() => {
     if (paused) song.play(true);
     else song.stop();
@@ -256,7 +260,7 @@ export function Portrait({ className = "" }: { className?: string }) {
       className={`relative aspect-square w-full select-none ${className}`}
     >
       {/* The framed photo. The ghost sits in its own layer above it, so its speech line can reach past the frame. */}
-      <div className="absolute inset-0 overflow-hidden rounded-2xl border-[1.5px] border-white/85 bg-[#010101]">
+      <div className="absolute inset-0 overflow-hidden rounded-2xl border border-white/15 bg-[#080808]">
         <Image
           src="/about/jonathan.jpg"
           alt="Jonathan smiling, in a red sweater, wearing earphones, with a little ghost on his shoulder"
@@ -422,7 +426,7 @@ export function Portrait({ className = "" }: { className?: string }) {
             <svg
               viewBox="0 0 24 24"
               className="-mt-[1.7px] -ml-[6.7px] size-5 overflow-visible [filter:url(#graffiti-spray)]"
-              fill="#010101"
+              fill="#080808"
               stroke="white"
               strokeWidth={1.75}
               strokeLinecap="round"

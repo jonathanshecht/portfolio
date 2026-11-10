@@ -1,3 +1,4 @@
+import { HandDivider } from "@/components/hand-divider";
 import { FloatingIconLink } from "@/components/home/floating-icon-link";
 import { GraffitiHeading } from "@/components/home/graffiti-heading";
 import { LightWhenSeen } from "@/components/home/light-when-seen";
@@ -13,21 +14,7 @@ export function ContactSection() {
     >
       <LightWhenSeen />
       {/* The divider above the section: a faint line with a gentle hand-drawn wobble. */}
-      <svg
-        aria-hidden
-        viewBox="0 0 576 6"
-        preserveAspectRatio="none"
-        className="absolute inset-x-0 top-0 h-1.5 w-full overflow-visible"
-      >
-        <path
-          d="M0 3 C 48 1.6, 96 4.4, 150 3.1 S 250 1.5, 310 3.2 S 420 4.6, 470 2.9 S 550 1.8, 576 3"
-          fill="none"
-          stroke="rgba(255, 255, 255, 0.12)"
-          strokeWidth={1}
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
+      <HandDivider className="absolute inset-x-0 top-0" />
       <GraffitiHeading id="contact-title" text="Let’s work together" />
       <p className="text-base text-white/70">
         I&rsquo;m open to product design roles. Send me an email, grab my resume
@@ -36,7 +23,7 @@ export function ContactSection() {
           href={site.links.linkedin}
           target="_blank"
           rel="noreferrer"
-          className="text-white underline underline-offset-4 transition-colors outline-none hover:text-[#E5484D] focus-visible:text-[#E5484D]"
+          className="text-white underline underline-offset-4 transition-colors outline-none hover:text-(--accent) focus-visible:text-(--accent)"
         >
           LinkedIn
         </a>

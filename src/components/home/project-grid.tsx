@@ -81,14 +81,19 @@ function ProjectTile({ release }: { release: Release }) {
   };
 
   return (
-    <li>
+    // A project with its own brand color (Velo) tints its hover arrow, flying icon and focus ring.
+    <li
+      style={
+        release.accent ? { ["--accent" as string]: release.accent } : undefined
+      }
+    >
       <Link
         href={`/${release.slug}`}
         onPointerEnter={(e) => e.pointerType === "mouse" && start()}
         onPointerLeave={stop}
         onFocus={start}
         onBlur={stop}
-        className="group block rounded-2xl outline-none focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-solid focus-visible:outline-[#E5484D]"
+        className="group block rounded-2xl outline-none focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-solid focus-visible:outline-(--accent)"
       >
         <div className="relative">
           {Icon && (
@@ -99,10 +104,10 @@ function ProjectTile({ release }: { release: Release }) {
               {floaters.map((f) => (
                 <span
                   key={f.id}
-                  className="note-float absolute top-0 text-[#E5484D]"
+                  className="note-float absolute top-0 text-(--accent)"
                   style={{
                     left: `${f.x}%`,
-                    filter: `${f.blur ? `blur(${f.blur.toFixed(2)}px) ` : ""}drop-shadow(0 0 6px rgba(229, 72, 77, 0.35))`,
+                    filter: `${f.blur ? `blur(${f.blur.toFixed(2)}px) ` : ""}drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 35%, transparent))`,
                     ["--drift" as string]: `${f.drift}px`,
                     ["--tilt" as string]: `${f.tilt}deg`,
                   }}
@@ -119,17 +124,48 @@ function ProjectTile({ release }: { release: Release }) {
           {/* data-physics-solid: loose pieces of the broken piano can land on the card image. */}
           <div
             data-physics-solid
-            className="relative aspect-[3/2] overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0f] transition-colors duration-500 group-hover:border-white/25"
+            className="relative aspect-[3/2] overflow-hidden rounded-2xl border border-white/10 bg-[#141417] transition-colors duration-500 group-hover:border-white/25"
           >
-            {/* The layered mockups have transparent backgrounds, so they sit inset on the dark panel. */}
-            <Image
-              src={release.image.src}
-              alt=""
-              width={release.image.width}
-              height={release.image.height}
-              sizes="(min-width: 768px) 600px, 100vw"
-              className={`size-full ${release.fit === "cover" ? "object-cover" : "object-contain p-[7%]"}`}
-            />
+            {release.screens ? (
+              // Two flat screenshots, one behind and one in front, each with a thin, light gray
+              // frame (a bit brighter than the card's outline).
+              <div className="absolute inset-0 flex items-center p-[7%]">
+                <div
+                  className="relative w-full"
+                  style={{ aspectRatio: release.screens.aspect }}
+                >
+                  {[release.screens.back, release.screens.front].map((shot) => (
+                    <div
+                      key={shot.src}
+                      className={`absolute overflow-hidden rounded-md border border-white/20 bg-[#0b0b0d]`}
+                      style={{
+                        left: `${shot.x}%`,
+                        top: `${shot.y}%`,
+                        width: `${shot.w}%`,
+                      }}
+                    >
+                      <Image
+                        src={shot.src}
+                        alt=""
+                        width={shot.width}
+                        height={shot.height}
+                        sizes="(min-width: 768px) 380px, 60vw"
+                        className="block w-full"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Image
+                src={release.image.src}
+                alt=""
+                width={release.image.width}
+                height={release.image.height}
+                sizes="(min-width: 768px) 600px, 100vw"
+                className={`size-full ${release.fit === "cover" ? "object-cover" : "object-contain p-[7%]"}`}
+              />
+            )}
             <video
               ref={videoRef}
               src={release.video}
@@ -148,7 +184,7 @@ function ProjectTile({ release }: { release: Release }) {
             <ArrowUpRight
               aria-hidden
               strokeWidth={2.5}
-              className="size-5 text-[#E5484D] opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-safe:-translate-x-1 motion-safe:translate-y-1 motion-safe:group-hover:translate-0 motion-safe:group-focus-visible:translate-0"
+              className="size-5 text-(--accent) opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-safe:-translate-x-1 motion-safe:translate-y-1 motion-safe:group-hover:translate-0 motion-safe:group-focus-visible:translate-0"
             />
           </h3>
           <p className="text-base text-white/70">{release.blurb}</p>

@@ -30,10 +30,10 @@ export function NowPlaying({
       </div>
       <div className="min-w-0 flex-1 leading-tight">
         <p className="text-[10px] font-semibold tracking-[0.08em] text-[#ff3d48] uppercase">
-          {paused ? "Paused" : "Now playing"} · my song
+          {paused ? "Paused" : "Now playing"}
         </p>
         <p className="truncate text-[13px] font-semibold text-white">{song.title}</p>
-        <p className="truncate text-xs text-white/60">{song.artist}</p>
+        <p className="truncate text-xs text-white/60">{song.artist} (me)</p>
       </div>
       <button
         type="button"

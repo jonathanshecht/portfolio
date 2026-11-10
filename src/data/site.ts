@@ -46,8 +46,7 @@ export const about = {
   eyebrow: "About me",
   title: "Hello, I'm Jonathan.",
   intro: [
-    "I'm a product designer and musician who believes that simplicity is the key to good design (and good songs).",
-    "My love for design grew out of music production: shaping an experience, then watching people interact with it and be moved by it. I'm happiest when I'm creating, whether that's designing, playing piano, producing, or editing videos.",
+    "I'm a product designer and musician who believes that simplicity is the key to good design (and good songs). My love for design grew out of music production: shaping an experience, then watching people interact with it and be moved by it.",
   ],
   // A separate line under the intro.
   previously:
@@ -74,11 +73,14 @@ export const about = {
   ] satisfies Img[],
   hobbies: {
     eyebrow: "My hobbies",
-    title: "When I am not designing -",
-    // The key facts are marked, so they stand out in white for anyone skimming.
+    title: "When I am not designing\u00a0-", // the dash stays with "designing" when it wraps
+    // The photo in the hobbies card, beside the text.
+    photo: "/about/piano-still.jpg",
+    // The key facts are marked, so they stand out in white for anyone skimming. The EP links to
+    // its Spotify page.
     paragraphs: [
-      "I'm a music production nerd and have been producing in FL Studio <mark>since I was 13</mark>. I released <mark>my first album in 2019</mark>, and <mark>an EP in June of 2024</mark>.",
-      "I've played piano for <mark>12 years</mark> and love to sing - <mark>anything creative, and I'm in.</mark>",
+      "I've been producing music in FL Studio <mark>since I was 13</mark>, and I've released <mark>an album</mark> and <mark><a href='https://open.spotify.com/album/16g0KMf28LDCl07d4CCBfL' target='_blank' rel='noopener noreferrer'>an EP<svg aria-hidden='true' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 7h10v10'/><path d='M7 17 17 7'/></svg></a></mark>.",
+      "I've played piano for <mark>12 years</mark> and love to sing. I also love editing videos in DaVinci Resolve.",
     ],
   },
 };

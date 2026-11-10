@@ -53,11 +53,17 @@ export function useSong(src: string) {
     stopTimer.current = window.setTimeout(() => el.pause(), FADE_OUT_S * 1000 + 50);
   }, []);
 
+  // Leaving the page silences it straight away. Next.js may keep the page alive in the background
+  // and bring it back later, so the player is kept ready to play again (not shut down).
   useEffect(
     () => () => {
       window.clearTimeout(stopTimer.current);
       audio.current?.pause();
-      void ctx.current?.close();
+      const ac = ctx.current;
+      if (ac && gain.current) {
+        gain.current.gain.cancelScheduledValues(ac.currentTime);
+        gain.current.gain.setValueAtTime(0, ac.currentTime);
+      }
     },
     [],
   );

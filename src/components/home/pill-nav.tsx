@@ -20,7 +20,7 @@ export function PillNav() {
         <Link
           href="/"
           aria-label={`${site.name}, home`}
-          className="flex shrink-0 items-center rounded-md transition-opacity outline-none hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solid focus-visible:outline-[#E5484D]"
+          className="flex shrink-0 items-center rounded-md transition-opacity outline-none hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solid focus-visible:outline-(--accent)"
         >
           <GraffitiJsMark className="size-7" mode="static" />
         </Link>
@@ -32,14 +32,14 @@ export function PillNav() {
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="underline-offset-4 transition-colors outline-none hover:text-[#E5484D] focus-visible:text-[#E5484D] focus-visible:underline"
+                  className="underline-offset-4 transition-colors outline-none hover:text-(--accent) focus-visible:text-(--accent) focus-visible:underline"
                 >
                   {link.label}
                 </a>
               ) : (
                 <Link
                   href={link.href}
-                  className="underline-offset-4 transition-colors outline-none hover:text-[#E5484D] focus-visible:text-[#E5484D] focus-visible:underline"
+                  className="underline-offset-4 transition-colors outline-none hover:text-(--accent) focus-visible:text-(--accent) focus-visible:underline"
                 >
                   {link.label}
                 </Link>

@@ -8,7 +8,7 @@ import { site } from "@/data/site";
 
 export default function Home() {
   return (
-    <div className="home-page relative isolate min-h-dvh overflow-hidden bg-[#010101] text-white">
+    <div className="home-page relative isolate min-h-dvh overflow-hidden bg-[#080808] text-white">
       <PillNav />
 
       <main className="flex flex-col items-center px-4">
@@ -21,7 +21,7 @@ export default function Home() {
             <div className="flex flex-col items-center">
               <h1 className="sr-only">{site.name}</h1>
               <PianoLogo />
-              <p className="relative z-50 mt-4 font-heading text-xl [text-shadow:0_0_2px_#010101,0_0_6px_#010101,0_0_14px_#010101] sm:text-2xl">
+              <p className="relative z-50 mt-4 font-heading text-xl [text-shadow:0_0_2px_#080808,0_0_6px_#080808,0_0_14px_#080808] sm:text-2xl">
                 A Product Designer &amp; Musician
               </p>
               <p className="relative z-50 mt-3 inline-flex items-center gap-1.5 rounded-full bg-[#1f1f1f] py-1.5 pr-3.5 pl-2.5 text-sm">
@@ -32,7 +32,7 @@ export default function Home() {
             {/* A quiet invitation: slightly dimmed at rest, full strength on hover or focus. */}
             <a
               href="#playlist"
-              className="group relative z-50 [text-shadow:0_0_2px_#010101,0_0_6px_#010101,0_0_14px_#010101] flex flex-col items-center gap-4 text-base outline-none"
+              className="group relative z-50 [text-shadow:0_0_2px_#080808,0_0_6px_#080808,0_0_14px_#080808] flex flex-col items-center gap-4 text-base outline-none"
             >
               <span className="opacity-85 transition-opacity duration-250 ease-out group-hover:opacity-100 group-focus-visible:opacity-100">
                 Scroll to see my projects

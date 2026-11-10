@@ -34,6 +34,14 @@
   }
 }
 
+/* The accent color used for hovers, the nav logo, flying icons and the contact graffiti. It's the
+   site's red; a page can set its own (the Velo case study uses Velo yellow). --accent-lit is the
+   brighter version for glowing paint and drops. */
+:root {
+  --accent: #e5484d;
+  --accent-lit: #ff3d48;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -47,7 +55,7 @@ body {
    top or bottom shows black instead of the default white. */
 html:has(.home-page),
 html:has(.home-page) body {
-  background: #010101;
+  background: #080808;
   color-scheme: dark;
 }
 
@@ -164,7 +172,7 @@ mark {
   height: 5px;
   margin: -2.5px 0 0 -2px;
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  background: #ff3d48;
+  background: var(--accent-lit);
   opacity: 0;
   pointer-events: none;
   z-index: 1;
@@ -192,7 +200,7 @@ mark {
 @property --paint-2 { syntax: "<length>"; inherits: false; initial-value: 0px; }
 @property --paint-3 { syntax: "<length>"; inherits: false; initial-value: 0px; }
 .paint-layer {
-  color: #e5484d;
+  color: var(--accent);
   pointer-events: none;
   -webkit-mask-image: radial-gradient(calc(var(--paint-0) + 0.01px) calc(var(--paint-0) * var(--round0) + 0.01px) at var(--x0) var(--y0), #000 55%, transparent 100%),
     radial-gradient(calc(var(--paint-1) + 0.01px) calc(var(--paint-1) * var(--round1) + 0.01px) at var(--x1) var(--y1), #000 55%, transparent 100%),
@@ -329,4 +337,58 @@ mark {
 }
 @media (prefers-reduced-motion: reduce) {
   [data-glow-name][data-on]::after { animation: none; }
+}
+
+/* Seek bar on the Velo video: a thin track, in the page accent color (red by default) up to the current time, with a small white
+   handle that grows a little on hover. */
+.seek {
+  appearance: none;
+  background: transparent;
+}
+.seek:focus-visible {
+  outline: none;
+}
+.seek::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--progress), rgba(255, 255, 255, 0.2) var(--progress));
+}
+.seek::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--progress), rgba(255, 255, 255, 0.2) var(--progress));
+}
+.seek::-webkit-slider-thumb {
+  appearance: none;
+  margin-top: -4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #fff;
+  transition: transform 150ms ease-out;
+}
+.seek::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 999px;
+  background: #fff;
+}
+.seek:hover::-webkit-slider-thumb,
+.seek:focus-visible::-webkit-slider-thumb {
+  transform: scale(1.25);
+}
+
+/* The red "live" dot next to a status (e.g. "In open beta"): it fades on and off. Stays on for
+   visitors who prefer reduced motion. */
+@keyframes live-blink {
+  0%, 45% { opacity: 1; }
+  55%, 95% { opacity: 0.15; }
+  100% { opacity: 1; }
+}
+.live-dot {
+  animation: live-blink 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-dot { animation: none; }
 }

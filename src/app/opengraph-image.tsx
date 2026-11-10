@@ -29,7 +29,7 @@ export default async function Image() {
           alignItems: "center",
           justifyContent: "center",
           gap: 32,
-          background: "radial-gradient(70% 60% at 50% 0%, #10284a 0%, #010101 70%)",
+          background: "radial-gradient(70% 60% at 50% 0%, #10284a 0%, #080808 70%)",
           color: "white",
           fontFamily: "Adventor",
         }}

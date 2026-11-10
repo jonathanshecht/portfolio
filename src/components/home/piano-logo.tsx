@@ -17,6 +17,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Mynerve } from "next/font/google";
+import { doodle, type Pt } from "@/lib/doodle";
 import {
   useCallback,
   useEffect,
@@ -251,12 +252,35 @@ const BROKEN = 6;
 // Interaction phases. Notes only play while "intact" (which includes the cracked stages).
 type Phase = "intact" | "breaking" | "broken" | "repairing";
 const SEPARATE_AT = 560; // ms of building tremble before the piano snaps
+// The note count (and so the cracks, or a broken piano) is kept for this browser tab, so it's
+// the same after leaving the page, coming back or reloading (best effort: storage can be
+// unavailable, and then it only lasts until the page reloads).
+const NOTES_KEY = "piano-notes";
 let notesPlayed = 0;
+let notesLoaded = false;
+function loadNotes() {
+  if (notesLoaded) return notesPlayed;
+  notesLoaded = true;
+  try {
+    notesPlayed = Number(window.sessionStorage.getItem(NOTES_KEY)) || 0;
+  } catch {}
+  return notesPlayed;
+}
+function saveNotes() {
+  try {
+    window.sessionStorage.setItem(NOTES_KEY, String(notesPlayed));
+  } catch {}
+}
 function countNote() {
-  return ++notesPlayed;
+  loadNotes();
+  notesPlayed++;
+  saveNotes();
+  return notesPlayed;
 }
 function resetNotes() {
+  notesLoaded = true;
   notesPlayed = 0;
+  saveNotes();
 }
 // Where a piece sits across the piano: 0 at the cracked N, 1 at the J (used to order the break).
 function dropPose(part: HTMLElement, width: number) {
@@ -351,7 +375,6 @@ function crackStage(count: number) {
 // (the piano's outline, a key divider, the bottom of a black key) or on another crack.
 // The last N starts with a small Y-shaped split that grows up the key; as the piano keeps being
 // played, new little cracks spread to the other white keys, stage by stage.
-type Pt = [number, number];
 // Main line on the last key, top to bottom. It's anchored to the right edge by the Y-split's
 // right arm, climbs higher with each stage, and finally reaches the top edge.
 const MAIN: Pt[] = [
@@ -561,21 +584,6 @@ const PIECES: { key: number; from: number; points: Pt[] }[] = [
     ],
   },
 ];
-// Hand-drawn feel: each segment bows slightly, alternating sides, so the zigzag reads as a
-// doodle rather than a precise lightning bolt. The wobble is fixed, so every stage looks the same.
-function doodle(points: Pt[]) {
-  return points
-    .map(([x, y], i) => {
-      if (i === 0) return `M${x} ${y}`;
-      const [px, py] = points[i - 1];
-      const len = Math.hypot(x - px, y - py) || 1;
-      const bow = (i % 2 ? 1 : -1) * Math.min(1.4, len * 0.12);
-      const cx = (px + x) / 2 + (-(y - py) / len) * bow;
-      const cy = (py + y) / 2 + ((x - px) / len) * bow;
-      return `Q${cx.toFixed(2)} ${cy.toFixed(2)} ${x} ${y}`;
-    })
-    .join(" ");
-}
 
 // The cracks on one white key, drawn inside the key itself so they move with it and stay on
 // when the piano gives way. Lines are clipped at the key's edges.
@@ -622,13 +630,13 @@ export function PianoLogo() {
   const [beat, setBeat] = useState(0);
   const noteId = useRef(0);
   const width = KEY * LETTERS.length + 2; // including the piano's 1px border
-  // On phones the piano is scaled up to fill the screen's width (less the page's 16px sides), so
-  // the keys are a comfortable size to tap.
+  // On phones the piano is scaled up to nearly the screen's width (28px clear on each side, so it
+  // still has some room around it), so the keys are a comfortable size to tap.
   const [scale, setScale] = useState(1);
   useEffect(() => {
     const fit = () => {
       const w = window.innerWidth;
-      setScale(w < 640 ? Math.min(1.4, (w - 32) / width) : 1);
+      setScale(w < 640 ? Math.min(1.4, (w - 56) / width) : 1);
     };
     fit();
     window.addEventListener("resize", fit);
@@ -848,11 +856,21 @@ export function PianoLogo() {
     });
   };
 
-  // Coming back to the page with the piano already broken: keep the keys hidden.
+  // Coming back to the page (or reloading it) with the piano cracked or broken: pick up where it
+  // was, with a broken piano's keys hidden. This runs after the first render, since the server
+  // can't know the saved state.
   useEffect(() => {
+    const count = loadNotes();
+    if (count > 0) markPlayed(); // already played in this tab: no "play me" hint
+    const saved = crackStage(count);
+    if (saved !== stageRef.current) {
+      stageRef.current = saved;
+      setStage(saved);
+    }
+    if (saved === BROKEN && phaseRef.current === "intact") changePhase("broken");
     if (phaseRef.current !== "broken") return;
     for (const part of pianoParts()) part.style.visibility = "hidden";
-  }, []);
+  }, [changePhase]);
 
   // Leaving the page: clear away any loose pieces. The page may be kept alive in the background
   // and shown again on Back, with its state intact, so a piano that isn't whole is left plainly
