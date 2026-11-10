@@ -841,7 +841,7 @@ export default function VeloCaseStudy() {
           <Section
             id="challenge"
             eyebrow="The challenge"
-            title="Getting beginners to stay, and to pay"
+            title="Getting beginners to pay, and feel it was worth it"
           >
             <P>
               <H>Beginners give up on photography courses.</H> And a paid course
@@ -851,12 +851,12 @@ export default function VeloCaseStudy() {
             <Problems
               items={[
                 {
-                  title: "Keep beginners engaged",
-                  text: "Long enough to actually learn.",
+                  title: "Make it feel worth it",
+                  text: "Beginners should feel themselves improving from the first lesson.",
                 },
                 {
                   title: "Earn trust without a famous name",
-                  text: "Learners check out the instructor before they buy.",
+                  text: "Give them a reason to pay for a course from someone they don\u2019t know.",
                 },
               ]}
             />
@@ -1133,7 +1133,7 @@ export default function VeloCaseStudy() {
               Each decision answers one of the two goals from the challenge.
             </P>
 
-            <Goal n={1} title="Keep beginners engaged" />
+            <Goal n={1} title="Make it feel worth it" />
             <Decision
               n={1}
               title="A camera settings simulator"
@@ -1178,7 +1178,7 @@ export default function VeloCaseStudy() {
               </P>
             </Decision>
 
-            <Goal n={2} title="Earn trust, so they pay" />
+            <Goal n={2} title="Earn trust without a famous name" />
             <Decision
               n={3}
               title="Credibility up front"
@@ -1366,14 +1366,15 @@ export default function VeloCaseStudy() {
 
           <Section id="learned" title="What I learned">
             <P>
-              <strong>For a course, the content is the product.</strong> We
-              built a clear structure and interactive tools (image comparisons,
-              before/after sliders, the simulator), but most lessons
-              didn&rsquo;t use them enough. They stayed text-heavy with few
-              visual examples, and the beta felt it. Next time I&rsquo;d balance
-              my time differently: less on perfecting the structure, more on
-              reviewing lessons with the instructor so they stay concise and
-              actually use the interactive elements.
+              <strong>For a course, the content is the product.</strong> Testers
+              loved the design, and its structure can serve as a framework for
+              future courses. But most lessons didn&rsquo;t use its interactive
+              tools (image comparisons, before/after sliders, the simulator)
+              enough. They stayed text-heavy with few visual examples, and the
+              beta felt it. Next time I&rsquo;d balance my time differently:
+              less on perfecting the structure, more on reviewing lessons with
+              the instructor so they stay concise and actually use the
+              interactive elements.
             </P>
             <P>
               <strong>Test with users earlier.</strong> The beta aligned the
