@@ -74,7 +74,7 @@ export const releases: Release[] = [
     title: "Stacey Ryan",
     blurb: "A cinematic, magazine-style artist website.",
     video: "/home/stacey-card-10.mp4",
-    tags: ["Website", "Mobile", "Client", "UX/UI"],
+    tags: ["Website", "Client", "UX/UI"],
     image: cover("stacey-ryan"),
     // Split from the original cover image, in the same layout.
     screens: {
