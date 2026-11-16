@@ -855,27 +855,16 @@ export default function VeloCaseStudy() {
           </dl>
           <HandDivider flip />
 
-          {/* The key results as big numbers for anyone skimming, labeled like Role / Team:  the
-              launch results; the beta's results are in the Beta section. */}
+          {/* The launch result as a big number for anyone skimming, labeled like Role / Team.
+              The beta's results are in the Beta section. */}
           <div className="mt-12">
-            <div>
-              <p className="text-xs font-semibold tracking-[0.2em] text-white/50 uppercase">
-                Initial launch results &middot; first two weeks
-              </p>
-              <ul className="mt-3 grid gap-6 sm:grid-cols-3">
-                {[
-                  { value: "13%", label: "free-to-paid conversion" },
-                  { value: "70+", label: "trial users" },
-                ].map((item) => (
-                  <li key={item.label}>
-                    <p className="font-heading text-4xl font-bold">
-                      {item.value}
-                    </p>
-                    <p className="mt-2 text-base text-white/70">{item.label}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <p className="text-xs font-semibold tracking-[0.2em] text-white/50 uppercase">
+              Initial launch results &middot; first two weeks
+            </p>
+            <p className="mt-3 font-heading text-4xl font-bold">9%</p>
+            <p className="mt-2 text-base text-white/70">
+              free-to-paid conversion
+            </p>
           </div>
 
           <Section
@@ -1385,7 +1374,7 @@ export default function VeloCaseStudy() {
               </P>
               <P>
                 In the first two weeks after launch,{" "}
-                <H>13% of trial users upgraded</H> to paid.
+                <H>9% of trial users upgraded</H> to paid.
               </P>
             </Decision>
           </Section>
