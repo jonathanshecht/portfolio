@@ -17,8 +17,7 @@ export function ContactSection() {
       <HandDivider className="absolute inset-x-0 top-0" />
       <GraffitiHeading id="contact-title" text="Let’s work together" />
       <p className="text-base text-white/70">
-        I&rsquo;m open to product design roles. Send me an email, grab my resume
-        below, or find me on{" "}
+        Wanna chat? Send me an email, grab my resume below, or find me on{" "}
         <a
           href={site.links.linkedin}
           target="_blank"
