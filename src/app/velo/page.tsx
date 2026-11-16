@@ -1459,12 +1459,12 @@ export default function VeloCaseStudy() {
               </figure>
             </div>
             <P>
-              The biggest fix was using the interactive parts more. The
-              components were already designed, but the lessons barely used
-              them, so <H>I recommended building lessons around them</H> and
-              cutting the text. The instructor did, and{" "}
-              <H>13% of trial users upgraded</H> in the first two weeks after
-              launch.
+              The biggest fix was using more interactive components and visual
+              examples. The components were already designed, but the lessons
+              barely used them, so{" "}
+              <H>I recommended building lessons around them</H> and cutting the
+              text. The instructor did, and <H>13% of trial users upgraded</H>{" "}
+              in the first two weeks after launch.
             </P>
           </Section>
 
