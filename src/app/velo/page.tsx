@@ -1459,13 +1459,12 @@ export default function VeloCaseStudy() {
               </figure>
             </div>
             <P>
-              Test participants had said they&rsquo;d only pay for a more
-              interactive course. The interactive components were already
-              designed, but the lessons barely used them, so{" "}
-              <H>I recommended building lessons around them</H> and cutting the
-              text. The instructor did, and <H>13% of trial users upgraded</H>{" "}
-              in the first two weeks after launch. The color-coded callouts are
-              planned for the next version.
+              The biggest fix was using the interactive parts more. The
+              components were already designed, but the lessons barely used
+              them, so <H>I recommended building lessons around them</H> and
+              cutting the text. The instructor did, and{" "}
+              <H>13% of trial users upgraded</H> in the first two weeks after
+              launch.
             </P>
           </Section>
 
