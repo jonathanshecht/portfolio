@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useCallback, useRef, useState } from "react";
 import type { Release } from "@/data/home";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
+import { ComingSoonTile } from "./coming-soon-tile";
 
 const HOVER_ICONS: Record<NonNullable<Release["hoverIcon"]>, LucideIcon> = {
   camera: Camera,
@@ -88,7 +89,8 @@ function ProjectTile({ release }: { release: Release }) {
       }
     >
       <Link
-        href={`/${release.slug}`}
+        href={release.external ?? `/${release.slug}`}
+        {...(release.external ? { target: "_blank", rel: "noreferrer" } : {})}
         onPointerEnter={(e) => e.pointerType === "mouse" && start()}
         onPointerLeave={stop}
         onFocus={start}
@@ -183,11 +185,28 @@ function ProjectTile({ release }: { release: Release }) {
         <div className="mt-6 flex flex-col gap-3">
           <h3 className="flex items-center gap-2 text-2xl font-bold">
             {release.title}
+            {release.external && (
+              <span className="sr-only">
+                {" "}
+                (on my old portfolio, opens in a new tab)
+              </span>
+            )}
             <ArrowUpRight
               aria-hidden
               strokeWidth={2.5}
               className="size-5 text-(--accent) opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-safe:-translate-x-1 motion-safe:translate-y-1 motion-safe:group-hover:translate-0 motion-safe:group-focus-visible:translate-0"
             />
+            {/* A case study that still lives on the old portfolio says so on hover, in the
+                card's accent like the arrow, so the different look over there isn't a surprise. Touch screens have no hover, so
+                there it always shows. */}
+            {release.external && (
+              <span
+                aria-hidden
+                className="font-sans text-sm font-bold text-(--accent) opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100"
+              >
+                on my old portfolio
+              </span>
+            )}
           </h3>
           <p className="text-base text-white/70">{release.blurb}</p>
           <ul className="flex flex-wrap gap-2 text-sm" aria-label="Tags">
@@ -210,6 +229,8 @@ export function ProjectGrid({ releases }: { releases: Release[] }) {
       {releases.map((release) => (
         <ProjectTile key={release.slug} release={release} />
       ))}
+      {/* An odd number of projects leaves a gap in the two columns: the ghost holds the spot. */}
+      {releases.length % 2 === 1 && <ComingSoonTile />}
     </ul>
   );
 }

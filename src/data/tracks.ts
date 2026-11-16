@@ -13,7 +13,7 @@ export type Track = Project & {
 
 const extra: Record<string, Omit<Track, keyof Project>> = {
   velo: { role: "Lead Product Designer", released: "Aug 2026", length: "5 mo", start: 62, months: 5, color: "#b5e86a" },
-  "stacey-ryan": { role: "Lead UX Designer", released: "Apr 2025", length: "1 mo", start: 51, months: 1, color: "#f2a65a" },
+  "stacey-ryan": { role: "Sole Designer", released: "Apr 2025", length: "1 mo", start: 51, months: 1, color: "#f2a65a" },
   shure: { role: "UX Design Intern", released: "Jun 2023", length: "2.5 mo", start: 29, months: 2.5, color: "#6ab7ff" },
   "qr-menu": { role: "UX Designer", released: "Nov 2021", length: "2 wk", start: 10, months: 0.5, color: "#4fd1a5" },
   moments: { role: "Product Designer", released: "Unreleased", length: "—", start: 66, months: 4, color: "#ff7eb6" },

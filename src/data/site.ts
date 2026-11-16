@@ -3,7 +3,14 @@
 const CDN = "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/";
 export const cdn = (file: string) => CDN + file;
 
-export type Img = { src: string; width: number; height: number };
+// `light` puts a light backing behind an image with a transparent background and dark content,
+// made for a light page, so it stays readable on the dark case studies.
+export type Img = {
+  src: string;
+  width: number;
+  height: number;
+  light?: boolean;
+};
 
 export const site = {
   name: "Jonathan Shechtman",
@@ -18,7 +25,7 @@ export const site = {
   links: {
     email: "mailto:jonathanshecht3367@gmail.com",
     linkedin: "https://www.linkedin.com/in/jonathan-shechtman/",
-    resume: cdn("67a1408e7b0b49845243dba5_Jonathan_Shechtman_CV_Portfolio.pdf"),
+    resume: "/Jonathan_Shechtman_Resume.pdf",
   },
   heroVideo: {
     mp4: "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9%2F6753d0be797c1ebfbb5f69e7_Produce_6-transcode.mp4",

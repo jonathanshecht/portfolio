@@ -56,7 +56,7 @@ export const projects: Project[] = [
     summary: "Onboarding Redesign",
     logo: { src: cdn("67575cca22fb981b41910d5e_qrmeny_logo.png"), width: 1011, height: 256 },
     cover: { src: cdn("675caece8f06478341b60ef4_qrqrqr%201.png"), width: 1519, height: 801 },
-    status: "live",
+    status: "hidden",
   },
   {
     slug: "moments",

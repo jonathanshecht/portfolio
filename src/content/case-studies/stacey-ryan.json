@@ -1,12 +1,12 @@
 {
   "slug": "stacey-ryan",
   "title": "Stacey Ryan",
-  "subtitle": "Artist Website Redesign",
+  "subtitle": "Artist website redesign",
   "meta": [
     "Client (MixBus Marketing)",
     "April 2025 (1 Month)",
-    "Role: Lead UX Designer",
-    "Myself, Developer, Product Manager"
+    "Role: Sole Designer",
+    "PM, developer"
   ],
   "hero": [
     {
@@ -20,52 +20,42 @@
       "height": 528
     }
   ],
+  "heroVideo": "/home/stacey-card-10.mp4",
+  "intro": "Stacey Ryan has <mark>1.6 million monthly listeners</mark>, <mark>over 500 million streams</mark> and a performance on <mark>The Late Late Show with James Corden</mark> behind her, but her website felt generic. With her debut album coming in 2025, she needed a site that felt like the record: old Hollywood glamour with traces of heartbreak. As the agency's <mark>sole designer</mark>, I designed it end to end and <mark>built much of it in Framer</mark>.",
+  "impact": [
+    "<mark>Tripled ticket click-throughs</mark> compared to her previous shows, beating our goal of doubling them"
+  ],
   "toc": [
     {
       "id": "overview",
       "label": "Overview"
+    },
+    {
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "id": "challenge",
+      "label": "Challenge"
+    },
+    {
+      "id": "decisions",
+      "label": "Key decisions"
+    },
+    {
+      "id": "results",
+      "label": "Results"
+    },
+    {
+      "id": "product",
+      "label": "Final product"
+    },
+    {
+      "id": "learned",
+      "label": "What I learned"
     }
   ],
   "blocks": [
-    {
-      "type": "note",
-      "text": "This case study is a work in progress"
-    },
-    {
-      "type": "eyebrow",
-      "text": "problem"
-    },
-    {
-      "type": "title",
-      "html": "Outdated Design"
-    },
-    {
-      "type": "p",
-      "html": "Stacey Ryan’s previous artist website no longer reflected her evolving brand or artistic vision. As she entered a new era with <mark>Blessing in Disguise</mark>, her online presence needed a refresh. Thus, I was tasked with transforming an outdated site into a cinematic, vintage magazine-inspired experience that aligned with her new aesthetic while keeping music, tour dates, and merch at the forefront for fans."
-    },
-    {
-      "type": "eyebrow",
-      "text": "Solution"
-    },
-    {
-      "type": "title",
-      "html": "An immersive, cohesive experience."
-    },
-    {
-      "type": "p",
-      "html": "We redesigned Stacey Ryan’s website into a <mark>cinematic, vintage magazine-style hub</mark> that elevated her brand and streamlined fan access to music, tour dates, and merch."
-    },
-    {
-      "type": "label",
-      "text": "Impact"
-    },
-    {
-      "type": "list",
-      "items": [
-        "Went live <mark>April 2025</mark>",
-        "<mark>40% increase in website traffic</mark>, boosted tour ticket sales through the site by 30%"
-      ]
-    },
     {
       "type": "label",
       "text": "Toolkit"
@@ -78,56 +68,422 @@
       ]
     },
     {
-      "type": "heading",
-      "html": "Before &amp; After"
-    },
-    {
-      "type": "gallery",
-      "images": [
-        {
-          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f411c6bf77d1636d21758f_before.png",
-          "width": 846,
-          "height": 2177
-        },
-        {
-          "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f414343dafc54e730c7613_Home%20Page%20(Color%201).png",
-          "width": 845,
-          "height": 3513
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "html": "Website Video"
-    },
-    {
-      "type": "video",
-      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9%2F68f414fea21270406b2cf3c5_Stacey_Trimmed-transcode.mp4"
-    },
-    {
       "type": "eyebrow",
-      "text": "Impact"
+      "text": "The brief",
+      "id": "background"
     },
     {
       "type": "title",
-      "html": "Results after 1 month."
+      "html": "A vintage, Hollywood world"
     },
     {
-      "type": "stats",
-      "items": [
+      "type": "p",
+      "html": "Her brand booklet set the look: close-up portraits, Stacey as a <mark>vintage starlet in the Los Angeles desert</mark>, and bold, narrow fonts."
+    },
+    {
+      "type": "moodboard",
+      "note": "from the brief",
+      "images": [
         {
-          "value": "40%↑",
-          "label": "Website traffic"
+          "src": "/stacey/brief/portrait-bw.webp",
+          "width": 442,
+          "height": 663,
+          "alt": "Close-up portrait of Stacey with a short bob"
         },
         {
-          "value": "30%↑",
-          "label": "Ticket sales through website"
+          "src": "/stacey/brief/desert.webp",
+          "width": 900,
+          "height": 506,
+          "alt": "Stacey leaning on a red car in the Los Angeles desert"
         },
         {
-          "value": "100%",
-          "label": "rollout rate"
+          "src": "/stacey/brief/leopard.webp",
+          "width": 900,
+          "height": 596,
+          "alt": "Stacey in a leopard coat lowering her sunglasses"
+        },
+        {
+          "src": "/stacey/brief/candle-blur.webp",
+          "width": 746,
+          "height": 735,
+          "alt": "Blurred photo of Stacey holding a candle"
+        },
+        {
+          "src": "/stacey/brief/candles.webp",
+          "width": 900,
+          "height": 609,
+          "alt": "Stacey in front of a wall of candles"
+        },
+        {
+          "src": "/stacey/brief/tiles.webp",
+          "width": 900,
+          "height": 1120,
+          "alt": "Stacey in a vintage green-tiled doorway"
         }
       ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "The challenge",
+      "id": "challenge"
+    },
+    {
+      "type": "title",
+      "html": "Sell the tour, not just the album"
+    },
+    {
+      "type": "p",
+      "html": "At the first client review, the focus moved from album presaves to Stacey's <mark>first headlining tour</mark>. With no target from the client, we set our own: <mark>double the ticket click-throughs</mark>."
+    },
+    {
+      "type": "eyebrow",
+      "text": "The old site"
+    },
+    {
+      "type": "title",
+      "html": "Simple, but generic"
+    },
+    {
+      "type": "p",
+      "html": "I liked the old site's simplicity, but it was easy to see why Stacey wanted a change:"
+    },
+    {
+      "type": "screenshotNotes",
+      "image": {
+        "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9/68f411c6bf77d1636d21758f_before.png",
+        "width": 846,
+        "height": 2177
+      },
+      "alt": "Stacey Ryan's old home page",
+      "notes": [
+        {
+          "text": "a placeholder logo",
+          "x": 8.5,
+          "y": 1.4,
+          "side": "left"
+        },
+        {
+          "text": "social media links, barely visible",
+          "x": 93,
+          "y": 1.2,
+          "side": "right"
+        },
+        {
+          "text": "a generic headshot",
+          "x": 30,
+          "y": 12,
+          "side": "left"
+        },
+        {
+          "text": "yellow titles on white, hard to read",
+          "x": 11,
+          "y": 23.3,
+          "side": "left"
+        },
+        {
+          "text": "song titles disconnected from their cover art",
+          "x": 85,
+          "y": 32.5,
+          "side": "right"
+        },
+        {
+          "text": "music and video pages: generic grids",
+          "x": 79,
+          "y": 43,
+          "side": "right"
+        },
+        {
+          "text": "once again, a weird circle in the back",
+          "x": 92,
+          "y": 52,
+          "side": "right"
+        },
+        {
+          "text": "no set color palette, so no real identity",
+          "x": 9.6,
+          "y": 58.4,
+          "side": "left"
+        },
+        {
+          "text": "the tour, buried at the bottom, with room for only a few dates",
+          "x": 79,
+          "y": 86.6,
+          "side": "right"
+        }
+      ]
+    },
+    {
+      "type": "handNote",
+      "text": "Who is Stacey Ryan, and what is she trying to say? The old site never made that clear."
+    },
+    {
+      "type": "eyebrow",
+      "text": "Research"
+    },
+    {
+      "type": "title",
+      "html": "Keep the structure, change everything else"
+    },
+    {
+      "type": "p",
+      "html": "Most artist sites lead with the store. <mark>Benson Boone's</mark> came closest to what Stacey's team wanted:"
+    },
+    {
+      "type": "screenshotNotes",
+      "image": {
+        "src": "/stacey/benson-boone-hq.webp",
+        "width": 1438,
+        "height": 2120
+      },
+      "alt": "Benson Boone's artist website: hero with a countdown and presave buttons, the music section, and a list of tour dates",
+      "notes": [
+        {
+          "text": "the same structure as Stacey's: music, videos, tour",
+          "x": 76,
+          "y": 1.7,
+          "side": "right"
+        },
+        {
+          "text": "a countdown to the album, which I used in my first version",
+          "x": 50,
+          "y": 26.9,
+          "side": "left"
+        },
+        {
+          "text": "presave and pre-order first",
+          "x": 62,
+          "y": 31.6,
+          "side": "right"
+        },
+        {
+          "text": "but the design felt dated",
+          "x": 30,
+          "y": 57.0,
+          "side": "left"
+        },
+        {
+          "text": "lots of shows, each with its own ticket link",
+          "x": 85,
+          "y": 73.7,
+          "side": "right"
+        }
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "Decision 01",
+      "id": "decisions"
+    },
+    {
+      "type": "title",
+      "html": "From summer beach to Vogue"
+    },
+    {
+      "type": "p",
+      "html": "My first direction was a <mark>summery, old-California look</mark>. Our team found it too summery, so instead of polishing it, I listened to the <mark>unreleased album</mark> to find her real vision."
+    },
+    {
+      "type": "versions",
+      "aspect": "4 / 3",
+      "noun": "version",
+      "versions": [
+        {
+          "src": "/stacey/hero-1-hq.webp",
+          "width": 1440,
+          "height": 1080,
+          "label": "Version 1",
+          "alt": "First hero: Stacey on a red car in the desert, her name in large yellow letters",
+          "notes": [
+            {
+              "x": 20,
+              "side": "above",
+              "align": "start",
+              "text": "Roboto Mono, from the booklet"
+            },
+            {
+              "x": 86,
+              "side": "above",
+              "align": "end",
+              "text": "too summery"
+            },
+            {
+              "x": 28,
+              "side": "below",
+              "text": "vinyls and paper texture: kept"
+            }
+          ]
+        },
+        {
+          "src": "/stacey/hero-2-hq.webp",
+          "width": 1440,
+          "height": 1080,
+          "label": "Version 2",
+          "alt": "Same layout with a moodier photo of Stacey in a leopard coat",
+          "notes": [
+            {
+              "x": 50,
+              "side": "above",
+              "text": "moodier photo, same layout"
+            }
+          ]
+        },
+        {
+          "src": "/stacey/hero-3-hq.webp",
+          "width": 1440,
+          "height": 1080,
+          "label": "Version 3",
+          "alt": "Her name set large in Mestika next to a photo of Stacey in a tiled doorway",
+          "notes": [
+            {
+              "x": 12,
+              "side": "above",
+              "align": "start",
+              "text": "the Mestika font changed everything"
+            },
+            {
+              "x": 90,
+              "side": "above",
+              "align": "end",
+              "text": "a magazine layout"
+            }
+          ]
+        },
+        {
+          "src": "/stacey/hero-4-hq.webp",
+          "width": 1440,
+          "height": 1080,
+          "label": "Final direction",
+          "alt": "Her name in Mestika next to a black-and-white portrait, with the single's title in orange script",
+          "notes": [
+            {
+              "x": 63,
+              "side": "above",
+              "width": 310,
+              "text": "black and white, from a photo that caught my eye; the orange accent came from the tour poster"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "Decision 02"
+    },
+    {
+      "type": "title",
+      "html": "Vinyls and a tour poster"
+    },
+    {
+      "type": "pair",
+      "items": [
+        {
+          "image": {
+            "src": "/stacey/music-page-hq.webp",
+            "width": 747,
+            "height": 648
+          },
+          "alt": "The music page: every song shown as a vinyl record with its title and a stream or pre-save button",
+          "label": "Music",
+          "notes": [
+            {
+              "x": 50,
+              "side": "above",
+              "text": "songs as vinyls, for an analog feel"
+            }
+          ]
+        },
+        {
+          "image": {
+            "src": "/stacey/tour-section-hq.webp",
+            "width": 1440,
+            "height": 1250
+          },
+          "alt": "The tour section: Stacey's tour poster with every date, then the list of shows, each with a Get Tickets button",
+          "label": "Tour",
+          "notes": [
+            {
+              "x": 50,
+              "side": "above",
+              "text": "based on her tour poster, made the hero by client request"
+            },
+            {
+              "x": 86.7,
+              "side": "below",
+              "align": "end",
+              "text": "every date links to its own tickets",
+              "to": {
+                "x": 86.7,
+                "y": 92.5
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "eyebrow",
+      "text": "Launch",
+      "id": "results"
+    },
+    {
+      "type": "title",
+      "html": "Approved at the first client review"
+    },
+    {
+      "type": "p",
+      "html": "The client approved my first version with one change, for the new goal: <mark>move the tour to the top</mark>."
+    },
+    {
+      "type": "p",
+      "html": "In the month after the tour announcement, <mark>ticket click-throughs tripled</mark> compared to her previous shows, beating our goal of doubling them."
+    },
+    {
+      "type": "eyebrow",
+      "text": "Final product",
+      "id": "product"
+    },
+    {
+      "type": "title",
+      "html": "The launched site"
+    },
+    {
+      "type": "quote",
+      "text": "The visuals were stunning, and the entire flow just worked. Fans love it, and so do I.",
+      "who": "Stacey Ryan",
+      "role": "Artist",
+      "photo": {
+        "src": "/stacey/brief/portrait-bw.webp",
+        "width": 442,
+        "height": 663
+      }
+    },
+    {
+      "type": "video",
+      "src": "https://cdn.prod.website-files.com/6753cd4e812cbecd7d5d52d9%2F68f414fea21270406b2cf3c5_Stacey_Trimmed-transcode.mp4",
+      "label": "Walkthrough of the launched Stacey Ryan website",
+      "aspect": "16 / 10",
+      "silent": true
+    },
+    {
+      "type": "eyebrow",
+      "text": "Reflection",
+      "id": "learned"
+    },
+    {
+      "type": "title",
+      "html": "What I learned"
+    },
+    {
+      "type": "p",
+      "html": "<strong>Design for where the audience actually is.</strong> After launch, analytics showed over 90% of visits came from phones. We made sure the site looked great on mobile, but I researched artist sites and designed on desktop first. Next time I'd check the data up front and start with mobile."
+    },
+    {
+      "type": "p",
+      "html": "<strong>Immerse yourself in the material first.</strong> Listening to the unreleased album is what unlocked the right direction, not more research."
+    },
+    {
+      "type": "p",
+      "html": "<strong>Learn the tool the design ships in.</strong> I learned Framer and built much of the site myself, which kept the launched version true to the design."
     }
   ]
 }

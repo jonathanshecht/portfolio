@@ -6,6 +6,7 @@ import { CaseStudyBlocks } from "@/components/case-study-blocks";
 import { HandDivider } from "@/components/hand-divider";
 import { ContactSection, HomeFooter } from "@/components/home/contact-section";
 import { PillNav } from "@/components/home/pill-nav";
+import { Rich } from "@/components/rich";
 import { SectionNav } from "@/components/velo/section-nav";
 import { releases } from "@/data/home";
 import { caseStudySlugs, getCaseStudy } from "@/lib/case-studies";
@@ -26,12 +27,6 @@ export async function generateMetadata(
 
 // The meta line in the content files is [project type, timeline, role, team]; the role starts
 // with "Role: ". Shown with labels in the same 3-column grid as Velo.
-
-// A study can use its own brand color for the accent (dots, the active item in the side nav, the
-// nav logo), the way Velo uses its yellow. Studies not listed keep the site's red.
-const accents: Record<string, string> = {
-  shure: "#B2FF33",
-};
 
 export default function CaseStudyPage(props: PageProps<"/[slug]">) {
   return (
@@ -80,7 +75,9 @@ async function CaseStudy({
     ["Toolkit", toolkit.join(", ")],
   ].filter(([, value]) => value);
 
-  const accent = accents[slug];
+  // Each study uses its project card's hover color for its accent (dots, the active item in the
+  // side nav, the nav logo), the way Velo uses its yellow. Without one, the site's red is used.
+  const accent = releases.find((r) => r.slug === slug)?.accent;
   return (
     <div
       className="home-page relative isolate min-h-dvh overflow-hidden bg-[#080808] text-white"
@@ -100,7 +97,19 @@ async function CaseStudy({
         <article className="case-study-dark w-full max-w-[846px] pt-[136px] pb-32 sm:px-4 sm:pt-[200px]">
           {/* The hero: the study's two images overlapping, like the previous design, when both
               are big enough; otherwise the larger one on its own, framed like Velo's hero. */}
-          {collage ? (
+          {study.heroVideo ? (
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#141417]">
+              <video
+                src={study.heroVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                aria-hidden
+                className="block h-auto w-full"
+              />
+            </div>
+          ) : collage ? (
             <div className="relative h-[240px] sm:h-[420px]">
               <Image
                 src={back.src}
@@ -144,9 +153,16 @@ async function CaseStudy({
             <h1 className="font-heading text-[34px] font-bold sm:text-[40px]">
               {study.title}
             </h1>
-            <p className="mt-4 text-lg leading-8 text-white/70">
+            <p className="mt-2 text-lg leading-8 text-white/70">
               {study.subtitle}
             </p>
+            {study.intro && (
+              <Rich
+                as="p"
+                html={study.intro}
+                className="mt-4 text-lg leading-8 text-white/70 [&_strong]:font-semibold [&_strong]:text-white"
+              />
+            )}
             {tags.length > 0 && (
               <ul
                 className="mt-4 flex flex-wrap gap-2 text-sm"
@@ -185,6 +201,28 @@ async function CaseStudy({
             ))}
           </dl>
           <HandDivider flip />
+
+          {study.impact && (
+            <div className="mt-12">
+              <p className="text-xs font-semibold tracking-[0.2em] text-white/50 uppercase">
+                Impact
+              </p>
+              <ul className="mt-4 space-y-3">
+                {study.impact.map((item) => (
+                  <li
+                    key={item}
+                    className="flex gap-4 text-xl leading-8 text-white/70"
+                  >
+                    <span
+                      aria-hidden
+                      className="mt-[13px] size-1.5 shrink-0 rounded-full bg-(--accent)"
+                    />
+                    <Rich html={item} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <CaseStudyBlocks blocks={blocks} />
         </article>

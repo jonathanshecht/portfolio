@@ -24,6 +24,9 @@ export type Release = {
   // The project's brand color, used for the card's hover accents and across its case study.
   // Without one, the site's red is used.
   accent?: string;
+  // For now, a case study that lives on the old portfolio: the card opens it in a new tab instead
+  // of this site's page.
+  external?: string;
 };
 
 // A screenshot and where it sits in the card's layout: left (x) and top (y) edges and width, as
@@ -70,7 +73,8 @@ export const releases: Release[] = [
     hoverIcon: "clef",
     title: "Stacey Ryan",
     blurb: "A cinematic, magazine-style artist website.",
-    tags: ["Website", "Client", "UX/UI"],
+    video: "/home/stacey-card-10.mp4",
+    tags: ["Website", "Mobile", "Client", "UX/UI"],
     image: cover("stacey-ryan"),
     // Split from the original cover image, in the same layout.
     screens: {
@@ -96,6 +100,7 @@ export const releases: Release[] = [
   },
   {
     slug: "shure",
+    external: "https://jnthndesign.webflow.io/shure",
     accent: "#B8F23A",
     hoverIcon: "mic",
     title: "Shure",
@@ -119,33 +124,6 @@ export const releases: Release[] = [
         x: 0,
         y: 22.98,
         w: 61.29,
-      },
-    },
-    fit: "contain",
-  },
-  {
-    slug: "qr-menu",
-    title: "QR Menu",
-    blurb: "An onboarding flow that publishes your menu on sign-up.",
-    tags: ["Web App", "Startup", "UX/UI"],
-    image: cover("qr-menu"),
-    screens: {
-      aspect: 1519 / 801,
-      back: {
-        src: "/home/qr-back-2.jpg",
-        width: 970,
-        height: 564,
-        x: 34.43,
-        y: 0.62,
-        w: 65.57,
-      },
-      front: {
-        src: "/home/qr-front-2.jpg",
-        width: 971,
-        height: 564,
-        x: 0.13,
-        y: 25.84,
-        w: 65.64,
       },
     },
     fit: "contain",

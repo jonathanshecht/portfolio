@@ -257,6 +257,12 @@ mark {
   .icon-dance-left, .icon-dance-right { animation: none; }
 }
 
+/* The coming-soon ghost hovering in its frame: a slow rise and fall of a few pixels. */
+@keyframes ghost-hover {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
 /* The About page's ghost dancing while hovered: a little side-to-side bop. */
 @keyframes ghost-dance {
   0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -387,16 +393,3 @@ mark {
   transform: scale(1.25);
 }
 
-/* The red "live" dot next to a status (e.g. "In open beta"): it fades on and off. Stays on for
-   visitors who prefer reduced motion. */
-@keyframes live-blink {
-  0%, 45% { opacity: 1; }
-  55%, 95% { opacity: 0.15; }
-  100% { opacity: 1; }
-}
-.live-dot {
-  animation: live-blink 1.6s ease-in-out infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .live-dot { animation: none; }
-}

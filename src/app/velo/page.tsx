@@ -651,7 +651,7 @@ const tags = releases.find((r) => r.slug === "velo")?.tags ?? [];
 // The project at a glance, in a 3-column grid: Role, Timeline and Scope on top, then Team and
 // Toolkit side by side.
 const meta: [string, ReactNode][] = [
-  ["Role", "Lead Designer"],
+  ["Role", "Sole Designer"],
   ["Timeline", "March 2026 – September 2026"],
   ["Scope", "Brand, research, UX/UI, design system"],
   ["Team", "Instructor/founder/course content provider, PM, developer"],
@@ -705,18 +705,13 @@ export default function VeloCaseStudy() {
             <h1 className="font-heading text-[34px] font-bold sm:text-[40px]">
               Velo Academy
             </h1>
-            {/* Status, with a red dot that blinks like a "live" light. */}
-            <p className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-white/12 p-2 text-sm leading-none text-white/85">
-              <span
-                aria-hidden
-                className="live-dot size-1.5 rounded-full bg-(--accent)"
-              />
-              Launched
+            <p className="mt-2 text-lg leading-8 text-white/70">
+              Photography learning platform
             </p>
-            <p className="mt-6 text-lg leading-8 text-white/70">
+            <p className="mt-4 text-lg leading-8 text-white/70">
               The idea for Velo was conceived by a working photographer: an
               online course to teach beginners his craft. As{" "}
-              <H>lead designer</H>, I took it{" "}
+              <H>sole designer</H>, I took it{" "}
               <H>from first logo sketch to beta</H>. Its centerpiece is an{" "}
               <H>interactive camera simulator</H> that lets beginners learn
               exposure by changing real settings and watching the photo respond.
@@ -800,7 +795,8 @@ export default function VeloCaseStudy() {
             <P>
               <H>Beginners give up on photography courses.</H> And a paid course
               has to <H>compete with free YouTube tutorials</H> and well-known
-              instructors. That gave Velo two goals:
+              instructors. That gave Velo two goals, both aimed at one thing:{" "}
+              <H>getting trial users to pay</H>.
             </P>
             <Problems
               items={[
@@ -1068,8 +1064,10 @@ export default function VeloCaseStudy() {
               media={<SimulatorDemo />}
             >
               <P>
-                Interviewees learned by doing, but existing simulators are{" "}
-                <H>outdated</H>. Ours is built into the exercises, so students
+                Interviewees learned by doing, so the course is full of{" "}
+                <H>interactive exercises</H>, like comparisons and
+                click-through cards. The camera simulator is the biggest one.
+                Existing simulators are <H>outdated</H>, and ours lets students
                 practice exposure before they ever pick up a camera.
               </P>
               <VersionViewer
@@ -1288,14 +1286,14 @@ export default function VeloCaseStudy() {
               media={
                 <ZoomImage
                   {...img.instructor}
-                  alt="The landing page's Some of Tom's Work section, led by a John Mayer shoot"
+                  alt="The Some of Tom's Work credits section, led by a John Mayer shoot"
                 />
               }
             >
               <P>
-                Learners look up the instructor before they buy, so the landing
-                page <H>leads with his work</H> for artists like John Mayer and
-                brands like Guitar Center.
+                Learners look up the instructor before they buy, so I designed
+                a <H>credits section</H> that leads with his work for artists
+                like John Mayer and brands like Guitar Center.
               </P>
             </Decision>
           </Section>
@@ -1461,11 +1459,13 @@ export default function VeloCaseStudy() {
               </figure>
             </div>
             <P>
-              In testing, it <H>performed much better than the original</H>.
               Beta testers had said they&rsquo;d only pay for a more interactive
-              course. After the instructor added more interactive content and
-              cut down on text, <H>13% of trial users upgraded</H> in the first
-              two weeks after launch. The color-coded callouts are planned for
+              course. The interactive components were already designed, but the
+              lessons barely used them, so{" "}
+              <H>I recommended building lessons around them</H> and cutting
+              the text. The instructor did, and{" "}
+              <H>13% of trial users upgraded</H> in the first two weeks after
+              launch. The color-coded callouts are planned for
               the next version.
             </P>
           </Section>
@@ -1499,9 +1499,15 @@ export default function VeloCaseStudy() {
             <P>
               <strong>Back recommendations with evidence.</strong> I pushed for
               a focused audience, but the team went broad, and the beta showed
-              the cost: the one tester who wouldn&rsquo;t pay didn&rsquo;t own a
-              camera. Next time I&rsquo;d make the case with research, like a
+              the cost: the one tester who wouldn&rsquo;t pay at all didn&rsquo;t
+              own a camera. Next time I&rsquo;d make the case with research, like a
               quick survey or a landing-page test of both audiences.
+            </P>
+            <P>
+              <strong>Agree on a number, not just a direction.</strong> We
+              wanted a return on the course but never set a conversion target,
+              so we had nothing to measure the launch against. Next time
+              I&rsquo;d push for one before launch.
             </P>
           </Section>
         </article>

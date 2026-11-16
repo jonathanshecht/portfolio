@@ -40,11 +40,17 @@ export function ProductVideo({
   poster,
   label,
   captions,
+  aspect,
+  silent = false,
 }: {
   src: string;
-  poster: string;
+  poster?: string;
   label: string;
   captions?: string;
+  // The video's shape, when it isn't 16:9 (like "16 / 10").
+  aspect?: string;
+  // A video with no sound track: the sound button and volume slider are left out.
+  silent?: boolean;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -207,7 +213,8 @@ export function ProductVideo({
         }}
         onDurationChange={(e) => setDuration(e.currentTarget.duration)}
         onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
-        className={`w-full cursor-pointer bg-black ${fullscreen ? "h-full object-contain" : "aspect-video"}`}
+        style={!fullscreen && aspect ? { aspectRatio: aspect } : undefined}
+        className={`w-full cursor-pointer bg-black ${fullscreen ? "h-full object-contain" : aspect ? "" : "aspect-video"}`}
       >
         {captions && (
           <track
@@ -294,34 +301,44 @@ export function ProductVideo({
             )}
           </button>
         )}
-        <button
-          type="button"
-          onClick={toggleMute}
-          aria-pressed={!muted}
-          className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full px-2 transition-colors outline-none hover:text-(--accent) focus-visible:text-(--accent)"
-        >
-          {muted || volume === 0 ? (
-            <VolumeX aria-hidden className="size-4" strokeWidth={2} />
-          ) : volume < 0.5 ? (
-            <Volume1 aria-hidden className="size-4" strokeWidth={2} />
-          ) : (
-            <Volume2 aria-hidden className="size-4" strokeWidth={2} />
-          )}
-          <span className="hidden sm:inline">{muted ? "Unmute" : "Mute"}</span>
-          <span className="sr-only sm:hidden">{muted ? "Unmute" : "Mute"}</span>
-        </button>
-        <input
-          type="range"
-          min={0}
-          max={1}
-          step={0.05}
-          value={muted ? 0 : volume}
-          onChange={(e) => changeVolume(Number(e.target.value))}
-          aria-label="Volume"
-          aria-valuetext={`${Math.round((muted ? 0 : volume) * 100)}%`}
-          className="seek hidden h-5 w-20 shrink-0 cursor-pointer sm:block"
-          style={{ ["--progress" as string]: `${(muted ? 0 : volume) * 100}%` }}
-        />
+        {!silent && (
+          <>
+            <button
+              type="button"
+              onClick={toggleMute}
+              aria-pressed={!muted}
+              className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full px-2 transition-colors outline-none hover:text-(--accent) focus-visible:text-(--accent)"
+            >
+              {muted || volume === 0 ? (
+                <VolumeX aria-hidden className="size-4" strokeWidth={2} />
+              ) : volume < 0.5 ? (
+                <Volume1 aria-hidden className="size-4" strokeWidth={2} />
+              ) : (
+                <Volume2 aria-hidden className="size-4" strokeWidth={2} />
+              )}
+              <span className="hidden sm:inline">
+                {muted ? "Unmute" : "Mute"}
+              </span>
+              <span className="sr-only sm:hidden">
+                {muted ? "Unmute" : "Mute"}
+              </span>
+            </button>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.05}
+              value={muted ? 0 : volume}
+              onChange={(e) => changeVolume(Number(e.target.value))}
+              aria-label="Volume"
+              aria-valuetext={`${Math.round((muted ? 0 : volume) * 100)}%`}
+              className="seek hidden h-5 w-20 shrink-0 cursor-pointer sm:block"
+              style={{
+                ["--progress" as string]: `${(muted ? 0 : volume) * 100}%`,
+              }}
+            />
+          </>
+        )}
         <button
           type="button"
           onClick={toggleFullscreen}
