@@ -17,7 +17,7 @@ export const site = {
   title: "Jonathan Shechtman - Product + UX Designer",
   description:
     "Jonathan Shechtman is a product designer and musician in Seattle, currently Lead Designer at MixBus Marketing.",
-  url: "https://jonathanshecht-portfolio.vercel.app",
+  url: "https://jnthndesigns.com",
   tagline: "A product designer & musician",
   location: "Seattle",
   job: "Lead Designer @ MixBus Marketing",
