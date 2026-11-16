@@ -68,8 +68,19 @@
       "html": "In this case study, I discuss <mark>two of the projects I worked on</mark>:"
     },
     {
-      "type": "p",
-      "html": "<a href=\"#project-1\"><strong>PRISM 3 COMPONENTS </strong>-<strong> <br></strong>Created 15 new components for Shure's design system</a><a href=\"#project-2\"><strong>BEGINNER WORKFLOW </strong>-<strong> <br></strong>Simplified equipment error handling for beginners</a>"
+      "type": "links",
+      "items": [
+        {
+          "label": "Prism 3 Components",
+          "text": "Created 15 new components for Shure's design system",
+          "href": "#project-1"
+        },
+        {
+          "label": "Beginner Workflow",
+          "text": "Simplified equipment error handling for beginners",
+          "href": "#project-2"
+        }
+      ]
     },
     {
       "type": "part",

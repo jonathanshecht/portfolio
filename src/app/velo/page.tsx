@@ -648,20 +648,14 @@ function Frame({
 // Same tags as the home page card.
 const tags = releases.find((r) => r.slug === "velo")?.tags ?? [];
 
+// The project at a glance, in a 3-column grid: Role, Timeline and Scope on top, then Team and
+// Toolkit side by side.
 const meta: [string, ReactNode][] = [
   ["Role", "Lead Designer"],
-  [
-    "Team",
-    // Breaks after "founder/" so "course content provider" stays together.
-    <>
-      Instructor/founder/
-      <wbr />
-      <span className="sm:whitespace-nowrap">course content provider</span>, PM,
-      developer
-    </>,
-  ],
   ["Timeline", "March 2026 – September 2026"],
   ["Scope", "Brand, research, UX/UI, design system"],
+  ["Team", "Instructor/founder/course content provider, PM, developer"],
+  ["Toolkit", "Figma, Figma Make, Automatic.css"],
 ];
 
 export default function VeloCaseStudy() {
@@ -743,14 +737,14 @@ export default function VeloCaseStudy() {
           </header>
 
           <HandDivider className="mt-12" />
-          <dl className="grid grid-cols-2 gap-x-8 gap-y-6 py-8 sm:grid-cols-4">
+          <dl className="grid grid-cols-2 gap-x-8 gap-y-6 py-8 sm:grid-cols-3">
             {meta.map(([label, value]) => (
               <div
                 key={label}
                 className={
                   label === "Team"
-                    ? "order-last col-span-2 sm:order-none sm:col-span-1"
-                    : label === "Scope"
+                    ? "col-span-2 sm:col-span-1"
+                    : label === "Scope" || label === "Toolkit"
                       ? "col-span-2 sm:col-span-1"
                       : undefined
                 }

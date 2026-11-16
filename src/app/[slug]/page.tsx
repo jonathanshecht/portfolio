@@ -1,112 +1,197 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Suspense, type ReactNode } from "react";
+import { Suspense } from "react";
 import { CaseStudyBlocks } from "@/components/case-study-blocks";
-import { Footer } from "@/components/footer";
-import { Nav } from "@/components/nav";
-import { ProjectCard } from "@/components/project-card";
-import { nextProject } from "@/data/projects";
+import { HandDivider } from "@/components/hand-divider";
+import { ContactSection, HomeFooter } from "@/components/home/contact-section";
+import { PillNav } from "@/components/home/pill-nav";
+import { SectionNav } from "@/components/velo/section-nav";
+import { releases } from "@/data/home";
 import { caseStudySlugs, getCaseStudy } from "@/lib/case-studies";
 
 export function generateStaticParams() {
   return caseStudySlugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata(props: PageProps<"/[slug]">): Promise<Metadata> {
+export async function generateMetadata(
+  props: PageProps<"/[slug]">,
+): Promise<Metadata> {
   const { slug } = await props.params;
   const study = getCaseStudy(slug);
-  return study ? { title: study.title, description: `${study.title}: ${study.subtitle}` } : {};
+  return study
+    ? { title: study.title, description: `${study.title}: ${study.subtitle}` }
+    : {};
 }
 
-const icon = (path: ReactNode) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className="size-5 shrink-0 text-[#b5e86a]" aria-hidden>
-    {path}
-  </svg>
-);
-const metaIcons = [
-  icon(<><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></>),
-  icon(<><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>),
-  icon(<><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></>),
-  icon(<><circle cx="9" cy="8" r="3.5" /><path d="M2 20a7 7 0 0 1 14 0" /><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 13.5a7 7 0 0 1 4 6.5" /></>),
-];
+// The meta line in the content files is [project type, timeline, role, team]; the role starts
+// with "Role: ". Shown with labels in the same 3-column grid as Velo.
+
+// A study can use its own brand color for the accent (dots, the active item in the side nav, the
+// nav logo), the way Velo uses its yellow. Studies not listed keep the site's red.
+const accents: Record<string, string> = {
+  shure: "#B2FF33",
+};
 
 export default function CaseStudyPage(props: PageProps<"/[slug]">) {
   return (
-    <>
-      <Nav tone="dark" />
-      {/* The slug is URL data, so it resolves inside Suspense to keep navigation instant. */}
-      <Suspense fallback={<div className="h-[640px] bg-night" />}>
-        <CaseStudy params={props.params} />
-      </Suspense>
-    </>
+    // The slug is URL data, so the whole page resolves inside Suspense to keep navigation instant.
+    <Suspense fallback={<div className="home-page min-h-dvh bg-[#080808]" />}>
+      <CaseStudy params={props.params} />
+    </Suspense>
   );
 }
 
-async function CaseStudy({ params }: { params: PageProps<"/[slug]">["params"] }) {
+async function CaseStudy({
+  params,
+}: {
+  params: PageProps<"/[slug]">["params"];
+}) {
   const { slug } = await params;
   const study = getCaseStudy(slug);
   if (!study) notFound();
-  const next = nextProject(slug);
+
   const [back, front] = study.hero;
+  const collage = back && front && back.width >= 600 && front.width >= 600;
+  const hero = [...study.hero].sort((a, b) => b.width - a.width)[0];
+  const tags = releases.find((r) => r.slug === slug)?.tags ?? [];
+  // The toolkit moves out of the body into the row at the top, like on Velo: every "Toolkit"
+  // label and the tags after it, combined into one list.
+  const toolkit: string[] = [];
+  const blocks = study.blocks.filter((block, i) => {
+    const prev = study.blocks[i - 1];
+    if (block.type === "label" && block.text === "Toolkit") return false;
+    if (
+      block.type === "chips" &&
+      prev?.type === "label" &&
+      prev.text === "Toolkit"
+    ) {
+      block.items.forEach((t) => toolkit.includes(t) || toolkit.push(t));
+      return false;
+    }
+    return true;
+  });
+  const [project, timeline, role, team] = study.meta;
+  const meta = [
+    ["Role", role?.replace(/^Role:\s*/, "")],
+    ["Timeline", timeline],
+    ["Project", project],
+    ["Team", team],
+    ["Toolkit", toolkit.join(", ")],
+  ].filter(([, value]) => value);
 
+  const accent = accents[slug];
   return (
-    <>
-      <header
-        id="overview"
-        className="relative overflow-hidden bg-night px-4 pt-32 text-white sm:px-8"
-        style={{ backgroundImage: "radial-gradient(60% 50% at 50% 0%, rgba(255,255,255,0.12), transparent)" }}
-      >
-        <div className="mx-auto max-w-4xl text-center">
-          <h1 className="text-5xl font-bold sm:text-6xl">{study.title}</h1>
-          <p className="mt-3 text-lg text-white/85">{study.subtitle}</p>
-          <ul className="mx-auto mt-10 grid max-w-2xl gap-x-10 gap-y-5 text-left text-sm sm:grid-cols-2">
-            {study.meta.map((item, i) => (
-              <li key={item} className="flex items-start gap-3">
-                {metaIcons[i]}
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="relative mx-auto mt-14 h-[220px] max-w-3xl sm:h-[360px]">
-          {back && (
-            <Image src={back.src} alt="" width={back.width} height={back.height} sizes="(min-width: 640px) 480px, 70vw" priority
-              className="absolute top-0 right-0 w-[68%] rounded-xl shadow-2xl" />
-          )}
-          {front && (
-            <Image src={front.src} alt="" width={front.width} height={front.height} sizes="(min-width: 640px) 480px, 70vw" priority
-              className="absolute top-[22%] left-0 w-[68%] rounded-xl shadow-2xl" />
-          )}
-        </div>
-      </header>
+    <div
+      className="home-page relative isolate min-h-dvh overflow-hidden bg-[#080808] text-white"
+      style={
+        accent
+          ? {
+              ["--accent" as string]: accent,
+              ["--accent-lit" as string]: accent,
+            }
+          : undefined
+      }
+    >
+      <PillNav />
+      {study.toc.length > 1 && <SectionNav items={study.toc} />}
 
-      <div className="bg-canvas">
-        <div className="mx-auto flex max-w-6xl gap-12 px-4 pb-24 sm:px-8">
-          <article className="mx-auto w-full max-w-[760px] pt-4">
-            <CaseStudyBlocks blocks={study.blocks} />
-          </article>
-          {study.toc.length > 1 && (
-            <aside className="hidden w-36 shrink-0 xl:block">
-              <nav aria-label="On this page" className="sticky top-10 mt-16 grid gap-2 text-sm font-semibold text-ink">
-                {study.toc.map((item) => (
-                  <a key={item.id} href={`#${item.id}`} className="text-muted hover:text-ink">
-                    {item.label}
-                  </a>
-                ))}
-                <a href="#overview" className="text-muted hover:text-ink" aria-label="Back to top">↑</a>
-              </nav>
-            </aside>
+      <main className="flex flex-col items-center px-4">
+        <article className="case-study-dark w-full max-w-[846px] pt-[136px] pb-32 sm:px-4 sm:pt-[200px]">
+          {/* The hero: the study's two images overlapping, like the previous design, when both
+              are big enough; otherwise the larger one on its own, framed like Velo's hero. */}
+          {collage ? (
+            <div className="relative h-[240px] sm:h-[420px]">
+              <Image
+                src={back.src}
+                alt=""
+                width={back.width}
+                height={back.height}
+                sizes="(min-width: 900px) 580px, 70vw"
+                unoptimized={back.src.includes(".gif")}
+                priority
+                className="absolute top-0 right-0 w-[68%] rounded-xl border border-white/10 shadow-2xl"
+              />
+              <Image
+                src={front.src}
+                alt=""
+                width={front.width}
+                height={front.height}
+                sizes="(min-width: 900px) 580px, 70vw"
+                unoptimized={front.src.includes(".gif")}
+                priority
+                className="absolute top-[22%] left-0 w-[68%] rounded-xl border border-white/10 shadow-2xl"
+              />
+            </div>
+          ) : (
+            hero && (
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#141417]">
+                <Image
+                  src={hero.src}
+                  alt=""
+                  width={hero.width}
+                  height={hero.height}
+                  sizes="(min-width: 900px) 846px, 100vw"
+                  unoptimized={hero.src.includes(".gif")}
+                  priority
+                  className="block h-auto w-full"
+                />
+              </div>
+            )
           )}
-        </div>
-        {next && next.slug !== slug && (
-          <section className="mx-auto max-w-[846px] px-4 pb-24 sm:px-8">
-            <p className="mb-4 text-center text-[13px] font-semibold tracking-[0.2em] text-muted uppercase">Read next</p>
-            <ProjectCard project={next} />
-          </section>
-        )}
-      </div>
-      <Footer />
-    </>
+
+          <header id="overview" className="mt-12 scroll-mt-32 sm:mt-16">
+            <h1 className="font-heading text-[34px] font-bold sm:text-[40px]">
+              {study.title}
+            </h1>
+            <p className="mt-4 text-lg leading-8 text-white/70">
+              {study.subtitle}
+            </p>
+            {tags.length > 0 && (
+              <ul
+                className="mt-4 flex flex-wrap gap-2 text-sm"
+                aria-label="Tags"
+              >
+                {tags.map((tag) => (
+                  <li
+                    key={tag}
+                    className="rounded-lg bg-white/12 p-2 leading-none"
+                  >
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </header>
+
+          <HandDivider className="mt-12" />
+          <dl className="grid grid-cols-2 gap-x-8 gap-y-6 py-8 sm:grid-cols-3">
+            {meta.map(([label, value]) => (
+              <div
+                key={label}
+                className={
+                  label === "Team"
+                    ? "col-span-2 sm:col-span-1"
+                    : label === "Toolkit"
+                      ? "col-span-2 sm:col-span-1"
+                      : undefined
+                }
+              >
+                <dt className="text-xs font-semibold tracking-[0.2em] text-white/50 uppercase">
+                  {label}
+                </dt>
+                <dd className="mt-2 text-base">{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <HandDivider flip />
+
+          <CaseStudyBlocks blocks={blocks} />
+        </article>
+
+        <ContactSection />
+      </main>
+      <HomeFooter />
+    </div>
   );
 }

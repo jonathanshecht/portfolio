@@ -14,6 +14,7 @@ export function ZoomImage({
   caption,
   sizes = "(min-width: 640px) 420px, 100vw",
   frameless = false,
+  light = false,
 }: {
   src: string;
   width: number;
@@ -24,6 +25,8 @@ export function ZoomImage({
   sizes?: string;
   // No border or backing, for an image whose background already matches the page.
   frameless?: boolean;
+  // A light backing, for images with transparent backgrounds made for a light page.
+  light?: boolean;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   // The full-size image is only loaded once someone opens it.
@@ -39,7 +42,7 @@ export function ZoomImage({
           dialog.current?.showModal();
         }}
         aria-label={`Enlarge: ${alt}`}
-        className={`group relative block w-full cursor-zoom-in overflow-hidden rounded-lg outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/60 ${frameless ? "" : "border border-white/15 bg-[#0b0b0d]"}`}
+        className={`group relative block w-full cursor-zoom-in overflow-hidden rounded-lg outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/60 ${frameless ? "" : `border border-white/15 ${light ? "bg-[#f7f7f7]" : "bg-[#0b0b0d]"}`}`}
       >
         <Image
           src={src}
@@ -81,7 +84,7 @@ export function ZoomImage({
             style={{
               width: `min(94vw, ${width}px, calc(90vh * ${width / height}))`,
             }}
-            className="block h-auto rounded-lg"
+            className={`block h-auto rounded-lg ${light ? "bg-[#f7f7f7]" : ""}`}
           />
         )}
       </dialog>

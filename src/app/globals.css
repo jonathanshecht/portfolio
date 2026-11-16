@@ -65,6 +65,14 @@ mark {
   padding: 0 0.1em;
 }
 
+/* On the dark case studies, highlighted words are shown the way Velo emphasizes them: in white,
+   with no highlight behind them. */
+.case-study-dark mark {
+  background-color: transparent;
+  color: #ffffff;
+  padding: 0;
+}
+
 /* Animated texture clipped to the "jnthn" wordmark. */
 .logo-texture {
   background-size: cover;

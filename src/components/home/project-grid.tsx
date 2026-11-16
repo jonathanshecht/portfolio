@@ -166,16 +166,18 @@ function ProjectTile({ release }: { release: Release }) {
                 className={`size-full ${release.fit === "cover" ? "object-cover" : "object-contain p-[7%]"}`}
               />
             )}
-            <video
-              ref={videoRef}
-              src={release.video}
-              muted
-              loop
-              playsInline
-              preload="none"
-              aria-hidden
-              className={`absolute inset-0 size-full object-cover transition-opacity duration-500 ${playing ? "opacity-100" : "opacity-0"}`}
-            />
+            {release.video && (
+              <video
+                ref={videoRef}
+                src={release.video}
+                muted
+                loop
+                playsInline
+                preload="none"
+                aria-hidden
+                className={`absolute inset-0 size-full object-cover transition-opacity duration-500 ${playing ? "opacity-100" : "opacity-0"}`}
+              />
+            )}
           </div>
         </div>
         <div className="mt-6 flex flex-col gap-3">

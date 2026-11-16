@@ -10,8 +10,9 @@ export type Release = {
   tags: string[];
   // Still shown at rest.
   image: Img;
-  // Preview that plays on hover.
-  video: string;
+  // Preview that plays on hover. Projects without their own preview yet leave it out and just
+  // show the still image.
+  video?: string;
   // Small icon that floats out of the card while it is hovered.
   hoverIcon?: "camera" | "clef" | "mic";
   // "cover" fills the card (full-bleed renders); "contain" fits mockups with transparent backgrounds.
@@ -30,9 +31,6 @@ export type Release = {
 export type Screen = Img & { x: number; y: number; w: number };
 
 const cover = (slug: string) => getProject(slug)!.cover;
-
-// Placeholder hover video for projects that don't have their own preview yet.
-const PLACEHOLDER_VIDEO = "/home/velo-card.mp4";
 
 export const releases: Release[] = [
   {
@@ -94,7 +92,6 @@ export const releases: Release[] = [
         w: 61.41,
       },
     },
-    video: PLACEHOLDER_VIDEO,
     fit: "contain",
   },
   {
@@ -124,7 +121,6 @@ export const releases: Release[] = [
         w: 61.29,
       },
     },
-    video: PLACEHOLDER_VIDEO,
     fit: "contain",
   },
   {
@@ -152,7 +148,6 @@ export const releases: Release[] = [
         w: 65.64,
       },
     },
-    video: PLACEHOLDER_VIDEO,
     fit: "contain",
   },
 ];

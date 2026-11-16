@@ -25,6 +25,10 @@ export type Block =
   | { type: "gallery"; images: Img[]; caption?: string }
   | { type: "caption"; text: string }
   | { type: "button"; label: string; href: string }
+  | {
+      type: "links";
+      items: { label: string; text: string; href: string }[];
+    }
   | { type: "video"; src: string }
   | { type: "embed"; src: string };
 
