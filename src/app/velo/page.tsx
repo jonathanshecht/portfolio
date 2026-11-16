@@ -766,11 +766,7 @@ export default function VeloCaseStudy() {
                   the first two weeks
                 </>,
                 <>
-                  <H>Every beta tester</H> finished the first lesson with no
-                  friction
-                </>,
-                <>
-                  Every screen built from <H>my design system</H>
+                  <H>70+ free trials</H> in the first two weeks
                 </>,
               ].map((item, i) => (
                 <li
