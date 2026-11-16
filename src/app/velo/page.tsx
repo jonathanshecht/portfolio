@@ -194,7 +194,7 @@ function SimulatorDemo() {
         />
       </Annotated>
       <p className="mt-12 text-lg leading-8 text-white/70">
-        In the beta, it was the part testers asked for more of.
+        In testing, it was the part testers asked for more of.
       </p>
       <p className="mt-6 text-lg leading-8 text-white/70">
         With more time, I&rsquo;d make it look more like a real camera, and let
@@ -676,7 +676,7 @@ export default function VeloCaseStudy() {
           { id: "system", label: "Design system" },
           { id: "mapping", label: "Structure" },
           { id: "decisions", label: "Key decisions" },
-          { id: "beta", label: "Beta" },
+          { id: "testing", label: "Testing" },
           { id: "redesign", label: "Lesson redesign" },
           { id: "product", label: "Final product" },
           { id: "learned", label: "What I learned" },
@@ -712,9 +712,10 @@ export default function VeloCaseStudy() {
               The idea for Velo was conceived by a working photographer: an
               online course to teach beginners his craft. As{" "}
               <H>sole designer</H>, I took it{" "}
-              <H>from first logo sketch to beta</H>. Its centerpiece is an{" "}
-              <H>interactive camera simulator</H> that lets beginners learn
-              exposure by changing real settings and watching the photo respond.
+              <H>from first logo sketch to a complete course</H>. Its
+              centerpiece is an <H>interactive camera simulator</H> that lets
+              beginners learn exposure by changing real settings and watching
+              the photo respond.
             </p>
             <ul className="mt-4 flex flex-wrap gap-2 text-sm" aria-label="Tags">
               {tags.map((tag) => (
@@ -1014,7 +1015,7 @@ export default function VeloCaseStudy() {
                 width={1880}
                 height={880}
                 alt="Components from the Velo library with their states: the resume lesson card (default and hover), lesson items in the sidebar (not started, in progress, completed, needs review, current), the simulator's tripod and hand toggle, and the sidebar header"
-                caption="Components from the library, each with its states. The resume card shows the version before the beta changes."
+                caption="Components from the library, each with its states. The resume card shows the version before the changes from testing."
                 sizes="(min-width: 900px) 846px, 100vw"
               />
             </div>
@@ -1061,10 +1062,10 @@ export default function VeloCaseStudy() {
             >
               <P>
                 Interviewees learned by doing, so the course is full of{" "}
-                <H>interactive exercises</H>, like comparisons and
-                click-through cards. The camera simulator is the biggest one.
-                Existing simulators are <H>outdated</H>, and ours lets students
-                practice exposure before they ever pick up a camera.
+                <H>interactive exercises</H>, like comparisons and click-through
+                cards. The camera simulator is the biggest one. Existing
+                simulators are <H>outdated</H>, and ours lets students practice
+                exposure before they ever pick up a camera.
               </P>
               <VersionViewer
                 hand={handwriting.className}
@@ -1252,7 +1253,7 @@ export default function VeloCaseStudy() {
                 ]}
               />
               <P>
-                The beta showed it was still too complex. Testers checked
+                Testing showed it was still too complex. Testers checked
                 progress in the sidebar and mostly cared{" "}
                 <H>which chapter they were on</H>.
               </P>
@@ -1287,36 +1288,39 @@ export default function VeloCaseStudy() {
               }
             >
               <P>
-                Learners look up the instructor before they buy, so I designed
-                a <H>credits section</H> that leads with his work for artists
-                like John Mayer and brands like Guitar Center.
+                Learners look up the instructor before they buy, so I designed a{" "}
+                <H>credits section</H> that leads with his work for artists like
+                John Mayer and brands like Guitar Center.
               </P>
             </Decision>
           </Section>
 
           <Section
-            id="beta"
-            eyebrow="Moderated beta"
+            id="testing"
+            eyebrow="Usability testing"
             title="Finding the next opportunity"
           >
-            <P>The beta confirmed the platform worked:</P>
+            <P>
+              Usability testing on the built course confirmed the platform
+              worked:
+            </P>
             {/* The results as big counts (5 is the usual size for moderated testing). */}
             <ul className="grid gap-6 py-4 sm:grid-cols-3">
               {[
                 {
                   value: "5/5",
                   label:
-                    "moderated beta testers finished the first lesson with no friction",
+                    "test participants finished the first lesson with no friction",
                 },
                 {
                   value: "5/5",
                   label:
-                    "moderated beta testers loved the course’s interactive parts",
+                    "test participants loved the course’s interactive parts",
                 },
                 {
                   value: "4/5",
                   label:
-                    "moderated beta testers said they’d pay for a more interactive version",
+                    "test participants said they’d pay for a more interactive version",
                 },
               ].map((item) => (
                 <li key={item.label}>
@@ -1338,17 +1342,17 @@ export default function VeloCaseStudy() {
               notes={[
                 {
                   text: "I think the value of these is so high, I just feel like they could use a little more pushing.",
-                  who: "Beta tester",
+                  who: "Test participant",
                   about: "On the interactive examples",
                 },
                 {
                   text: "This is really great information, but\u2026 it\u2019s just a lot of scrolling and a lot of reading.",
-                  who: "Beta tester",
+                  who: "Test participant",
                   about: "On the lesson readings",
                 },
                 {
                   text: "\u2026I would like to see a lot more interactive examples like the simulator.",
-                  who: "Beta tester",
+                  who: "Test participant",
                   about: "On paying for the course",
                 },
               ]}
@@ -1369,7 +1373,7 @@ export default function VeloCaseStudy() {
               Partially shipped
             </p>
             <P>
-              The beta&rsquo;s biggest problems were in the lessons:{" "}
+              The biggest problems testing found were in the lessons:{" "}
               <H>content types blurred together</H>, readings were text-heavy,
               and the interactive parts were easy to miss. The team shipped some
               of my fixes. The rest, like color-coded callouts, I built into a{" "}
@@ -1455,14 +1459,13 @@ export default function VeloCaseStudy() {
               </figure>
             </div>
             <P>
-              Beta testers had said they&rsquo;d only pay for a more interactive
-              course. The interactive components were already designed, but the
-              lessons barely used them, so{" "}
-              <H>I recommended building lessons around them</H> and cutting
-              the text. The instructor did, and{" "}
-              <H>13% of trial users upgraded</H> in the first two weeks after
-              launch. The color-coded callouts are planned for
-              the next version.
+              Test participants had said they&rsquo;d only pay for a more
+              interactive course. The interactive components were already
+              designed, but the lessons barely used them, so{" "}
+              <H>I recommended building lessons around them</H> and cutting the
+              text. The instructor did, and <H>13% of trial users upgraded</H>{" "}
+              in the first two weeks after launch. The color-coded callouts are
+              planned for the next version.
             </P>
           </Section>
 
@@ -1488,16 +1491,17 @@ export default function VeloCaseStudy() {
               the structure and more reviewing lessons with the instructor.
             </P>
             <P>
-              <strong>Test with users earlier.</strong> The beta aligned the
-              team faster than any internal discussion. Next time I&rsquo;d put
-              a single prototype lesson in front of users first.
+              <strong>Test with users earlier.</strong> Testing aligned the team
+              faster than any internal discussion. Next time I&rsquo;d put a
+              single prototype lesson in front of users first.
             </P>
             <P>
               <strong>Back recommendations with evidence.</strong> I pushed for
-              a focused audience, but the team went broad, and the beta showed
-              the cost: the one tester who wouldn&rsquo;t pay at all didn&rsquo;t
-              own a camera. Next time I&rsquo;d make the case with research, like a
-              quick survey or a landing-page test of both audiences.
+              a focused audience, but the team went broad, and testing showed
+              the cost: the one tester who wouldn&rsquo;t pay at all
+              didn&rsquo;t own a camera. Next time I&rsquo;d make the case with
+              research, like a quick survey or a landing-page test of both
+              audiences.
             </P>
             <P>
               <strong>Agree on a number, not just a direction.</strong> We
