@@ -91,9 +91,7 @@ export function VersionViewer({
       </Annotated>
 
       <figcaption className="mt-3 flex items-center justify-between gap-3 text-sm text-white/50">
-        <span aria-live="polite">
-          {v.label} of {versions.length}
-        </span>
+        <span aria-live="polite">{v.label}</span>
         <span className="flex items-center gap-3">
           <button
             type="button"

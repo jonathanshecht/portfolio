@@ -20,6 +20,8 @@ export type Annotation =
       x: number;
       align?: "center" | "start" | "end";
       to?: Point;
+      // Wrap the note onto more lines at this width (px), for tight spots.
+      width?: number;
     }
   | {
       text: string;
@@ -216,11 +218,13 @@ function NoteRow({
   side,
   hand,
   steady,
+  tall,
 }: {
   notes: Annotation[];
   side: "above" | "below";
   hand: string;
   steady: boolean;
+  tall: boolean;
 }) {
   const row = notes.filter(
     (n): n is EdgeNote => "side" in n && n.side === side,
@@ -229,7 +233,10 @@ function NoteRow({
   // doesn't jump; anywhere else it takes no space.
   if (!row.length && !steady) return null;
   return (
-    <div aria-hidden className="relative hidden h-14 sm:block">
+    <div
+      aria-hidden
+      className={`relative hidden sm:block ${tall ? "h-20" : "h-14"}`}
+    >
       {row.map((n, i) => {
         const align = n.align ?? "center";
         const place =
@@ -240,7 +247,20 @@ function NoteRow({
               : "-translate-x-[calc(100%-7px)] items-end";
         const tilt =
           (i + (side === "below" ? 1 : 0)) % 2 ? "rotate-2" : "-rotate-2";
-        const text = <span className={tilt}>{n.text}</span>;
+        const text = (
+          <span
+            className={`${tilt} ${n.width ? "whitespace-normal" : ""} ${
+              align === "end"
+                ? "text-right"
+                : align === "start"
+                  ? "text-left"
+                  : "text-center"
+            }`}
+            style={n.width ? { width: n.width } : undefined}
+          >
+            {n.text}
+          </span>
+        );
         return (
           <span
             key={n.text}
@@ -278,12 +298,15 @@ export function Annotated({
   children,
   phoneList = true,
   steady = false,
+  tall = false,
 }: {
   notes: Annotation[];
   hand: string;
   children: ReactNode;
   phoneList?: boolean;
   steady?: boolean;
+  // Taller note rows, for notes that wrap onto two lines.
+  tall?: boolean;
 }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
@@ -300,14 +323,26 @@ export function Annotated({
 
   return (
     <div>
-      <NoteRow notes={notes} side="above" hand={hand} steady={steady} />
+      <NoteRow
+        notes={notes}
+        side="above"
+        hand={hand}
+        steady={steady}
+        tall={tall}
+      />
       <div ref={boxRef} className="relative">
         {children}
         <InsideNotes notes={notes} hand={hand} />
         <BesideNotes notes={notes} hand={hand} size={size} />
         <LongArrows notes={notes} size={size} />
       </div>
-      <NoteRow notes={notes} side="below" hand={hand} steady={steady} />
+      <NoteRow
+        notes={notes}
+        side="below"
+        hand={hand}
+        steady={steady}
+        tall={tall}
+      />
       {phoneList ? (
         <ul
           className={`${hand} mt-3 space-y-1 text-base leading-tight text-white/80 sm:hidden`}

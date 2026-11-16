@@ -36,11 +36,6 @@ const ACCENT = "text-(--accent)";
 
 // Visuals reused from the original case study.
 const img = {
-  flow: {
-    src: cdn("6a88cf5c50c9f0fdf157f944_UF.png"),
-    width: 846,
-    height: 402,
-  },
   quiz: {
     src: cdn(
       "6a88d97e0c3e2766747a8e02_Screenshot%202026-08-21%20at%204.04.24%E2%80%AFPM.png",
@@ -52,11 +47,6 @@ const img = {
     src: cdn("6a88dacc7527519f120baf77_ezgif-73a480ece5ced031.gif"),
     width: 1280,
     height: 827,
-  },
-  lessonBefore: {
-    src: cdn("6a88de69d6836c4d7b11bc6c_VP.png"),
-    width: 846,
-    height: 546,
   },
   // Name and logo explorations (dimmed, left) and the final Velo Academy mark (right).
   instructor: {
@@ -149,11 +139,12 @@ function Decision({
           </span>
           {title}
         </h4>
-        {/* A visual ends a beat, so the text after it gets more room than the text leading
-            into it. That keeps each paragraph visibly attached to the visual it introduces. */}
-        <div className="mt-4 space-y-6 [&>figure]:mb-16">{children}</div>
+        {/* One spacing rule for every decision: text leading into a visual sits 24px above it,
+            and the text after a visual gets 48px, so each paragraph stays attached to the visual
+            it introduces. */}
+        <div className="mt-4 space-y-6 [&>figure]:mb-12">{children}</div>
       </div>
-      {media && <div className={wide ? "mt-4" : "mt-6 sm:mt-1"}>{media}</div>}
+      {media && <div className={wide ? "mt-6" : "mt-6 sm:mt-1"}>{media}</div>}
     </div>
   );
 }
@@ -202,10 +193,10 @@ function SimulatorDemo() {
           label="The exposure simulator: an indoor portrait that changes as the aperture, shutter speed and ISO are adjusted, with a label saying whether the exposure is right"
         />
       </Annotated>
-      <p className="mt-6 text-lg leading-8 text-white/70 sm:mt-4">
+      <p className="mt-12 text-lg leading-8 text-white/70">
         In the beta, it was the part testers asked for more of.
       </p>
-      <p className="mt-4 text-lg leading-8 text-white/70">
+      <p className="mt-6 text-lg leading-8 text-white/70">
         With more time, I&rsquo;d make it look more like a real camera, and let
         learners take a photo and see how it turns out.
       </p>
@@ -629,25 +620,6 @@ function Insights({ items }: { items: { claim: string; quotes: Note[] }[] }) {
   );
 }
 
-function Bullets({ items }: { items: ReactNode[] }) {
-  return (
-    <ul className="space-y-3">
-      {items.map((item, i) => (
-        <li
-          key={i}
-          className="flex gap-4 text-lg leading-8 text-white/70 [&_strong]:font-semibold [&_strong]:text-white"
-        >
-          <span
-            aria-hidden
-            className="mt-[13px] size-1.5 shrink-0 rounded-full bg-(--accent)"
-          />
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 function Frame({
   children,
   caption,
@@ -669,73 +641,9 @@ function Frame({
   );
 }
 
-// An image in a frame, or "bare" (no frame) for one made on the page's own background, like the
-// logo explorations, so it sits directly on the page.
-function Picture({
-  image,
-  alt,
-  caption,
-  bare = false,
-}: {
-  image: Img;
-  alt: string;
-  caption?: string;
-  bare?: boolean;
-}) {
-  const picture = (
-    <Image
-      src={image.src}
-      alt={alt}
-      width={image.width}
-      height={image.height}
-      sizes="(min-width: 880px) 846px, 100vw"
-      // A bare image is served as is, so its background stays exactly the page's color.
-      unoptimized={bare || image.src.endsWith(".gif")}
-      className="w-full"
-    />
-  );
-  if (bare)
-    return (
-      <figure className="pt-12">
-        {picture}
-        {caption && (
-          <figcaption className="mt-6 text-center text-sm text-white/50">
-            {caption}
-          </figcaption>
-        )}
-      </figure>
-    );
-  return <Frame caption={caption}>{picture}</Frame>;
-}
-
-// An empty slot for a visual that's still needed.
-function Needed({
-  what,
-  ratio = "aspect-[16/9]",
-}: {
-  what: string;
-  ratio?: string;
-}) {
-  return (
-    <figure className="pt-4">
-      <div
-        className={`flex ${ratio} flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/25 bg-white/[0.02] p-6 text-center`}
-      >
-        <span
-          className={`text-xs font-semibold tracking-[0.2em] uppercase ${ACCENT}`}
-        >
-          Visual needed
-        </span>
-        <span className="text-white/60">{what}</span>
-      </div>
-    </figure>
-  );
-}
-
 // ---- Page ----
 
 // The "Redesigning the lesson" section is hidden for now.
-const SHOW_REDESIGN = false;
 
 // Same tags as the home page card.
 const tags = releases.find((r) => r.slug === "velo")?.tags ?? [];
@@ -775,6 +683,7 @@ export default function VeloCaseStudy() {
           { id: "mapping", label: "Structure" },
           { id: "decisions", label: "Key decisions" },
           { id: "beta", label: "Beta" },
+          { id: "redesign", label: "Lesson redesign" },
           { id: "product", label: "Final product" },
           { id: "learned", label: "What I learned" },
         ]}
@@ -855,16 +764,38 @@ export default function VeloCaseStudy() {
           </dl>
           <HandDivider flip />
 
-          {/* The launch result as a big number for anyone skimming, labeled like Role / Team.
-              The beta's results are in the Beta section. */}
+          {/* The outcomes for anyone skimming, labeled like Role / Team: the same style as the paragraphs,
+              a size up. */}
           <div className="mt-12">
             <p className="text-xs font-semibold tracking-[0.2em] text-white/50 uppercase">
-              Initial launch results &middot; first two weeks
+              Impact
             </p>
-            <p className="mt-3 font-heading text-4xl font-bold">9%</p>
-            <p className="mt-2 text-base text-white/70">
-              free-to-paid conversion
-            </p>
+            <ul className="mt-4 space-y-3">
+              {[
+                <>
+                  Launched with <H>13% of trial users upgrading to paid</H> in
+                  the first two weeks
+                </>,
+                <>
+                  <H>Every beta tester</H> finished the first lesson with no
+                  friction
+                </>,
+                <>
+                  Every screen built from <H>my design system</H>
+                </>,
+              ].map((item, i) => (
+                <li
+                  key={i}
+                  className="flex gap-4 text-xl leading-8 text-white/70"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-[13px] size-1.5 shrink-0 rounded-full bg-(--accent)"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <Section
@@ -1229,7 +1160,7 @@ export default function VeloCaseStudy() {
                       />
                     </Annotated>
                   </figure>
-                  <p className="mt-6 text-lg leading-8 text-white/70">
+                  <p className="mt-12 text-lg leading-8 text-white/70">
                     With more time, I&rsquo;d show the minutes left in a chapter
                     instead of its total length, and bring back a next-chapter
                     card.
@@ -1342,22 +1273,6 @@ export default function VeloCaseStudy() {
             <Goal n={2} title="Earn trust without a famous name" />
             <Decision
               n={3}
-              title="Credibility up front"
-              media={
-                <ZoomImage
-                  {...img.instructor}
-                  alt="The landing page's Some of Tom's Work section, led by a John Mayer shoot"
-                />
-              }
-            >
-              <P>
-                Learners look up the instructor before they buy, so the landing
-                page <H>leads with his work</H> for artists like John Mayer and
-                brands like Guitar Center.
-              </P>
-            </Decision>
-            <Decision
-              n={4}
               title="A free trial with no card"
               media={
                 <ZoomImage
@@ -1372,9 +1287,21 @@ export default function VeloCaseStudy() {
                 lessons <H>stay visible but locked</H>, so learners see
                 what&rsquo;s ahead without hitting a wall.
               </P>
+            </Decision>
+            <Decision
+              n={4}
+              title="Credibility up front"
+              media={
+                <ZoomImage
+                  {...img.instructor}
+                  alt="The landing page's Some of Tom's Work section, led by a John Mayer shoot"
+                />
+              }
+            >
               <P>
-                In the first two weeks after launch,{" "}
-                <H>9% of trial users upgraded</H> to paid.
+                Learners look up the instructor before they buy, so the landing
+                page <H>leads with his work</H> for artists like John Mayer and
+                brands like Guitar Center.
               </P>
             </Decision>
           </Section>
@@ -1444,55 +1371,110 @@ export default function VeloCaseStudy() {
             </P>
           </Section>
 
-          {/* Hidden for now; flip SHOW_REDESIGN to bring it back. */}
-          {SHOW_REDESIGN && (
-            <>
-              <Section id="redesign" title="Redesigning the lesson">
-                <P>
-                  The course material was the instructor&rsquo;s, but the beta
-                  showed the platform alone couldn&rsquo;t fix it. So I went
-                  beyond my scope and{" "}
-                  <H>proposed a rewrite of the first lesson</H>, built around
-                  interactivity and simplicity: visual, hands-on, one idea at a
-                  time. <H>Every beta tester preferred it to the original.</H>
-                </P>
-                <Bullets
-                  items={[
-                    <>
-                      <strong>One idea per screen.</strong> The lesson builds
-                      step by step: three controls → the exposure triangle → how
-                      each one brightens the image → each one&rsquo;s unique
-                      effect.
-                    </>,
-                    <>
-                      <strong>Show, then explain.</strong> Each concept is a
-                      visual first, with a short line of text beside it.
-                    </>,
-                    <>
-                      <strong>Practice inside the lesson.</strong> The simulator
-                      is built into the lesson, so learners try the concept
-                      right after reading about it.
-                    </>,
-                    <>
-                      <strong>A clear rhythm.</strong> A Reading → Field Test →
-                      Knowledge Check stepper turns the short lesson, task,
-                      review structure from research into the UI.
-                    </>,
+          <Section
+            id="redesign"
+            eyebrow="Lesson redesign"
+            title="Making lessons interactive and simple"
+          >
+            <p className="flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-white/50 uppercase">
+              <span aria-hidden className="size-1.5 rounded-full bg-white/50" />
+              Partially shipped
+            </p>
+            <P>
+              The beta&rsquo;s biggest problems were in the lessons:{" "}
+              <H>content types blurred together</H>, readings were text-heavy,
+              and the interactive parts were easy to miss. The team shipped some
+              of my fixes. The rest, like color-coded callouts, I built into a{" "}
+              <H>redesign of the first lesson</H>.
+            </P>
+            {/* The original lesson and the redesign side by side, with an arrow between them.
+                On phones they stack, and the arrow points down. */}
+            <div className="grid items-center gap-4 pt-2 pb-6 sm:grid-cols-[1fr_auto_1fr]">
+              <figure>
+                <Annotated
+                  steady
+                  tall
+                  hand={handwriting.className}
+                  notes={[
+                    {
+                      text: "dense text, yellow everywhere",
+                      inside: { x: 64, y: 50 },
+                      from: { x: 60, y: 47.5 },
+                      to: { x: 57, y: 43 },
+                    },
                   ]}
-                />
-                <Picture
-                  image={img.lessonBefore}
-                  alt="The shipped lesson page, with a long video above the lesson text"
-                  caption="Before: the shipped lesson page"
-                />
-                <Needed what="After: Lesson 1, pages 1–4" />
-                <P>
-                  I documented the new lesson format and the beta fixes and
-                  handed them off to the team, and Velo launched shortly after.
-                </P>
-              </Section>
-            </>
-          )}
+                >
+                  <ZoomImage
+                    src="/velo/lesson-original.webp"
+                    width={1442}
+                    height={900}
+                    alt="The original reading page: a large paragraph with several phrases in bright yellow, and a line explaining the tabs"
+                  />
+                </Annotated>
+                <figcaption className="mt-3 text-center text-sm text-white/50">
+                  Original lesson
+                </figcaption>
+              </figure>
+              <svg
+                aria-hidden
+                viewBox="0 0 40 20"
+                className="mx-auto h-5 w-10 rotate-90 text-white/60 sm:rotate-0"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.6}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M2 11 C 12 6, 24 6, 36 10" />
+                <path d="M30 5 L36.5 10.2 L30.5 15" />
+              </svg>
+              <figure>
+                <Annotated
+                  steady
+                  tall
+                  hand={handwriting.className}
+                  notes={[
+                    {
+                      text: "softer highlights",
+                      inside: { x: 70.5, y: 36.5, align: "start" },
+                      from: { x: 70, y: 36.5 },
+                      to: { x: 65.5, y: 36.5 },
+                    },
+                    {
+                      text: "a title for every idea",
+                      inside: { x: 56, y: 64, align: "start" },
+                      from: { x: 55, y: 64 },
+                      to: { x: 47.5, y: 64 },
+                    },
+                    {
+                      x: 66,
+                      side: "below",
+                      text: "color-coded callouts: key terms, tips, mistakes, and what to do",
+                      width: 230,
+                    },
+                  ]}
+                >
+                  <ZoomImage
+                    src="/velo/lesson-redesign-3.webp"
+                    width={1442}
+                    height={900}
+                    alt="The redesigned reading page: a page title, calmer text, a section titled ISO = Noise, and a green Interactive callout above the example tabs"
+                  />
+                </Annotated>
+                <figcaption className="mt-3 text-center text-sm text-white/50">
+                  Redesign
+                </figcaption>
+              </figure>
+            </div>
+            <P>
+              In testing, it <H>performed much better than the original</H>.
+              Beta testers had said they&rsquo;d only pay for a more interactive
+              course. After the instructor added more interactive content and
+              cut down on text, <H>13% of trial users upgraded</H> in the first
+              two weeks after launch. The color-coded callouts are planned for
+              the next version.
+            </P>
+          </Section>
 
           {/* The marketing video, as the payoff at the end of the story. The "Watch product video"
               button at the top jumps here and plays it with sound. */}
@@ -1509,11 +1491,11 @@ export default function VeloCaseStudy() {
 
           <Section id="learned" title="What I learned">
             <P>
-              <strong>For a course, the content is the product.</strong> Testers
-              loved the design, but most lessons stayed text-heavy and
-              didn&rsquo;t use its interactive tools enough. Next time I&rsquo;d
-              spend less time perfecting the structure and more reviewing
-              lessons with the instructor.
+              <strong>For a course, the content is the product.</strong> Most
+              lessons were text-heavy with no clear hierarchy, so many testers
+              watched the videos, skipped the readings, and only did the
+              interactive parts. Next time I&rsquo;d spend less time perfecting
+              the structure and more reviewing lessons with the instructor.
             </P>
             <P>
               <strong>Test with users earlier.</strong> The beta aligned the
