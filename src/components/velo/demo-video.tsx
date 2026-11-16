@@ -8,10 +8,13 @@ export function DemoVideo({
   src,
   poster,
   label,
+  aspect = "11 / 4",
 }: {
   src: string;
   poster: string;
   label: string;
+  // The video's width / height, so the frame matches it.
+  aspect?: string;
 }) {
   const reducedMotion = useReducedMotion();
   return (
@@ -27,7 +30,8 @@ export function DemoVideo({
         autoPlay={!reducedMotion}
         controls={reducedMotion}
         preload="metadata"
-        className="block aspect-[11/4] w-full"
+        style={{ aspectRatio: aspect }}
+        className="block w-full"
       />
     </div>
   );

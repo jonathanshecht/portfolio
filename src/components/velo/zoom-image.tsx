@@ -12,12 +12,18 @@ export function ZoomImage({
   height,
   alt,
   caption,
+  sizes = "(min-width: 640px) 420px, 100vw",
+  frameless = false,
 }: {
   src: string;
   width: number;
   height: number;
   alt: string;
   caption?: string;
+  // How wide the thumbnail shows, so a full-width one loads sharp enough.
+  sizes?: string;
+  // No border or backing, for an image whose background already matches the page.
+  frameless?: boolean;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   // The full-size image is only loaded once someone opens it.
@@ -33,14 +39,14 @@ export function ZoomImage({
           dialog.current?.showModal();
         }}
         aria-label={`Enlarge: ${alt}`}
-        className="group relative block w-full cursor-zoom-in overflow-hidden rounded-lg border border-white/15 bg-[#0b0b0d] outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/60"
+        className={`group relative block w-full cursor-zoom-in overflow-hidden rounded-lg outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/60 ${frameless ? "" : "border border-white/15 bg-[#0b0b0d]"}`}
       >
         <Image
           src={src}
           alt={alt}
           width={width}
           height={height}
-          sizes="(min-width: 640px) 420px, 100vw"
+          sizes={sizes}
           unoptimized={gif}
           className="block w-full"
         />
@@ -52,7 +58,7 @@ export function ZoomImage({
         </span>
       </button>
       {caption && (
-        <figcaption className="mt-2 text-sm text-white/50">
+        <figcaption className="mt-2 text-center text-sm text-white/50">
           {caption}
         </figcaption>
       )}

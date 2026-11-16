@@ -7,6 +7,9 @@ import { ContactSection, HomeFooter } from "@/components/home/contact-section";
 import { HandDivider } from "@/components/hand-divider";
 import { PillNav } from "@/components/home/pill-nav";
 import { ProductVideo } from "@/components/velo/product-video";
+import { Annotated } from "@/components/velo/annotations";
+import { VersionViewer } from "@/components/velo/version-viewer";
+import { DesignFoundations } from "@/components/velo/design-foundations";
 import { NoteStack, type Note } from "@/components/velo/note-stack";
 import { CourseSidebar } from "@/components/velo/course-sidebar";
 import { DemoVideo } from "@/components/velo/demo-video";
@@ -130,14 +133,14 @@ function Decision({
 }: {
   n: number;
   title: string;
-  children: ReactNode;
+  children?: ReactNode;
   media?: ReactNode;
   // A wide visual (like the simulator demo) goes full width under the text instead of beside it.
   wide?: boolean;
 }) {
   return (
     <div
-      className={`gap-10 pt-8 ${wide ? "" : "sm:grid sm:grid-cols-2 sm:items-start"}`}
+      className={`relative mt-14 gap-10 pt-14 before:absolute before:top-0 before:left-1/2 before:h-px before:w-60 before:-translate-x-1/2 before:bg-white/20 [h3+&]:mt-0 [h3+&]:pt-8 [h3+&]:before:hidden ${wide ? "" : "sm:grid sm:grid-cols-2 sm:items-start"}`}
     >
       <div>
         <h4 className="flex items-baseline gap-3 text-xl font-bold">
@@ -146,9 +149,66 @@ function Decision({
           </span>
           {title}
         </h4>
-        <div className="mt-3 space-y-4">{children}</div>
+        {/* A visual ends a beat, so the text after it gets more room than the text leading
+            into it. That keeps each paragraph visibly attached to the visual it introduces. */}
+        <div className="mt-4 space-y-6 [&>figure]:mb-16">{children}</div>
       </div>
-      {media && <div className={wide ? "mt-6" : "mt-6 sm:mt-1"}>{media}</div>}
+      {media && <div className={wide ? "mt-4" : "mt-6 sm:mt-1"}>{media}</div>}
+    </div>
+  );
+}
+
+// The simulator demo with handwritten notes pointing at its parts. On phones the notes are hidden;
+// the text above covers the same points.
+// Marks the final design in a decision, after any earlier versions or competitors shown above it.
+function FinalLabel() {
+  return (
+    <p className="mb-3 flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-(--accent) uppercase">
+      <span aria-hidden className="size-1.5 rounded-full bg-(--accent)" />
+      Final design
+    </p>
+  );
+}
+
+function SimulatorDemo() {
+  return (
+    <div>
+      <FinalLabel />
+      <Annotated
+        hand={handwriting.className}
+        phoneList={false}
+        notes={[
+          {
+            x: 11,
+            side: "above",
+            text: "tells you if the exposure is right",
+          },
+          {
+            x: 67,
+            side: "above",
+            text: "sun, clouds or indoors",
+          },
+          { x: 25, side: "below", text: "the photo changes in real time" },
+          {
+            x: 75,
+            side: "below",
+            text: "on a tripod or handheld",
+          },
+        ]}
+      >
+        <DemoVideo
+          src="/velo/exposure-demo-2.mp4"
+          poster="/velo/exposure-demo-2-poster.jpg"
+          label="The exposure simulator: an indoor portrait that changes as the aperture, shutter speed and ISO are adjusted, with a label saying whether the exposure is right"
+        />
+      </Annotated>
+      <p className="mt-6 text-lg leading-8 text-white/70 sm:mt-4">
+        In the beta, it was the part testers asked for more of.
+      </p>
+      <p className="mt-4 text-lg leading-8 text-white/70">
+        With more time, I&rsquo;d make it look more like a real camera, and let
+        learners take a photo and see how it turns out.
+      </p>
     </div>
   );
 }
@@ -424,29 +484,13 @@ function LogoExplorations() {
 function Audit({
   items,
 }: {
-  items: {
-    name: string;
-    image: { src: string; width: number; height: number };
-    alt: string;
-    icon: string;
-    took: string;
-    left: string;
-  }[];
+  items: { name: string; icon: string; took: string; left: string }[];
 }) {
   return (
-    <ul className="grid gap-10 pt-6 pb-8 sm:grid-cols-3 sm:gap-6 sm:pb-10">
+    <ul className="grid gap-8 pt-2 sm:grid-cols-3 sm:gap-6">
       {items.map((item) => (
         <li key={item.name}>
-          <div className="relative aspect-[16/10] overflow-hidden rounded-md border border-white/20 bg-[#0b0b0d]">
-            <Image
-              src={item.image.src}
-              alt={item.alt}
-              fill
-              sizes="(min-width: 640px) 270px, 100vw"
-              className="object-cover"
-            />
-          </div>
-          <p className="mt-4 flex items-center gap-2 font-heading text-base font-bold text-white">
+          <p className="flex items-center gap-2 font-heading text-base font-bold text-white">
             <Image
               src={item.icon}
               alt=""
@@ -725,10 +769,9 @@ export default function VeloCaseStudy() {
       <SectionNav
         items={[
           { id: "challenge", label: "Challenge" },
-          { id: "audit", label: "Desk research" },
-          { id: "audience", label: "Audience" },
-          { id: "research", label: "Interviews" },
+          { id: "research", label: "Research" },
           { id: "brand", label: "Brand" },
+          { id: "system", label: "Design system" },
           { id: "mapping", label: "Structure" },
           { id: "decisions", label: "Key decisions" },
           { id: "beta", label: "Beta" },
@@ -821,11 +864,8 @@ export default function VeloCaseStudy() {
               </p>
               <ul className="mt-3 grid gap-6 sm:grid-cols-3">
                 {[
-                  {
-                    value: "45",
-                    label: "trial users",
-                  },
-                  { value: "13.3%", label: "free-to-paid conversion" },
+                  { value: "13%", label: "free-to-paid conversion" },
+                  { value: "70+", label: "trial users" },
                 ].map((item) => (
                   <li key={item.label}>
                     <p className="font-heading text-4xl font-bold">
@@ -863,85 +903,45 @@ export default function VeloCaseStudy() {
           </Section>
 
           <Section
-            id="audit"
-            eyebrow="Desk research"
-            title="Each platform got one thing right"
+            id="research"
+            eyebrow="Research"
+            title="Beginners want to do, not watch"
           >
             <P>
-              I started by <H>auditing Duolingo, MasterClass, and Udemy</H> and
-              reading through Reddit&rsquo;s photography communities.
+              I <H>audited Duolingo, MasterClass and Udemy</H>, read through
+              Reddit&rsquo;s photography communities, and{" "}
+              <H>interviewed four very different beginners</H>.
             </P>
+
+            <h3 className="pt-8 font-heading text-lg font-bold text-white">
+              What other platforms got right
+            </h3>
             <Audit
               items={[
                 {
                   name: "Duolingo",
                   icon: "/velo/icon-duolingo.png",
-                  image: {
-                    src: "/velo/audit-duolingo-2.jpg",
-                    width: 1200,
-                    height: 750,
-                  },
-                  alt: "Two Duolingo screens: a first lesson and the course roadmap",
                   took: "A quick first lesson before any setup, and clear progress.",
                   left: "The cartoon look. Velo needed to feel serious.",
                 },
                 {
                   name: "MasterClass",
                   icon: "/velo/icon-masterclass.png",
-                  image: {
-                    src: "/velo/audit-masterclass-2.jpg",
-                    width: 1200,
-                    height: 750,
-                  },
-                  alt: "Jimmy Chin's MasterClass page, with a video and a list of locked lessons",
                   took: "A premium, dark, minimal feel.",
                   left: "Passive video with nothing to do.",
                 },
                 {
                   name: "Udemy",
                   icon: "/velo/icon-udemy.png",
-                  image: {
-                    src: "/velo/audit-udemy-2.jpg",
-                    width: 1200,
-                    height: 750,
-                  },
-                  alt: "A Udemy lesson with the video beside a long list of lessons and resources",
                   took: "Lessons, resources, and Q&A always in view.",
                   left: "The clutter.",
                 },
               ]}
             />
-            <P>Reddit filled in what the apps couldn&rsquo;t show:</P>
-            <NoteRow
-              notes={[
-                {
-                  text: "The internet already has everything a beginner course covers.",
-                  who: "r/photography",
-                  reddit: true,
-                  quote: false,
-                },
-                {
-                  text: "Many don\u2019t trust that course creators are even qualified.",
-                  who: "r/photography",
-                  reddit: true,
-                  quote: false,
-                },
-                {
-                  text: "Prioritizing sleekness over core functionality.",
-                  about: "On Udemy\u2019s redesign",
-                  who: "r/Udemy",
-                  reddit: true,
-                },
-              ]}
-            />
-          </Section>
 
-          <Section
-            id="audience"
-            eyebrow="Audience"
-            title="Focused vs. broad audience"
-          >
-            <P>The audit and Reddit left two ways to position the course:</P>
+            <h3 className="pt-8 font-heading text-lg font-bold text-white">
+              Who it&rsquo;s for
+            </h3>
             <TradeOff
               options={[
                 {
@@ -973,18 +973,10 @@ export default function VeloCaseStudy() {
               <H>designed the experience to work for any beginner</H>, whatever
               they shoot.
             </P>
-          </Section>
 
-          <Section
-            id="research"
-            eyebrow="User interviews"
-            title="Beginners want to do, not watch"
-          >
-            <P>
-              To learn what those beginners needed, I{" "}
-              <H>interviewed four very different ones</H>. Four insights stood
-              out:
-            </P>
+            <h3 className="pt-8 font-heading text-lg font-bold text-white">
+              What beginners told us
+            </h3>
             <Insights
               items={[
                 {
@@ -1041,6 +1033,12 @@ export default function VeloCaseStudy() {
                       text: "I\u2019d google whoever is teaching the course before I paid for it.",
                       who: "Phone-only shooter",
                     },
+                    {
+                      text: "Many don\u2019t trust that course creators are even qualified.",
+                      who: "r/photography",
+                      reddit: true,
+                      quote: false,
+                    },
                   ],
                 },
               ]}
@@ -1089,39 +1087,54 @@ export default function VeloCaseStudy() {
             <LogoExplorations />
           </Section>
 
+          <Section
+            id="system"
+            eyebrow="Design system"
+            title="A system the developer could build from"
+          >
+            <P>
+              I built the style guide with <H>Automatic.css</H>, which plugs
+              straight into Bricks, the builder our developer used. The colors,
+              type and spacing carried into the build as-is, and every screen
+              was assembled from the <H>same components</H>.
+            </P>
+            <div className="pt-4">
+              <DesignFoundations headingFont={veloUi.className} />
+            </div>
+            <div className="pt-6">
+              <ZoomImage
+                src="/velo/components-states-3.webp"
+                frameless
+                width={1880}
+                height={880}
+                alt="Components from the Velo library with their states: the resume lesson card (default and hover), lesson items in the sidebar (not started, in progress, completed, needs review, current), the simulator's tripod and hand toggle, and the sidebar header"
+                caption="Components from the library, each with its states. The resume card shows the version before the beta changes."
+                sizes="(min-width: 900px) 846px, 100vw"
+              />
+            </div>
+          </Section>
+
           <Section id="mapping" eyebrow="Structure" title="Mapping the product">
-            {/* Big to small: the whole product first, then how a single lesson is built. */}
             <P>
               Before designing screens, I <H>mapped the full product</H> with
-              the PM: how lessons, knowledge checks, assignments and the
-              free-to-paid path connect.
+              the PM. Interviewees tuned out of long videos and learned best by
+              doing, so <H>every chapter is short and hands-on</H>. Lessons
+              started as a single list of steps, and we added chapters once they
+              grew too long to scan.
+              {/* On phones the sidebar's notes are hidden, so the text says it instead. */}
+              <span className="sm:hidden">
+                {" "}
+                Learn (video, interactive reading), practice (field test),
+                review (knowledge check). Premium adds an assignment with
+                personal feedback from the instructor.
+              </span>
             </P>
-            <Picture
-              image={img.flow}
-              alt="Product flowchart covering lessons, chapters, knowledge checks, assignments and the free-to-paid path"
-              caption="Product flow"
-            />
-            <div className="pt-12 sm:pt-16">
-              <P>
-                Interviewees tuned out of long videos and learned best by doing,
-                so <H>every chapter is short and hands-on</H>. It took a few
-                rounds: lessons started as a single list of steps, and we added
-                chapters once lessons grew too long to scan.
-                {/* On phones the sidebar's notes are hidden, so the text says it instead. */}
-                <span className="sm:hidden">
-                  {" "}
-                  Learn (video, interactive reading), practice (field test),
-                  review (knowledge check). Premium adds an assignment with
-                  personal feedback from the instructor.
-                </span>
-              </P>
-            </div>
             <figure className="pt-8">
               <CourseSidebar
                 font={veloUi.className}
                 hand={handwriting.className}
               />
-              <figcaption className="mx-auto mt-3 max-w-[300px] text-sm text-white/50">
+              <figcaption className="mx-auto mt-3 max-w-[300px] text-center text-sm text-white/50">
                 The course sidebar as I designed it. The shipped version moved
                 knowledge checks to the end of each lesson.
               </figcaption>
@@ -1138,43 +1151,202 @@ export default function VeloCaseStudy() {
               n={1}
               title="A camera settings simulator"
               wide
-              media={
-                <DemoVideo
-                  src="/velo/exposure-demo-2.mp4"
-                  poster="/velo/exposure-demo-2-poster.jpg"
-                  label="The exposure simulator: changing aperture and shutter speed, with the photo responding"
-                />
-              }
+              media={<SimulatorDemo />}
             >
               <P>
-                Interviewees learned by doing, and the exposure triangle is
-                where most beginners give up. So I designed a{" "}
-                <H>camera settings simulator</H>: learners adjust aperture,
-                shutter speed and ISO and <H>watch the photo respond</H>, in
-                conditions like sun, clouds or indoors. It&rsquo;s the
-                course&rsquo;s main practice tool:{" "}
-                <H>
-                  many exercises use it before students ever pick up a camera
-                </H>
-                .
+                Interviewees learned by doing, but existing simulators are{" "}
+                <H>outdated</H>. Ours is built into the exercises, so students
+                practice exposure before they ever pick up a camera.
               </P>
+              <VersionViewer
+                hand={handwriting.className}
+                noun="simulator"
+                aspect="1087 / 605"
+                versions={[
+                  {
+                    label: "Existing simulator 1",
+                    src: "/velo/other-simulator-1.webp",
+                    width: 1087,
+                    height: 605,
+                    alt: "An existing exposure simulator with a cartoon city street",
+                    notes: [
+                      {
+                        x: 61,
+                        side: "above",
+                        text: "cartoon scenes, hard to read",
+                      },
+                    ],
+                  },
+                  {
+                    label: "Existing simulator 2",
+                    src: "/velo/other-simulator-2.webp",
+                    width: 817,
+                    height: 605,
+                    alt: "An existing exposure simulator with a light bulb photo and a camera mode dial",
+                    notes: [
+                      {
+                        x: 68,
+                        side: "below",
+                        text: "dated, cluttered controls",
+                      },
+                    ],
+                  },
+                  {
+                    label: "Existing simulator 3",
+                    src: "/velo/other-simulator-3.webp",
+                    width: 695,
+                    height: 605,
+                    alt: "An existing exposure simulator with ducks over a lake and an exposure triangle diagram",
+                    notes: [
+                      {
+                        text: "simple, but only 3 lighting conditions",
+                        inside: { x: 9, y: 55, width: 96 },
+                      },
+                    ],
+                  },
+                ]}
+              />
             </Decision>
             <Decision
               n={2}
               title="A home page that doesn’t overwhelm"
+              wide
               media={
-                <ZoomImage
-                  {...img.sidebar}
-                  alt="The home page with the course sidebar collapsing and expanding"
-                />
+                <div>
+                  <FinalLabel />
+                  <figure>
+                    <Annotated
+                      hand={handwriting.className}
+                      notes={[
+                        {
+                          text: "chapters numbered 5.1, with their steps",
+                          inside: { x: 75, y: 25, width: 150 },
+                          from: { x: 66, y: 24 },
+                          to: { x: 50, y: 23.5 },
+                        },
+
+                        {
+                          text: "progress lives in the sidebar",
+                          beside: { y: 52.5 },
+                          to: { x: -0.3, y: 52.5 },
+                        },
+                      ]}
+                    >
+                      <DemoVideo
+                        src="/velo/home-page-launched.mp4"
+                        poster="/velo/home-page-launched-poster.jpg"
+                        aspect="1600 / 954"
+                        label="The launched home page: the current chapter, numbered 5.1, with its steps, and the course sidebar opening and closing"
+                      />
+                    </Annotated>
+                  </figure>
+                  <p className="mt-6 text-lg leading-8 text-white/70">
+                    With more time, I&rsquo;d show the minutes left in a chapter
+                    instead of its total length, and bring back a next-chapter
+                    card.
+                  </p>
+                </div>
               }
             >
               <P>
                 Interviewees found cluttered platforms distracting, but hated
-                hunting for things. The home page shows only{" "}
-                <H>where you left off and what&rsquo;s next</H>, and the course
-                outline lives in a <H>sidebar you can hide</H> when you want to
-                focus.
+                hunting for things. I started with an AI draft in{" "}
+                <H>Figma Make</H>, built from my design system, then iterated on
+                it and turned it into components.
+              </P>
+              <VersionViewer
+                hand={handwriting.className}
+                aspect="1350 / 830"
+                versions={[
+                  {
+                    label: "Version 1",
+                    src: "/velo/home-iter-1.webp",
+                    width: 1350,
+                    height: 830,
+                    alt: "Home page version 1: an AI draft with a general menu and a large continue-watching card",
+                    notes: [
+                      {
+                        x: 58,
+                        side: "above",
+                        text: "AI first draft, from my design system",
+                      },
+                      {
+                        text: "no course structure yet",
+                        inside: { x: 9.5, y: 60, width: 100 },
+                        from: { x: 9.5, y: 52 },
+                        to: { x: 9.5, y: 42 },
+                      },
+                    ],
+                  },
+                  {
+                    label: "Version 2",
+                    src: "/velo/home-iter-2.webp",
+                    width: 1347,
+                    height: 824,
+                    alt: "Home page version 2: the course outline in the sidebar beside a continue-learning card",
+                    notes: [
+                      {
+                        x: 6,
+                        side: "above",
+                        align: "start",
+                        text: "the course outline moves into the sidebar",
+                      },
+                    ],
+                  },
+                  {
+                    label: "Version 3",
+                    src: "/velo/home-iter-3.webp",
+                    width: 1349,
+                    height: 829,
+                    alt: "Home page version 3: progress for each step and a lesson progress bar on the same card",
+                    notes: [
+                      {
+                        text: "progress for each step and the lesson: too much",
+                        inside: { x: 84, y: 66, width: 140 },
+                        from: { x: 84, y: 58 },
+                        to: { x: 84, y: 48.5 },
+                      },
+                      {
+                        x: 22.8,
+                        side: "below",
+                        text: "the sidebar collapses",
+                        to: { x: 22.8, y: 55 },
+                      },
+                    ],
+                  },
+                  {
+                    label: "Version 4",
+                    src: "/velo/home-iter-4.webp",
+                    width: 1432,
+                    height: 1032,
+                    alt: "Home page version 4: one lesson progress bar, a chapter tag, and chapters in the sidebar",
+                    notes: [
+                      {
+                        text: "one lesson progress bar",
+                        inside: { x: 83, y: 48 },
+                        from: { x: 83, y: 44 },
+                        to: { x: 83, y: 35.5 },
+                      },
+                      {
+                        text: "a chapter tag",
+                        inside: { x: 68, y: 23.5, align: "start" },
+                        from: { x: 67.3, y: 23.5 },
+                        to: { x: 63.8, y: 23.5 },
+                      },
+                      {
+                        text: "chapters inside lessons",
+                        inside: { x: 28, y: 76, align: "start" },
+                        from: { x: 27.5, y: 74 },
+                        to: { x: 21.5, y: 66 },
+                      },
+                    ],
+                  },
+                ]}
+              />
+              <P>
+                The beta showed it was still too complex. Testers checked
+                progress in the sidebar and mostly cared{" "}
+                <H>which chapter they were on</H>.
               </P>
             </Decision>
 
@@ -1211,36 +1383,18 @@ export default function VeloCaseStudy() {
                 lessons <H>stay visible but locked</H>, so learners see
                 what&rsquo;s ahead without hitting a wall.
               </P>
+              <P>
+                In the first two weeks after launch,{" "}
+                <H>13% of trial users upgraded</H> to paid.
+              </P>
             </Decision>
-
-            <h3 className="mt-14 border-t border-white/15 pt-5 text-xl font-bold">
-              Smaller decisions
-            </h3>
-            <Bullets
-              items={[
-                <>
-                  <strong>Definitions on hover.</strong> Key terms show their
-                  meaning when you hover them, so beginners never leave the
-                  lesson.
-                </>,
-                <>
-                  <strong>Knowledge checks that never block progress.</strong>{" "}
-                  Learners see a grade, but a low score never locks the next
-                  lesson. No streaks or points, just progress.
-                </>,
-                <>
-                  <strong>
-                    A design system the developer could build from.
-                  </strong>{" "}
-                  I built the component library and tokens in Figma to match the
-                  developer&rsquo;s framework, and worked with him directly so
-                  the build matched the design.
-                </>,
-              ]}
-            />
           </Section>
 
-          <Section id="beta" title="Beta: finding the next opportunity">
+          <Section
+            id="beta"
+            eyebrow="Moderated beta"
+            title="Finding the next opportunity"
+          >
             <P>The beta confirmed the platform worked:</P>
             {/* The results as big counts (5 is the usual size for moderated testing). */}
             <ul className="grid gap-6 py-4 sm:grid-cols-3">
@@ -1367,28 +1521,22 @@ export default function VeloCaseStudy() {
           <Section id="learned" title="What I learned">
             <P>
               <strong>For a course, the content is the product.</strong> Testers
-              loved the design, and its structure can serve as a framework for
-              future courses. But most lessons didn&rsquo;t use its interactive
-              tools (image comparisons, before/after sliders, the simulator)
-              enough. They stayed text-heavy with few visual examples, and the
-              beta felt it. Next time I&rsquo;d balance my time differently:
-              less on perfecting the structure, more on reviewing lessons with
-              the instructor so they stay concise and actually use the
-              interactive elements.
+              loved the design, but most lessons stayed text-heavy and
+              didn&rsquo;t use its interactive tools enough. Next time I&rsquo;d
+              spend less time perfecting the structure and more reviewing
+              lessons with the instructor.
             </P>
             <P>
               <strong>Test with users earlier.</strong> The beta aligned the
-              team faster than any internal discussion had. Next time I&rsquo;d
-              ask to put real users in front of key decisions sooner, starting
-              with a single prototype lesson.
+              team faster than any internal discussion. Next time I&rsquo;d put
+              a single prototype lesson in front of users first.
             </P>
             <P>
-              <strong>Commit to one end of the audience.</strong> In hindsight,
-              Velo sits in the middle: broad enough to compete with everything
-              free online, but it still requires a camera, which shut out the
-              one beta tester who wouldn&rsquo;t pay. Next time I&rsquo;d push
-              for one end: a focused course for people who already own a camera,
-              like small businesses, or a truly broad one built for phones.
+              <strong>Back recommendations with evidence.</strong> I pushed for
+              a focused audience, but the team went broad, and the beta showed
+              the cost: the one tester who wouldn&rsquo;t pay didn&rsquo;t own a
+              camera. Next time I&rsquo;d make the case with research, like a
+              quick survey or a landing-page test of both audiences.
             </P>
           </Section>
         </article>
