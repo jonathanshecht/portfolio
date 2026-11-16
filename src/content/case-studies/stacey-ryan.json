@@ -32,11 +32,19 @@
     },
     {
       "id": "background",
-      "label": "Background"
+      "label": "Brief"
     },
     {
       "id": "challenge",
       "label": "Challenge"
+    },
+    {
+      "id": "old-site",
+      "label": "Old site"
+    },
+    {
+      "id": "research",
+      "label": "Research"
     },
     {
       "id": "decisions",
@@ -44,7 +52,7 @@
     },
     {
       "id": "results",
-      "label": "Results"
+      "label": "Launch"
     },
     {
       "id": "product",
@@ -137,7 +145,8 @@
     },
     {
       "type": "eyebrow",
-      "text": "The old site"
+      "text": "The old site",
+      "id": "old-site"
     },
     {
       "type": "title",
@@ -218,7 +227,8 @@
     },
     {
       "type": "eyebrow",
-      "text": "Research"
+      "text": "Research",
+      "id": "research"
     },
     {
       "type": "title",
