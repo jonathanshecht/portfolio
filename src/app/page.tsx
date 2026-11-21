@@ -1,4 +1,4 @@
-import { MapPin } from "lucide-react";
+import { BriefcaseBusiness } from "lucide-react";
 import { ContactSection, HomeFooter } from "@/components/home/contact-section";
 import { PianoLogo } from "@/components/home/piano-logo";
 import { PillNav } from "@/components/home/pill-nav";
@@ -21,13 +21,24 @@ export default function Home() {
             <div className="flex flex-col items-center">
               <h1 className="sr-only">{site.name}</h1>
               <PianoLogo />
-              <p className="relative z-50 mt-4 font-heading text-xl [text-shadow:0_0_2px_#080808,0_0_6px_#080808,0_0_14px_#080808] sm:text-2xl">
+              <p className="relative z-50 mt-6 font-heading text-xl [text-shadow:0_0_2px_#080808,0_0_6px_#080808,0_0_14px_#080808] sm:text-2xl">
                 A Product Designer &amp; Musician
               </p>
-              <p className="relative z-50 mt-3 inline-flex items-center gap-1.5 rounded-full bg-[#1f1f1f] py-1.5 pr-3.5 pl-2.5 text-sm">
-                <MapPin aria-hidden className="size-4" strokeWidth={2} />
-                {site.location}
-              </p>
+              {/* Quick facts, as small pills: that I'm open to work and where I've worked. */}
+              <ul className="relative z-50 mt-3 flex flex-wrap justify-center gap-2 text-sm">
+                <li className="inline-flex items-center gap-2 rounded-full bg-[#1f1f1f] py-1.5 pr-3.5 pl-3">
+                  {/* A live-status LED: the lit red (with a soft glow) fades in and out over the
+                      dark red of the unlit bulb, so the dot's shape stays visible. */}
+                  <span aria-hidden className="relative size-2 rounded-full bg-[#4a1d20]">
+                    <span className="absolute inset-0 animate-[status-blink_2s_ease-in-out_infinite] rounded-full bg-[#E5484D] shadow-[0_0_6px_rgba(229,72,77,0.8)]" />
+                  </span>
+                  Open to work
+                </li>
+                <li className="inline-flex items-center gap-1.5 rounded-full bg-[#1f1f1f] py-1.5 pr-3.5 pl-2.5">
+                  <BriefcaseBusiness aria-hidden className="size-4" strokeWidth={2} />
+                  Previously at Mixbus &amp; Shure
+                </li>
+              </ul>
             </div>
             {/* A quiet invitation: slightly dimmed at rest, full strength on hover or focus. */}
             <a

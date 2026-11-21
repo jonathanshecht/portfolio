@@ -41,7 +41,7 @@ export const releases: Release[] = [
     accent: "#FBFA9D",
     hoverIcon: "camera",
     title: "Velo Academy",
-    blurb: "An interactive photography learning platform.",
+    blurb: "A photography platform where 13% of trial users upgraded.",
     tags: ["EdTech", "Web App", "0 to 1"],
     image: cover("velo"), // used where the screens aren't
     // The camera simulator in front (the product’s most distinctive screen), the dashboard behind.
@@ -72,7 +72,7 @@ export const releases: Release[] = [
     accent: "#F85910",
     hoverIcon: "clef",
     title: "Stacey Ryan",
-    blurb: "A cinematic, magazine-style artist website.",
+    blurb: "An artist website that tripled ticket click-throughs.",
     video: "/home/stacey-card-10.mp4",
     tags: ["Website", "Client", "UX/UI"],
     image: cover("stacey-ryan"),

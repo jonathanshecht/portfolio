@@ -100,6 +100,12 @@ mark {
   0%, 100% { transform: translateY(-2px); }
   50% { transform: translateY(2px); }
 }
+/* The "Open to work" dot, like a status LED: it stays lit, dims quickly, rests, and comes back. */
+@keyframes status-blink {
+  0%, 45% { opacity: 1; }
+  60%, 85% { opacity: 0; }
+  100% { opacity: 1; }
+}
 @media (prefers-reduced-motion: reduce) {
   [class*="animate-["] { animation: none !important; }
 }

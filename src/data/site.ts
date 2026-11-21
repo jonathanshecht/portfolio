@@ -16,7 +16,7 @@ export const site = {
   name: "Jonathan Shechtman",
   title: "Jonathan Shechtman - Product + UX Designer",
   description:
-    "Jonathan Shechtman is a product designer and musician in Seattle, currently Lead Designer at MixBus Marketing.",
+    "Jonathan Shechtman is a product designer and musician in Seattle, previously at Mixbus Marketing and Shure.",
   url: "https://jnthndesigns.com",
   tagline: "A product designer & musician",
   location: "Seattle",
